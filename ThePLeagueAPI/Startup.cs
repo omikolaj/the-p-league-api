@@ -38,7 +38,8 @@ namespace ThePLeagueAPI
         .AddMiddleware()
         .AddCorsConfiguration()
         .AddIdentityConfiguration()
-        .ConfigureApplicationCookies();
+        .ConfigureApplicationCookies()
+        .ConfigureJsonWebToken(Configuration);
 
     }
 

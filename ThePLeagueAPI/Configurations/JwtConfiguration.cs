@@ -10,7 +10,7 @@ using ThePLeagueAPI.Auth.Jwt.JwtFactory;
 
 namespace ThePLeagueAPI.Configurations
 {
-  public static class JSONWebTokenConfiguration
+  public static class JwtConfiguration
   {
     public static IServiceCollection ConfigureJsonWebToken(this IServiceCollection services, IConfiguration configuration)
     {
