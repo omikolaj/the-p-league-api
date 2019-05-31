@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
+using ThePLeagueAPI.Auth;
 using ThePLeagueDataCore;
 using ThePLeagueDomain.Models;
 
@@ -21,6 +22,9 @@ namespace ThePLeagueAPI.Configurations
       .AddUserManager<UserManager<ApplicationUser>>()
       .AddRoleManager<RoleManager<IdentityRole>>()
       .AddEntityFrameworkStores<ThePLeagueContext>(); // Tell identity which EF DbContext to use;
+
+      //Configure Claims Identity
+      services.AddTransient<GetIdentity>();
 
       return services;
     }

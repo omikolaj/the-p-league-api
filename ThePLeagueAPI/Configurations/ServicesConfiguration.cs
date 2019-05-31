@@ -1,4 +1,6 @@
 using Microsoft.Extensions.DependencyInjection;
+using ThePLeagueDomain;
+using ThePLeagueDomain.Supervisor;
 
 namespace ThePLeagueAPI.Configurations
 {
@@ -6,13 +8,14 @@ namespace ThePLeagueAPI.Configurations
   {
     public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
     {
-      //Register repository interfaces here 
+      //Register repository interfaces here
+      //services.AddScoped<>
       return services;
     }
 
     public static IServiceCollection ConfigureSupervisor(this IServiceCollection services)
     {
-      // services.AddScoped<IThePLeagueSupervisor, ThePLeagueSupervisor>();
+      services.AddScoped<IThePLeagueSupervisor, ThePLeagueSupervisor>();
       return services;
     }
 
