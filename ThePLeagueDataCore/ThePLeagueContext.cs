@@ -4,7 +4,7 @@ using ThePLeagueDomain.Models;
 
 namespace ThePLeagueDataCore
 {
-  public class ThePLeagueContext : IdentityDbContext<BaseUser>
+  public class ThePLeagueContext : IdentityDbContext<ApplicationUser>
   {
     public ThePLeagueContext(DbContextOptions<ThePLeagueContext> options) : base(options) { }
     public ThePLeagueContext() { }

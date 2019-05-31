@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
+using ThePLeagueDomain.Models;
 
 namespace ThePLeagueDomain.ViewModels
 {
   public class AuthViewModel
   {
-    [Required]
-    public string UserName { get; set; }
+    public ApplicationUser User { get; set; }
+    public RefreshToken RefreshToken { get; set; }
+    public string Jwt { get; set; }
 
-    [Required, DataType(DataType.Password)]
-    public string Password { get; set; }
   }
 }
