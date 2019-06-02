@@ -10,8 +10,8 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20190528235825_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20190601143606_Init")]
+    partial class Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -131,7 +131,7 @@ namespace ThePLeagueDataCore.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ThePLeagueDomain.Models.BaseUser", b =>
+            modelBuilder.Entity("ThePLeagueDomain.Models.ApplicationUser", b =>
                 {
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
@@ -162,8 +162,6 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed");
 
-                    b.Property<string>("RefreshTokenId");
-
                     b.Property<string>("SecurityStamp");
 
                     b.Property<bool>("TwoFactorEnabled");
@@ -181,8 +179,6 @@ namespace ThePLeagueDataCore.Migrations
                         .HasName("UserNameIndex")
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
-                    b.HasIndex("RefreshTokenId");
-
                     b.ToTable("AspNetUsers");
                 });
 
@@ -191,7 +187,17 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<DateTime>("Expires");
+
+                    b.Property<string>("Token");
+
+                    b.Property<string>("UserId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId")
+                        .IsUnique()
+                        .HasFilter("[UserId] IS NOT NULL");
 
                     b.ToTable("RefreshTokens");
                 });
@@ -206,7 +212,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.BaseUser")
+                    b.HasOne("ThePLeagueDomain.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -214,7 +220,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.BaseUser")
+                    b.HasOne("ThePLeagueDomain.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -227,7 +233,7 @@ namespace ThePLeagueDataCore.Migrations
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("ThePLeagueDomain.Models.BaseUser")
+                    b.HasOne("ThePLeagueDomain.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
@@ -235,17 +241,17 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.BaseUser")
+                    b.HasOne("ThePLeagueDomain.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ThePLeagueDomain.Models.BaseUser", b =>
+            modelBuilder.Entity("ThePLeagueDomain.Models.RefreshToken", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.RefreshToken", "RefreshToken")
-                        .WithMany()
-                        .HasForeignKey("RefreshTokenId");
+                    b.HasOne("ThePLeagueDomain.Models.ApplicationUser", "User")
+                        .WithOne("RefreshToken")
+                        .HasForeignKey("ThePLeagueDomain.Models.RefreshToken", "UserId");
                 });
 #pragma warning restore 612, 618
         }

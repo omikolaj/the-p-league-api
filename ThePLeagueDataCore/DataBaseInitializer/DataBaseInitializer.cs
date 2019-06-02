@@ -15,11 +15,13 @@ namespace ThePLeagueDataCore.DataBaseInitializer
   {
     #region Fields and Properties
 
-    private static readonly string Admin = "Admin";
-    private static readonly string User = "User";
-    private static readonly string Permission = "Permission";
-    private static readonly string Modify = "Modify";
-    private static readonly string View = "View";
+    private static readonly string AdminRole = "admin";
+    private static readonly string SuperUserRole = "superuser";
+    private static readonly string UserRole = "user";
+    private static readonly string Permission = "permission";
+    private static readonly string ModifyPermission = "modify";
+    private static readonly string RetrievePermission = "retrieve";
+    private static readonly string ViewPermission = "view";
 
     #endregion
 
@@ -27,7 +29,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
     public static async void SeedUsers(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
     {
       // ThePLeagueRole[] roles = new ThePLeagueRole [] { ThePLeagueRole.User, ThePLeagueRole.Admin };
-      string[] roles = new string[] { Admin, User };
+      string[] roles = new string[] { AdminRole, SuperUserRole, UserRole };
 
       foreach (string role in roles)
       {
@@ -40,13 +42,17 @@ namespace ThePLeagueDataCore.DataBaseInitializer
           };
           await roleManager.CreateAsync(newRole);
 
-          if (role == Admin)
+          if (role == AdminRole)
           {
-            await roleManager.AddClaimAsync(newRole, new Claim(Permission, Modify));
+            await roleManager.AddClaimAsync(newRole, new Claim(Permission, ModifyPermission));
+          }
+          else if (role == SuperUserRole)
+          {
+            await roleManager.AddClaimAsync(newRole, new Claim(Permission, RetrievePermission));
           }
           else
           {
-            await roleManager.AddClaimAsync(newRole, new Claim(Permission, View));
+            await roleManager.AddClaimAsync(newRole, new Claim(Permission, ViewPermission));
           }
         }
       }
@@ -71,7 +77,8 @@ namespace ThePLeagueDataCore.DataBaseInitializer
         admin.PasswordHash = hashed;
 
         await userManager.CreateAsync(admin);
-        await userManager.AddToRoleAsync(admin, Admin);
+        await userManager.AddToRoleAsync(admin, AdminRole);
+        await userManager.AddToRoleAsync(admin, SuperUserRole);
       }
 
       if (!userManager.Users.Any(u => u.UserName == user.UserName))
@@ -80,7 +87,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
         user.PasswordHash = hashed;
 
         await userManager.CreateAsync(user);
-        await userManager.AddToRoleAsync(user, User);
+        await userManager.AddToRoleAsync(user, UserRole);
       }
 
     }
