@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using ThePLeagueDataCore;
 using ThePLeagueDataCore.DataBaseInitializer;
 using ThePLeagueDomain.Models;
 

@@ -181,7 +181,8 @@ namespace ThePLeagueDataCore.Migrations
                     Small = table.Column<string>(nullable: true),
                     Medium = table.Column<string>(nullable: true),
                     Big = table.Column<string>(nullable: true),
-                    GearItemId = table.Column<long>(nullable: false)
+                    GearItemId = table.Column<long>(nullable: true),
+                    CloudinaryId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -191,7 +192,7 @@ namespace ThePLeagueDataCore.Migrations
                         column: x => x.GearItemId,
                         principalTable: "GearItems",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -200,7 +201,7 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    GearItemId = table.Column<long>(nullable: false),
+                    GearItemId = table.Column<long>(nullable: true),
                     Size = table.Column<int>(nullable: false),
                     Available = table.Column<bool>(nullable: false),
                     Color = table.Column<string>(nullable: true)
@@ -213,7 +214,7 @@ namespace ThePLeagueDataCore.Migrations
                         column: x => x.GearItemId,
                         principalTable: "GearItems",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.InsertData(
@@ -236,42 +237,42 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "GearImages",
-                columns: new[] { "Id", "Big", "GearItemId", "Medium", "Name", "Size", "Small", "Type", "Url" },
+                columns: new[] { "Id", "Big", "CloudinaryId", "GearItemId", "Medium", "Name", "Size", "Small", "Type", "Url" },
                 values: new object[,]
                 {
-                    { 11231L, "https://via.placeholder.com/300.png/09f/fff", 1L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11240L, "https://via.placeholder.com/300.png/09f/fff", 10L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11234L, "https://via.placeholder.com/300.png/09f/fff", 4L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2325L, "https://via.placeholder.com/300.png/09f/fff", 4L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34331L, "https://via.placeholder.com/300.png/09f/fff", 9L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2330L, "https://via.placeholder.com/300.png/09f/fff", 9L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11235L, "https://via.placeholder.com/300.png/09f/fff", 5L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2326L, "https://via.placeholder.com/300.png/09f/fff", 5L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34327L, "https://via.placeholder.com/300.png/09f/fff", 5L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2331L, "https://via.placeholder.com/300.png/09f/fff", 10L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11239L, "https://via.placeholder.com/300.png/09f/fff", 9L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2327L, "https://via.placeholder.com/300.png/09f/fff", 6L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34328L, "https://via.placeholder.com/300.png/09f/fff", 6L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34330L, "https://via.placeholder.com/300.png/09f/fff", 8L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2329L, "https://via.placeholder.com/300.png/09f/fff", 8L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11238L, "https://via.placeholder.com/300.png/09f/fff", 8L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11237L, "https://via.placeholder.com/300.png/09f/fff", 7L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2328L, "https://via.placeholder.com/300.png/09f/fff", 7L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34329L, "https://via.placeholder.com/300.png/09f/fff", 7L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11236L, "https://via.placeholder.com/300.png/09f/fff", 6L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34332L, "https://via.placeholder.com/300.png/09f/fff", 10L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34326L, "https://via.placeholder.com/300.png/09f/fff", 4L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34325L, "https://via.placeholder.com/300.png/09f/fff", 3L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2324L, "https://via.placeholder.com/300.png/09f/fff", 3L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11233L, "https://via.placeholder.com/300.png/09f/fff", 3L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2322L, "https://via.placeholder.com/300.png/09f/fff", 1L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34323L, "https://via.placeholder.com/300.png/09f/fff", 1L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2323L, "https://via.placeholder.com/300.png/09f/fff", 2L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34324L, "https://via.placeholder.com/300.png/09f/fff", 2L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11241L, "https://via.placeholder.com/300.png/09f/fff", 11L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 11232L, "https://via.placeholder.com/300.png/09f/fff", 2L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 2332L, "https://via.placeholder.com/300.png/09f/fff", 11L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
-                    { 34333L, "https://via.placeholder.com/300.png/09f/fff", 11L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" }
+                    { 11231L, "https://via.placeholder.com/300.png/09f/fff", null, 1L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11240L, "https://via.placeholder.com/300.png/09f/fff", null, 10L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11234L, "https://via.placeholder.com/300.png/09f/fff", null, 4L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2325L, "https://via.placeholder.com/300.png/09f/fff", null, 4L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34331L, "https://via.placeholder.com/300.png/09f/fff", null, 9L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2330L, "https://via.placeholder.com/300.png/09f/fff", null, 9L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11235L, "https://via.placeholder.com/300.png/09f/fff", null, 5L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2326L, "https://via.placeholder.com/300.png/09f/fff", null, 5L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34327L, "https://via.placeholder.com/300.png/09f/fff", null, 5L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2331L, "https://via.placeholder.com/300.png/09f/fff", null, 10L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11239L, "https://via.placeholder.com/300.png/09f/fff", null, 9L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2327L, "https://via.placeholder.com/300.png/09f/fff", null, 6L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34328L, "https://via.placeholder.com/300.png/09f/fff", null, 6L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34330L, "https://via.placeholder.com/300.png/09f/fff", null, 8L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2329L, "https://via.placeholder.com/300.png/09f/fff", null, 8L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11238L, "https://via.placeholder.com/300.png/09f/fff", null, 8L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11237L, "https://via.placeholder.com/300.png/09f/fff", null, 7L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2328L, "https://via.placeholder.com/300.png/09f/fff", null, 7L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34329L, "https://via.placeholder.com/300.png/09f/fff", null, 7L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11236L, "https://via.placeholder.com/300.png/09f/fff", null, 6L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34332L, "https://via.placeholder.com/300.png/09f/fff", null, 10L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34326L, "https://via.placeholder.com/300.png/09f/fff", null, 4L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34325L, "https://via.placeholder.com/300.png/09f/fff", null, 3L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2324L, "https://via.placeholder.com/300.png/09f/fff", null, 3L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11233L, "https://via.placeholder.com/300.png/09f/fff", null, 3L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2322L, "https://via.placeholder.com/300.png/09f/fff", null, 1L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34323L, "https://via.placeholder.com/300.png/09f/fff", null, 1L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2323L, "https://via.placeholder.com/300.png/09f/fff", null, 2L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34324L, "https://via.placeholder.com/300.png/09f/fff", null, 2L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11241L, "https://via.placeholder.com/300.png/09f/fff", null, 11L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 11232L, "https://via.placeholder.com/300.png/09f/fff", null, 2L, "https://via.placeholder.com/300.png/09f/fff", "wow", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 2332L, "https://via.placeholder.com/300.png/09f/fff", null, 11L, "https://via.placeholder.com/300.png/09f/fff", "wowwee", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" },
+                    { 34333L, "https://via.placeholder.com/300.png/09f/fff", null, 11L, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff" }
                 });
 
             migrationBuilder.InsertData(

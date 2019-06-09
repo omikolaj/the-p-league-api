@@ -1,5 +1,8 @@
 using Microsoft.Extensions.DependencyInjection;
+using ThePLeagueDataCore.Repositories;
 using ThePLeagueDomain;
+using ThePLeagueDomain.Repositories;
+using ThePLeagueDomain.Repositories.Merchandise;
 using ThePLeagueDomain.Supervisor;
 
 namespace ThePLeagueAPI.Configurations
@@ -9,7 +12,12 @@ namespace ThePLeagueAPI.Configurations
     public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
     {
       //Register repository interfaces here
-      //services.AddScoped<>
+      //AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+      services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>()
+              .AddScoped<IGearItemRepository, GearItemRepository>()
+              .AddScoped<IGearImageRepository, GearImageRepository>()
+              .AddScoped<IGearSizeRepository, GearSizeRepository>();
+
       return services;
     }
 

@@ -6,7 +6,6 @@ namespace ThePLeagueDomain.Models
   {
     #region Fields and Properties
 
-    public RefreshToken RefreshToken { get; set; }
 
     #endregion
   }

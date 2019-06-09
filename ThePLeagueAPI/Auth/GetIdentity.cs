@@ -18,13 +18,10 @@ namespace ThePLeagueAPI.Auth
       _userManager = userManager;
       _roleManager = roleManager;
     }
-    public async Task<ClaimsIdentity> GetClaimsIdentity(string userName, string password)
+    public async Task<ClaimsIdentity> GetClaimsIdentity(ApplicationUser userToVerify, string password)
     {
-      if (string.IsNullOrEmpty(userName) || string.IsNullOrEmpty(password))
+      if (userToVerify == null || string.IsNullOrEmpty(password))
         return await Task.FromResult<ClaimsIdentity>(null);
-
-      // get the user to verifty
-      var userToVerify = await _userManager.FindByNameAsync(userName);
 
       if (userToVerify == null) return await Task.FromResult<ClaimsIdentity>(null);
 

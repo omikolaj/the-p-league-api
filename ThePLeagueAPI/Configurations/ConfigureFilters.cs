@@ -7,8 +7,8 @@ namespace ThePLeagueAPI.Configurations
   {
     public static IServiceCollection ConfigureControllersFilters(this IServiceCollection services)
     {
-      services.AddScoped<ClaimsIdentityFilter>()
-              .AddScoped<ValidateModelStateAttribute>();
+      services.AddScoped<ValidateModelStateAttribute>()
+              .AddScoped<CookieFilter>();
 
       return services;
     }

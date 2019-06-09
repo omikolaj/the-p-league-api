@@ -12,7 +12,6 @@ namespace ThePLeagueDomain.Converters
       userViewModel.Id = user.Id;
       userViewModel.UserName = user.UserName;
       userViewModel.Password = user.PasswordHash;
-      userViewModel.RefreshToken = user.RefreshToken;
 
       return userViewModel;
     }

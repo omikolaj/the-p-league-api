@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ThePLeagueDomain.Converters;
+using ThePLeagueDomain.Models;
 using ThePLeagueDomain.ViewModels;
+using ThePLeagueDomain.ViewModels.Merchandise;
 
 namespace ThePLeagueDomain.Supervisor
 {
   public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
   {
+
     #region Methods
     public async Task<ApplicationUserViewModel> AddUserAsync(ApplicationUserViewModel userViewModel, CancellationToken ct = default)
     {

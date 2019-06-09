@@ -182,13 +182,15 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.GearImage", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Big");
 
-                    b.Property<long>("GearItemId");
+                    b.Property<string>("CloudinaryId");
+
+                    b.Property<long?>("GearItemId");
 
                     b.Property<string>("Medium");
 
@@ -609,7 +611,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.GearItem", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -706,7 +708,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.GearSize", b =>
                 {
-                    b.Property<long>("Id")
+                    b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -714,7 +716,7 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("Color");
 
-                    b.Property<long>("GearItemId");
+                    b.Property<long?>("GearItemId");
 
                     b.Property<int>("Size");
 
@@ -1304,16 +1306,14 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     b.HasOne("ThePLeagueDomain.Models.Merchandise.GearItem", "GearItem")
                         .WithMany("Images")
-                        .HasForeignKey("GearItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GearItemId");
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.GearSize", b =>
                 {
                     b.HasOne("ThePLeagueDomain.Models.Merchandise.GearItem", "GearItem")
                         .WithMany("Sizes")
-                        .HasForeignKey("GearItemId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .HasForeignKey("GearItemId");
                 });
 #pragma warning restore 612, 618
         }

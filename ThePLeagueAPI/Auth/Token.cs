@@ -29,35 +29,19 @@ namespace ThePLeagueAPI.Auth
     #endregion    
 
     #region Methods
-    public static async Task<string> GenerateJwt(string userName,
+    public static async Task<ApplicationToken> GenerateJwt(string userName,
                                                     ClaimsIdentity identity,
                                                     IJwtFactory jwtFactory,
                                                     JwtIssuerOptions jwtOptions,
-                                                    string refreshToken,
                                                     JsonSerializerSettings serializerSettings)
     {
-
-      ThePLeagueDomain.Models.Auth auth = new ThePLeagueDomain.Models.Auth()
+      ApplicationToken accessToken = new ApplicationToken
       {
-        Jwt = new JsonWebToken()
-        {
-          UserId = identity.Claims.Single(c => c.Type == Constants.Strings.JwtClaimIdentifiers.Id).Value,
-          Token = await jwtFactory.GenerateEncodedToken(userName, identity),
-          ExpiresIn = (int)jwtOptions.ValidFor.TotalSeconds,
-          RefreshToken = refreshToken
-        }
-
+        access_token = await jwtFactory.GenerateEncodedToken(userName, identity),
+        expires_in = (long)jwtOptions.ValidFor.TotalSeconds
       };
 
-      // UserId = identity.Claims.Single(c => c.Type == Constants.Strings.JwtClaimIdentifiers.Id).Value,
-      //   Token = await jwtFactory.GenerateEncodedToken(userName, identity),
-      //   ExpiresIn = (int)jwtOptions.ValidFor.TotalSeconds,
-      //   RefreshToken = new RefreshToken()
-      //   {
-      //     Token = refreshToken
-      //   }
-
-      return JsonConvert.SerializeObject(auth, serializerSettings);
+      return accessToken;
     }
 
     public static string GenerateRefreshToken()

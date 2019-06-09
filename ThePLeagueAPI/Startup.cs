@@ -1,27 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using ThePLeagueAPI.Auth;
 using ThePLeagueAPI.Configurations;
 using ThePLeagueAPI.Extensions;
+using ThePLeagueAPI.Filters;
+using ThePLeagueAPI.Middleware;
+using ThePLeagueAPI.Utilities;
 using ThePLeagueDataCore;
+using ThePLeagueDomain.Models;
 
 namespace ThePLeagueAPI
 {
   public class Startup
   {
-    public Startup(IConfiguration configuration)
+    #region Properties and Fields
+    private readonly ILogger _logger;
+
+    #endregion
+    public Startup(IConfiguration configuration, ILogger<Startup> logger)
     {
       Configuration = configuration;
+      this._logger = logger;
     }
+
+    static Func<RedirectContext<CookieAuthenticationOptions>, Task> ReplaceRedirector(HttpStatusCode statusCode, Func<RedirectContext<CookieAuthenticationOptions>, Task> existingRedirector) =>
+    context =>
+    {
+      if (context.Request.Path.StartsWithSegments("/api/v1"))
+      {
+        context.Response.StatusCode = (int)statusCode;
+        return Task.CompletedTask;
+      }
+      return existingRedirector(context);
+    };
 
     public IConfiguration Configuration { get; }
 
@@ -31,6 +56,7 @@ namespace ThePLeagueAPI
       services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
       //Set up service provider container with custom application specific configuration
+
       services
         .AddEntityFrameworkSqlServer()
         .AddConnectionProvider(Configuration)
@@ -41,7 +67,8 @@ namespace ThePLeagueAPI
         .AddIdentityConfiguration()
         .ConfigureApplicationCookies()
         .ConfigureJsonWebToken(Configuration)
-        .ConfigureControllersFilters();
+        .ConfigureControllersFilters()
+        .ConfigureCloudinaryService(Configuration);
 
     }
 
@@ -58,11 +85,12 @@ namespace ThePLeagueAPI
         app.UseHsts();
       }
 
-      app.UseAuthentication()
-          .SeedDatabase();
-
-      app.UseHttpsRedirection();
-      app.UseMvc();
+      // Middleware has to be registered first, otherwise we get a bearer challenge 401 error
+      app.UseMiddleware<JwtBearerMiddleware>()
+          .UseAuthentication()
+          .SeedDatabase()
+          .UseHttpsRedirection()
+          .UseMvc();
     }
   }
 }

@@ -22,6 +22,7 @@ namespace ThePLeagueAPI.Auth.Jwt.JwtFactory
     {
       List<Claim> permissions = new List<Claim>();
       permissions.AddRange(identity.Claims.Select(claim => claim).Where(c => c.Type == Constants.Strings.JwtClaimIdentifiers.Permission));
+
       List<Claim> roles = new List<Claim>();
       roles.AddRange(identity.Claims.Select(claim => claim).Where(c => c.Type == Constants.Strings.JwtClaimIdentifiers.Role));
 
@@ -29,9 +30,9 @@ namespace ThePLeagueAPI.Auth.Jwt.JwtFactory
       {
                  new Claim(JwtRegisteredClaimNames.Jti, await _jwtOptions.JtiGenerator()),
                  new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(_jwtOptions.IssuedAt).ToString(), ClaimValueTypes.Integer64),
+                 new Claim(JwtRegisteredClaimNames.Sub, userName),
                  new Claim(ClaimTypes.Name, userName),
                  identity.FindFirst(Constants.Strings.JwtClaimIdentifiers.Id),
-                //  identity.FindFirst(Constants.Strings.JwtClaimIdentifiers.UserName)
              };
 
       claims.AddRange(permissions);

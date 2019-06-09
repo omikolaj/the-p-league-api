@@ -5,8 +5,11 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using ThePLeagueAPI.Auth;
 using ThePLeagueAPI.Auth.Jwt;
 using ThePLeagueAPI.Auth.Jwt.JwtFactory;
+using ThePLeagueAPI.Helpers;
+using ThePLeagueAPI.Utilities;
 
 namespace ThePLeagueAPI.Configurations
 {
@@ -61,23 +64,25 @@ namespace ThePLeagueAPI.Configurations
           {
             if (context.Exception.GetType() == typeof(SecurityTokenExpiredException))
             {
-              context.Response.Headers.Add("Token-Expired", "true");
+              context.Response.Headers.Add(TokenOptionsStrings.ExpiredToken, "true");
             }
             return Task.CompletedTask;
           }
         };
       });
 
+      services.AddTransient<Token>();
+
       // api user claim policy
-      services.AddAuthorization(options =>
-      {
-        options.AddPolicy("AdminPolicy", policy =>
-        {
-          policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Role, "Admin");
-          // Runs only against the identity created by the "Bearer" handler
-          policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
-        });
-      });
+      // services.AddAuthorization(options =>
+      // {
+      //   options.AddPolicy("Bearer", policy =>
+      //   {
+      //     policy.RequireClaim(Constants.Strings.JwtClaimIdentifiers.Role, ThePLeagueRoles.Admin);
+      //     // Runs only against the identity created by the "Bearer" handler
+      //     policy.AuthenticationSchemes.Add(JwtBearerDefaults.AuthenticationScheme);
+      //   });
+      // });
 
       return services;
     }

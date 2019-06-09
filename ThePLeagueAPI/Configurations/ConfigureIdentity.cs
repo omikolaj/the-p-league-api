@@ -1,6 +1,8 @@
+using System;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 using ThePLeagueAPI.Auth;
+using ThePLeagueAPI.Helpers;
 using ThePLeagueDataCore;
 using ThePLeagueDomain.Models;
 
@@ -10,14 +12,20 @@ namespace ThePLeagueAPI.Configurations
   {
     public static IServiceCollection AddIdentityConfiguration(this IServiceCollection services)
     {
+      services.Configure<DataProtectionTokenProviderOptions>(options =>
+      {
+        options.TokenLifespan = TimeSpan.FromDays(7);
+      });
+
       services.AddIdentity<ApplicationUser, IdentityRole>(options =>
       {
-        options.Password.RequireDigit = true;
-        options.Password.RequiredLength = 8;
-        options.Password.RequireLowercase = true;
-        options.Password.RequireNonAlphanumeric = true;
-        options.Password.RequireUppercase = true;
+        options.Password.RequireDigit = false;
+        options.Password.RequiredLength = 6;
+        options.Password.RequireLowercase = false;
+        options.Password.RequireNonAlphanumeric = false;
+        options.Password.RequireUppercase = false;
       })
+      .AddTokenProvider(TokenOptionsStrings.RefreshTokenProvider, typeof(DataProtectorTokenProvider<ApplicationUser>))
       .AddRoles<IdentityRole>()
       .AddUserManager<UserManager<ApplicationUser>>()
       .AddRoleManager<RoleManager<IdentityRole>>()
