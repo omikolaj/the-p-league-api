@@ -188,13 +188,19 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("Big");
 
-                    b.Property<string>("CloudinaryId");
+                    b.Property<string>("CloudinaryPublicId");
+
+                    b.Property<string>("Format");
 
                     b.Property<long?>("GearItemId");
+
+                    b.Property<int>("Height");
 
                     b.Property<string>("Medium");
 
                     b.Property<string>("Name");
+
+                    b.Property<string>("ResourceType");
 
                     b.Property<long?>("Size");
 
@@ -203,6 +209,8 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("Type");
 
                     b.Property<string>("Url");
+
+                    b.Property<int>("Width");
 
                     b.HasKey("Id");
 
@@ -216,396 +224,462 @@ namespace ThePLeagueDataCore.Migrations
                             Id = 11231L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 1L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2322L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 1L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34323L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 1L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11232L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 2L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2323L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 2L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34324L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 2L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11233L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 3L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2324L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 3L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34325L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 3L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11234L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 4L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2325L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 4L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34326L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 4L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11235L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 5L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2326L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 5L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34327L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 5L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11236L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 6L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2327L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 6L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34328L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 6L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11237L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 7L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2328L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 7L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34329L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 7L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11238L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 8L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2329L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 8L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34330L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 8L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11239L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 9L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2330L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 9L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34331L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 9L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11240L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 10L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2331L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 10L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34332L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 10L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 11241L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 11L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wow",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 2332L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 11L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwee",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         },
                         new
                         {
                             Id = 34333L,
                             Big = "https://via.placeholder.com/300.png/09f/fff",
                             GearItemId = 11L,
+                            Height = 0,
                             Medium = "https://via.placeholder.com/300.png/09f/fff",
                             Name = "wowwaw",
                             Size = 19392L,
                             Small = "https://via.placeholder.com/300.png/09f/fff",
                             Type = "png",
-                            Url = "https://via.placeholder.com/300.png/09f/fff"
+                            Url = "https://via.placeholder.com/300.png/09f/fff",
+                            Width = 0
                         });
                 });
 
