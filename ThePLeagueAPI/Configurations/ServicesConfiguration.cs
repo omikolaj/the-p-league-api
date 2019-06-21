@@ -16,7 +16,8 @@ namespace ThePLeagueAPI.Configurations
       services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>()
               .AddScoped<IGearItemRepository, GearItemRepository>()
               .AddScoped<IGearImageRepository, GearImageRepository>()
-              .AddScoped<IGearSizeRepository, GearSizeRepository>();
+              .AddScoped<IGearSizeRepository, GearSizeRepository>()
+              .AddScoped<ILeagueImageRepository, LeagueImageRepository>();
 
       return services;
     }

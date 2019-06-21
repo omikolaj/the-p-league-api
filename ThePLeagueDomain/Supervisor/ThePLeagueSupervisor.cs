@@ -15,6 +15,7 @@ namespace ThePLeagueDomain.Supervisor
     private readonly IGearItemRepository _gearItemRepository;
     private readonly IGearImageRepository _gearImageRepository;
     private readonly IGearSizeRepository _gearSizeRepository;
+    private readonly ILeagueImageRepository _leagueImageRepository;
 
     #endregion
 
@@ -23,13 +24,15 @@ namespace ThePLeagueDomain.Supervisor
         IApplicationUserRepository applicationUserRepository,
         IGearItemRepository gearItemRepository,
         IGearImageRepository gearImageRepository,
-        IGearSizeRepository gearSizeRepository
+        IGearSizeRepository gearSizeRepository,
+        ILeagueImageRepository leagueImageRepository
       )
     {
       this._applicationUserRepository = applicationUserRepository;
       this._gearItemRepository = gearItemRepository;
       this._gearImageRepository = gearImageRepository;
       this._gearSizeRepository = gearSizeRepository;
+      this._leagueImageRepository = leagueImageRepository;
     }
 
     #endregion

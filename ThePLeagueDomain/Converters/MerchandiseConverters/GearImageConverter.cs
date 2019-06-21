@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Http;
 using ThePLeagueDomain.Models.Merchandise;
 using ThePLeagueDomain.ViewModels;
 using ThePLeagueDomain.ViewModels.Merchandise;
@@ -20,7 +21,11 @@ namespace ThePLeagueDomain.Converters
       gearImageViewModel.Small = gearImage.Small;
       gearImageViewModel.Type = gearImage.Type;
       gearImageViewModel.Url = gearImage.Url;
-      gearImageViewModel.CloudinaryId = gearImage.CloudinaryId;
+      gearImageViewModel.CloudinaryPublicId = gearImage.CloudinaryPublicId;
+      gearImageViewModel.Height = gearImage.Height;
+      gearImageViewModel.Width = gearImage.Width;
+      gearImageViewModel.ResourceType = gearImage.ResourceType;
+      gearImageViewModel.Format = gearImage.Format;
 
       return gearImageViewModel;
     }
@@ -38,7 +43,12 @@ namespace ThePLeagueDomain.Converters
         gearImageViewModel.Small = gearImage.Small;
         gearImageViewModel.Type = gearImage.Type;
         gearImageViewModel.Url = gearImage.Url;
-        gearImageViewModel.CloudinaryId = gearImage.CloudinaryId;
+        gearImageViewModel.CloudinaryPublicId = gearImage.CloudinaryPublicId;
+        gearImageViewModel.ResourceType = gearImage.ResourceType;
+        gearImageViewModel.Width = gearImage.Width;
+        gearImageViewModel.Height = gearImage.Height;
+        gearImageViewModel.Format = gearImage.Format;
+
         return gearImageViewModel;
       }).ToList();
     }

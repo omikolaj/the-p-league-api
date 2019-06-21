@@ -13,6 +13,11 @@ namespace ThePLeagueDomain.Models
     public string Small { get; set; }
     public string Medium { get; set; }
     public string Big { get; set; }
+    public string CloudinaryPublicId { get; set; }
+    public string Format { get; set; }
+    public int Width { get; set; }
+    public int Height { get; set; }
+    public string ResourceType { get; set; }
 
     #endregion
   }

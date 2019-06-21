@@ -11,13 +11,13 @@ namespace ThePLeagueDomain.Repositories.Merchandise
     #region Methods
     Task<List<GearItem>> GetAllAsync(CancellationToken ct = default(CancellationToken));
 
-    Task<GearItem> GetByIDAsync(long id, CancellationToken ct = default(CancellationToken));
+    Task<GearItem> GetByIDAsync(long? id, CancellationToken ct = default(CancellationToken));
 
     Task<GearItem> AddAsync(GearItem gearItem, CancellationToken ct = default(CancellationToken));
 
-    Task<bool> UpdateAsync(GearItem geaerItem, CancellationToken ct = default(CancellationToken));
+    Task<bool> UpdateAsync(GearItem gearItem, CancellationToken ct = default(CancellationToken));
 
-    Task<bool> DeleteAsync(long id, CancellationToken ct = default(CancellationToken));
+    Task<bool> DeleteAsync(long? id, CancellationToken ct = default(CancellationToken));
 
     #endregion
   }

@@ -10,7 +10,6 @@ namespace ThePLeagueDomain.Supervisor
 {
   public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
   {
-
     #region Methods
     public async Task<ApplicationUserViewModel> AddUserAsync(ApplicationUserViewModel userViewModel, CancellationToken ct = default)
     {

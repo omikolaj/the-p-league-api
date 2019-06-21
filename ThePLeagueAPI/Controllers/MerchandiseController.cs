@@ -30,9 +30,7 @@ using CloudinaryDotNet;
 namespace ThePLeagueAPI.Controllers
 {
   [Route("api/[controller]")]
-  [Produces("application/json")]
-  [ApiController]
-  // [ServiceFilter(typeof(ValidateModelStateAttribute))]
+  [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class MerchandiseController : ThePLeagueBaseController
   {
     #region Private Fields
@@ -67,83 +65,98 @@ namespace ThePLeagueAPI.Controllers
     [HttpPost]
     public async Task<ActionResult<GearItemViewModel>> Create([FromForm] List<IFormFile> gearImages)
     {
-      GearItemViewModel gearItemViewModel = null;
-      gearItemViewModel = JsonConvert.DeserializeObject<GearItemViewModel>(Request.Form["gearItem"]);
+      // Retrieve gearItem object from the request form
+      GearItemViewModel gearItem = JsonConvert.DeserializeObject<GearItemViewModel>(Request.Form["gearItem"]);
 
-      // Check if we're uploading images
-      if (gearImages.Count > 0)
+      //Check if we're uploading images
+      if (gearImages.Count() > 0)
       {
-        List<GearImageViewModel> uploadedImages = new List<GearImageViewModel>();
-        for (int i = 0; i < gearImages.Count; i++)
+        // IList of IFormFile for incoming images to be uploaded
+        IList<GearImageViewModel> gearItemImages = await this._cloudinary.UploadNewImages<GearImageViewModel>(gearImages, gearItem.Name);
+
+        if (gearItemImages.Any(gI => gI == null))
         {
-          IFormFile gearImage = gearImages[i];
-          ImageUploadResult result = await this._cloudinary.UploadImage(gearImage);
-          if (result.StatusCode == HttpStatusCode.OK)
-          {
-            GearImageViewModel newGearImage = new GearImageViewModel()
-            {
-              CloudinaryId = result.PublicId,
-              Url = result.SecureUri.AbsoluteUri,
-              Small = result.SecureUri.AbsoluteUri,
-              Medium = result.SecureUri.AbsoluteUri,
-              Big = result.SecureUri.AbsoluteUri
-            };
-            uploadedImages.Add(newGearImage);
-          }
+          return BadRequest(Errors.AddErrorToModelState(ErrorCodes.CloudinaryUpload, ErrorDescriptions.CloudinaryImageUploadFailure, ModelState));
         }
-        gearItemViewModel.Images = gearItemViewModel.Images.Concat(uploadedImages);
+
+        gearItem.Images = gearItemImages;
       }
       // If we are no uploading images use default image
       else
       {
-        gearItemViewModel.Images = new GearImageViewModel[]
+        gearItem.Images = new GearImageViewModel[]
         {
           new GearImageViewModel
           {
-            Url = GearImageViewModel.DefaultGearItemImage,
-            Small = GearImageViewModel.DefaultGearItemImage,
-            Medium = GearImageViewModel.DefaultGearItemImage,
-            Big = GearImageViewModel.DefaultGearItemImage
+            Url = GearImageViewModel.DefaultGearItemImageUrl,
+            Small = GearImageViewModel.DefaultGearItemImageUrl,
+            Medium = GearImageViewModel.DefaultGearItemImageUrl,
+            Big = GearImageViewModel.DefaultGearItemImageUrl
           }
         };
       }
 
-      GearItemViewModel gearItemViewModelAdded = await this._supervisor.AddGearItemAsync(gearItemViewModel);
+      // Persist the gearItem along with its successfully uploaded cloudinary images to the database      
+      gearItem = await this._supervisor.AddGearItemAsync(gearItem);
 
-      return new JsonResult(gearItemViewModelAdded);
+      return new JsonResult(gearItem);
     }
 
     [HttpDelete("{id}")]
-    public async Task<IActionResult> Delete(int id)
+    public async Task<ActionResult<bool>> Delete(long id)
     {
-      return Ok();
+      //Check if gear item exists
+      GearItemViewModel gearItemToDelete = await this._supervisor.GetGearItemByIdAsync(id);
+      if (gearItemToDelete == null)
+      {
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.GearItemNotFound, ErrorDescriptions.GearItemDeleteFailure, ModelState));
+      }
+
+      if (gearItemToDelete.Images.Count() > 0)
+      {
+        DelResResult deletedFromCloudinary = await this._cloudinary.DeleteResources(gearItemToDelete);
+        if (deletedFromCloudinary.StatusCode != HttpStatusCode.OK)
+        {
+          return BadRequest(Errors.AddErrorToModelState(ErrorCodes.CloudinaryDelete, ErrorDescriptions.CloudinaryImageDeleteFailure, ModelState));
+        }
+      }
+
+      if (!await _supervisor.DeleteGearItemAsync(id))
+      {
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.GearItemDelete, ErrorDescriptions.GearItemDeleteFailure, ModelState));
+      }
+
+      return new OkObjectResult(true);
+
     }
 
     [HttpPatch("{id}")]
-    public async Task<IActionResult> Update([FromForm] List<IFormFile> gearImages)
+    public async Task<ActionResult<GearItemViewModel>> Update([FromForm] List<IFormFile> gearImages)
     {
-      try
+      // Retrieve gearItem object from the request form
+      GearItemViewModel gearItem = JsonConvert.DeserializeObject<GearItemViewModel>(Request.Form["gearItem"]);
+
+      // Check if we are uploading any new images
+      if (gearImages.Count() > 0)
       {
-        GearItemViewModel gearItemViewModel = JsonConvert.DeserializeObject<GearItemViewModel>(Request.Form["gearItem"]);
+        IList<GearImageViewModel> gearItemImages = await this._cloudinary.UploadNewImages<GearImageViewModel>(gearImages, gearItem.Name);
 
+        if (gearItemImages.Any(gI => gI == null))
+        {
+          return BadRequest(Errors.AddErrorToModelState(ErrorCodes.CloudinaryUpload, ErrorDescriptions.CloudinaryImageUploadFailure, ModelState));
+        }
 
+        gearItem.NewImages = gearItemImages;
       }
-      catch (Exception ex)
+
+      if (!await this._supervisor.UpdateGearItemAsync(gearItem))
       {
-
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.GearItemUpdate, ErrorDescriptions.GearItemUpdateFailure, ModelState));
       }
 
+      gearItem = await this._supervisor.GetGearItemByIdAsync(gearItem.Id);
 
-
-
-      return Ok();
-    }
-
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Replace([FromBody] GearItemViewModel gearItemViewModel)
-    {
-      var a = gearItemViewModel;
-      return Ok();
+      return new OkObjectResult(gearItem);
     }
 
     #endregion

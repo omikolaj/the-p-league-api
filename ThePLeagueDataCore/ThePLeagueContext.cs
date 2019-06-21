@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ThePLeagueDataCore.Configurations.Merchandise;
 using ThePLeagueDomain.Models;
+using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Merchandise;
 
 namespace ThePLeagueDataCore
@@ -13,6 +14,7 @@ namespace ThePLeagueDataCore
     public DbSet<GearItem> GearItems { get; set; }
     public DbSet<GearImage> GearImages { get; set; }
     public DbSet<GearSize> GearSizes { get; set; }
+    public DbSet<LeagueImage> LeagueImages { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {

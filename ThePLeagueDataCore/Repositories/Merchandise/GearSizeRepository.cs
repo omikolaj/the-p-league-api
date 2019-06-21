@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ThePLeagueDomain.Models.Merchandise;
 using ThePLeagueDomain.Repositories.Merchandise;
 
@@ -21,6 +23,10 @@ namespace ThePLeagueDataCore.Repositories
     #endregion
 
     #region Methods
+    private async Task<bool> GearSizeExists(long? id, CancellationToken ct = default(CancellationToken))
+    {
+      return await GetByIDAsync(id, ct) != null;
+    }
     public async Task<GearSize> AddAsync(GearSize gearSize, CancellationToken ct = default)
     {
       this._dbContext.GearSizes.Add(gearSize);
@@ -28,24 +34,38 @@ namespace ThePLeagueDataCore.Repositories
       return gearSize;
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct = default)
+    public async Task<bool> DeleteAsync(long? id, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      if (!await GearSizeExists(id, ct))
+      {
+        return false;
+      }
+
+      GearSize gearSizeToDelete = this._dbContext.GearSizes.Find(id);
+      this._dbContext.GearSizes.Remove(gearSizeToDelete);
+      await this._dbContext.SaveChangesAsync(ct);
+      return true;
     }
 
-    public async Task<List<GearSize>> GetAllByGearItemIdAsync(long id, CancellationToken ct = default)
+    public async Task<List<GearSize>> GetAllByGearItemIdAsync(long? gearItemId, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      return await this._dbContext.GearSizes.Where(gearSize => gearSize.GearItemId == gearItemId).ToListAsync();
     }
 
-    public async Task<GearSize> GetByIDAsync(long id, CancellationToken ct = default)
+    public async Task<GearSize> GetByIDAsync(long? id, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      return await _dbContext.GearSizes.FindAsync(id);
     }
 
     public async Task<bool> UpdateAsync(GearSize gearSize, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      if (!await this.GearSizeExists(gearSize.Id, ct))
+      {
+        return false;
+      }
+      this._dbContext.GearSizes.Update(gearSize);
+      await this._dbContext.SaveChangesAsync(ct);
+      return true;
     }
 
     #endregion

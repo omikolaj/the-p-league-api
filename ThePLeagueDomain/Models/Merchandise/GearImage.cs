@@ -7,7 +7,6 @@ namespace ThePLeagueDomain.Models.Merchandise
   {
     public long? Id { get; set; }
     public long? GearItemId { get; set; }
-    public string CloudinaryId { get; set; }
     public GearItem GearItem { get; set; }
 
   }

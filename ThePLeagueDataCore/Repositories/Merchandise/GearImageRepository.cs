@@ -1,6 +1,8 @@
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using ThePLeagueDomain.Models.Merchandise;
 using ThePLeagueDomain.Repositories.Merchandise;
 
@@ -22,6 +24,11 @@ namespace ThePLeagueDataCore.Repositories
     #endregion
 
     #region Methods
+
+    private async Task<bool> GearImageExists(long? id, CancellationToken ct = default(CancellationToken))
+    {
+      return await GetByIDAsync(id, ct) != null;
+    }
     public async Task<GearImage> AddAsync(GearImage gearSize, CancellationToken ct = default)
     {
       _dbContext.GearImages.Add(gearSize);
@@ -29,19 +36,27 @@ namespace ThePLeagueDataCore.Repositories
       return gearSize;
     }
 
-    public async Task<bool> DeleteAsync(long id, CancellationToken ct = default)
+    public async Task<bool> DeleteAsync(long? id, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      if (!await GearImageExists(id, ct))
+      {
+        return false;
+      }
+
+      GearImage gearImageToDelete = this._dbContext.GearImages.Find(id);
+      _dbContext.GearImages.Remove(gearImageToDelete);
+      await _dbContext.SaveChangesAsync(ct);
+      return true;
     }
 
-    public async Task<List<GearImage>> GetAllByGearItemIdAsync(long gearItemId, CancellationToken ct = default)
+    public async Task<List<GearImage>> GetAllByGearItemIdAsync(long? gearItemId, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      return await this._dbContext.GearImages.Where(gearImage => gearImage.GearItemId == gearItemId).ToListAsync(ct);
     }
 
-    public async Task<GearImage> GetByIDAsync(long id, CancellationToken ct = default)
+    public async Task<GearImage> GetByIDAsync(long? id, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      return await this._dbContext.GearImages.FindAsync(id);
     }
 
     public async Task<bool> UpdateAsync(GearImage gearSize, CancellationToken ct = default)

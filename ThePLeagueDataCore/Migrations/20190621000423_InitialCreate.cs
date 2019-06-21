@@ -63,6 +63,32 @@ namespace ThePLeagueDataCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LeagueImages",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: true),
+                    Size = table.Column<long>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Url = table.Column<string>(nullable: true),
+                    Small = table.Column<string>(nullable: true),
+                    Medium = table.Column<string>(nullable: true),
+                    Big = table.Column<string>(nullable: true),
+                    CloudinaryPublicId = table.Column<string>(nullable: true),
+                    Format = table.Column<string>(nullable: true),
+                    Width = table.Column<int>(nullable: false),
+                    Height = table.Column<int>(nullable: false),
+                    ResourceType = table.Column<string>(nullable: true),
+                    HashTag = table.Column<string>(nullable: true),
+                    Delete = table.Column<bool>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LeagueImages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AspNetRoleClaims",
                 columns: table => new
                 {
@@ -424,6 +450,9 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "GearSizes");
+
+            migrationBuilder.DropTable(
+                name: "LeagueImages");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

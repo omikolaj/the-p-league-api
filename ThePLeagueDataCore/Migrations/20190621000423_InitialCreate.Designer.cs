@@ -10,7 +10,7 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20190612023413_InitialCreate")]
+    [Migration("20190621000423_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -180,6 +180,45 @@ namespace ThePLeagueDataCore.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Gallery.LeagueImage", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Big");
+
+                    b.Property<string>("CloudinaryPublicId");
+
+                    b.Property<bool?>("Delete");
+
+                    b.Property<string>("Format");
+
+                    b.Property<string>("HashTag");
+
+                    b.Property<int>("Height");
+
+                    b.Property<string>("Medium");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("ResourceType");
+
+                    b.Property<long?>("Size");
+
+                    b.Property<string>("Small");
+
+                    b.Property<string>("Type");
+
+                    b.Property<string>("Url");
+
+                    b.Property<int>("Width");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LeagueImages");
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.GearImage", b =>
