@@ -16,5 +16,6 @@ namespace ThePLeagueAPI.Auth.Errors
     public const string LeagueImageDelete = "league_image_delete";
     public const string GearItemNotFound = "gear_item_not_found";
     public const string LeagueImageNotFound = "league_image_not_found";
+    public const string LeagueImageOrder = "league_image_order";
   }
 }

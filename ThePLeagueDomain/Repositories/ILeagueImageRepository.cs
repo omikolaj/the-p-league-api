@@ -14,6 +14,8 @@ namespace ThePLeagueDomain.Repositories
     Task<bool> DeleteAsync(long? id, CancellationToken ct = default(CancellationToken));
     Task<LeagueImage> AddAsync(LeagueImage leagueImage, CancellationToken ct = default(CancellationToken));
     Task<bool> UpdateAsync(LeagueImage leagueImage, CancellationToken ct = default(CancellationToken));
+    Task<IList<LeagueImage>> UpdateAsync(IList<LeagueImage> leagueImages, CancellationToken ct = default(CancellationToken));
+
     #endregion
   }
 }

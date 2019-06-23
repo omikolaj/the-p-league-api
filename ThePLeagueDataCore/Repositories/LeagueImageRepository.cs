@@ -57,12 +57,24 @@ namespace ThePLeagueDataCore.Repositories
 
     public async Task<bool> UpdateAsync(LeagueImage leagueImage, CancellationToken ct = default)
     {
-      throw new System.NotImplementedException();
+      if (!await this.LeagueImageExists(leagueImage.Id, ct))
+      {
+        return false;
+      }
+
+      this._dbContext.LeagueImages.Update(leagueImage);
+      await this._dbContext.SaveChangesAsync(ct);
+      return true;
     }
 
     public async Task<LeagueImage> GetByIDAsync(long? id, CancellationToken ct = default)
     {
       return await this._dbContext.LeagueImages.FindAsync(id);
+    }
+
+    public Task<IList<LeagueImage>> UpdateAsync(IList<LeagueImage> leagueImages, CancellationToken ct = default)
+    {
+      throw new NotImplementedException();
     }
 
     #endregion

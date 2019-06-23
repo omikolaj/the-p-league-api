@@ -41,7 +41,23 @@ namespace ThePLeagueAPI.Controllers
     {
       List<LeagueImageViewModel> leaguePictures = await this._supervisor.GetAllLeagueImagesAsync(ct);
 
-      return leaguePictures;
+      List<LeagueImageViewModel> orderedLeagueImagesList = leaguePictures.OrderBy(o => o.OrderId).ToList();
+
+      return orderedLeagueImagesList;
+    }
+
+    [HttpPost("order")]
+    public async Task<ActionResult<LeagueImageViewModel>> SaveOrder([FromBody] IEnumerable<LeagueImageViewModel> leagueImages, CancellationToken ct = default(CancellationToken))
+    {
+
+      IList<LeagueImageViewModel> leagueImageViewModels = await this._supervisor.UpdateLeagueImagesOrderAsync(leagueImages.ToList(), ct);
+
+      if (leagueImageViewModels == null)
+      {
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.LeagueImageNotFound, ErrorDescriptions.LeagueImageSaveOrderFailure, ModelState));
+      }
+
+      return new OkObjectResult(leagueImages);
     }
 
     [HttpPost]

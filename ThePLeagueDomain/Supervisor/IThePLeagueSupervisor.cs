@@ -54,10 +54,11 @@ namespace ThePLeagueDomain
     #region Gallery
     Task<List<LeagueImageViewModel>> AddLeagueImagesAsync(IList<LeagueImageViewModel> leagueImagesViewModel, CancellationToken ct = default(CancellationToken));
     Task<List<LeagueImageViewModel>> GetAllLeagueImagesAsync(CancellationToken ct = default(CancellationToken));
-    Task<LeagueImageViewModel> GetLeagueImageByIdAsync(long id, CancellationToken ct = default(CancellationToken));
+    Task<LeagueImageViewModel> GetLeagueImageByIdAsync(long? id, CancellationToken ct = default(CancellationToken));
     Task<LeagueImageViewModel> AddLeagueImageAsync(LeagueImageViewModel leagueImageViewModel, CancellationToken ct = default(CancellationToken));
     Task<bool> UpdateLeagueImageAsync(LeagueImageViewModel leagueImageViewModel, CancellationToken ct = default(CancellationToken));
     Task<bool> DeleteLeagueImageAsync(long? leagueImageId, CancellationToken ct = default(CancellationToken));
+    Task<List<LeagueImageViewModel>> UpdateLeagueImagesOrderAsync(List<LeagueImageViewModel> leagueImages, CancellationToken ct = default(CancellationToken));
 
     #endregion
   }

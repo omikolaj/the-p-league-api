@@ -5,5 +5,6 @@ namespace ThePLeagueDomain.Models.Gallery
     public long? Id { get; set; }
     public string HashTag { get; set; }
     public bool? Delete { get; set; }
+    public long? OrderId { get; set; }
   }
 }

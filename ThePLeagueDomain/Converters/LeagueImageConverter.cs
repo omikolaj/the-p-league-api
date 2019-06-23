@@ -24,6 +24,7 @@ namespace ThePLeagueDomain.Converters
       leagueImageViewModel.Big = leagueImage.Big;
       leagueImageViewModel.Name = leagueImage.Name;
       leagueImageViewModel.Url = leagueImage.Url;
+      leagueImageViewModel.OrderId = leagueImage.OrderId;
 
       return leagueImageViewModel;
     }
@@ -45,6 +46,7 @@ namespace ThePLeagueDomain.Converters
         leagueImageViewModel.Name = leagueImage.Name;
         leagueImageViewModel.Url = leagueImage.Url;
         leagueImageViewModel.ResourceType = leagueImage.ResourceType;
+        leagueImageViewModel.OrderId = leagueImage.OrderId;
 
         return leagueImageViewModel;
       }).ToList();

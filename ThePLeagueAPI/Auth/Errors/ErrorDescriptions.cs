@@ -14,5 +14,6 @@ namespace ThePLeagueAPI.Auth.Errors
     public const string CloudinaryImageDeleteFailure = "Failed to delete one or more images from cloudinary";
     public const string GearItemDeleteFailure = "Failed to delete the gear item";
     public const string LeagueImageDeleteFailure = "Failed to delete the league image";
+    public const string LeagueImageSaveOrderFailure = "Failed to save league images order, on one or more images";
   }
 }
