@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
-using ThePLeagueDomain.Repositories;
+using ThePLeagueDomain.Repositories.Gallery;
 
-namespace ThePLeagueDataCore.Repositories
+namespace ThePLeagueDataCore.Repositories.Gallery
 {
   public class LeagueImageRepository : ILeagueImageRepository
   {

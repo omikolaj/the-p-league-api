@@ -10,7 +10,7 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20190621000423_InitialCreate")]
+    [Migration("20190625023444_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -203,6 +203,8 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("Medium");
 
                     b.Property<string>("Name");
+
+                    b.Property<long?>("OrderId");
 
                     b.Property<string>("ResourceType");
 
@@ -1372,6 +1374,49 @@ namespace ThePLeagueDataCore.Migrations
                         });
                 });
 
+            modelBuilder.Entity("ThePLeagueDomain.Models.Team.Contact", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
+
+                    b.Property<long?>("TeamSignUpFormId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TeamSignUpFormId")
+                        .IsUnique()
+                        .HasFilter("[TeamSignUpFormId] IS NOT NULL");
+
+                    b.ToTable("TeamsContact");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Team.TeamSignUpForm", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.HasKey("Id");
+
+                    b.ToTable("TeamSignUpForms");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole")
@@ -1429,6 +1474,13 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasOne("ThePLeagueDomain.Models.Merchandise.GearItem", "GearItem")
                         .WithMany("Sizes")
                         .HasForeignKey("GearItemId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Team.Contact", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Team.TeamSignUpForm", "TeamSignUpForm")
+                        .WithOne("Contact")
+                        .HasForeignKey("ThePLeagueDomain.Models.Team.Contact", "TeamSignUpFormId");
                 });
 #pragma warning restore 612, 618
         }

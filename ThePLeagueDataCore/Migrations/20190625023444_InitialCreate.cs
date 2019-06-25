@@ -81,11 +81,25 @@ namespace ThePLeagueDataCore.Migrations
                     Height = table.Column<int>(nullable: false),
                     ResourceType = table.Column<string>(nullable: true),
                     HashTag = table.Column<string>(nullable: true),
-                    Delete = table.Column<bool>(nullable: true)
+                    Delete = table.Column<bool>(nullable: true),
+                    OrderId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_LeagueImages", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeamSignUpForms",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamSignUpForms", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -243,6 +257,29 @@ namespace ThePLeagueDataCore.Migrations
                         name: "FK_GearSizes_GearItems_GearItemId",
                         column: x => x.GearItemId,
                         principalTable: "GearItems",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeamsContact",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    TeamSignUpFormId = table.Column<long>(nullable: true),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamsContact", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_TeamsContact_TeamSignUpForms_TeamSignUpFormId",
+                        column: x => x.TeamSignUpFormId,
+                        principalTable: "TeamSignUpForms",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -426,6 +463,13 @@ namespace ThePLeagueDataCore.Migrations
                 name: "IX_GearSizes_GearItemId",
                 table: "GearSizes",
                 column: "GearItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamsContact_TeamSignUpFormId",
+                table: "TeamsContact",
+                column: "TeamSignUpFormId",
+                unique: true,
+                filter: "[TeamSignUpFormId] IS NOT NULL");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -455,6 +499,9 @@ namespace ThePLeagueDataCore.Migrations
                 name: "LeagueImages");
 
             migrationBuilder.DropTable(
+                name: "TeamsContact");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -462,6 +509,9 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "GearItems");
+
+            migrationBuilder.DropTable(
+                name: "TeamSignUpForms");
         }
     }
 }

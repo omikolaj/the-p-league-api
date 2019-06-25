@@ -4,6 +4,7 @@ using ThePLeagueDataCore.Configurations.Merchandise;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Merchandise;
+using ThePLeagueDomain.Models.Team;
 
 namespace ThePLeagueDataCore
 {
@@ -15,6 +16,8 @@ namespace ThePLeagueDataCore
     public DbSet<GearImage> GearImages { get; set; }
     public DbSet<GearSize> GearSizes { get; set; }
     public DbSet<LeagueImage> LeagueImages { get; set; }
+    public DbSet<TeamSignUpForm> TeamSignUpForms { get; set; }
+    public DbSet<Contact> TeamsContact { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
