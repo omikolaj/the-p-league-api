@@ -18,6 +18,8 @@ namespace ThePLeagueDataCore
     public DbSet<LeagueImage> LeagueImages { get; set; }
     public DbSet<TeamSignUpForm> TeamSignUpForms { get; set; }
     public DbSet<Contact> TeamsContact { get; set; }
+    public DbSet<PreOrder> PreOrders { get; set; }
+    public DbSet<PreOrderContact> PreOrderContacts { get; set; }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
