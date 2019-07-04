@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -8,13 +7,10 @@ using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using ThePLeagueAPI.Auth.Errors;
 using ThePLeagueAPI.Filters;
 using ThePLeagueDomain;
-using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.ViewModels.Gallery;
-using ThePLeagueDomain.ViewModels;
 
 namespace ThePLeagueAPI.Controllers
 {
@@ -88,7 +84,6 @@ namespace ThePLeagueAPI.Controllers
       return new OkObjectResult(uploadedLeagueImages);
     }
 
-    // DELETE api/values/5
     [Authorize]
     [HttpDelete]
     public async Task<ActionResult<bool>> Delete([FromBody] long[] ids)

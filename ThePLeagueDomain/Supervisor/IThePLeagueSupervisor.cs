@@ -2,20 +2,16 @@ using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using ThePLeagueDomain.Models;
+using ThePLeagueDomain.Models.Team;
 using ThePLeagueDomain.ViewModels;
+using ThePLeagueDomain.ViewModels.Gallery;
 using ThePLeagueDomain.ViewModels.Merchandise;
+using ThePLeagueDomain.ViewModels.Team;
 
 namespace ThePLeagueDomain
 {
   public interface IThePLeagueSupervisor
   {
-    #region RefreshToken
-    // Task<bool> SaveRefreshTokenAsync(ApplicationUserViewModel userViewModel, string refreshToken, CancellationToken ct = default(CancellationToken));
-    // Task<bool> DeleteRefreshTokenAsync(ApplicationUserViewModel userViewModel, RefreshToken refreshToken, CancellationToken ct = default(CancellationToken));
-    // Task<bool> ValidateRefreshTokenAsync(ApplicationUserViewModel userViewModel, RefreshToken refreshToken, CancellationToken ct = default(CancellationToken));
-
-    #endregion
-
     #region ApplicationUser
     Task<List<ApplicationUserViewModel>> GetAllUsersAsync(CancellationToken ct = default(CancellationToken));
     Task<ApplicationUserViewModel> GetUserByIDAsync(string ID, CancellationToken ct = default(CancellationToken));
@@ -51,6 +47,11 @@ namespace ThePLeagueDomain
 
     #endregion
 
+    #region PreOrder
+    Task<PreOrderViewModel> AddPreOrderAsync(PreOrderViewModel preOrder, CancellationToken ct = default(CancellationToken));
+
+    #endregion
+
     #region Gallery
     Task<List<LeagueImageViewModel>> AddLeagueImagesAsync(IList<LeagueImageViewModel> leagueImagesViewModel, CancellationToken ct = default(CancellationToken));
     Task<List<LeagueImageViewModel>> GetAllLeagueImagesAsync(CancellationToken ct = default(CancellationToken));
@@ -59,6 +60,11 @@ namespace ThePLeagueDomain
     Task<bool> UpdateLeagueImageAsync(LeagueImageViewModel leagueImageViewModel, CancellationToken ct = default(CancellationToken));
     Task<bool> DeleteLeagueImageAsync(long? leagueImageId, CancellationToken ct = default(CancellationToken));
     Task<List<LeagueImageViewModel>> UpdateLeagueImagesOrderAsync(List<LeagueImageViewModel> leagueImages, CancellationToken ct = default(CancellationToken));
+
+    #endregion
+
+    #region Team
+    Task<TeamSignUpFormViewModel> AddTeamSignUpFormAsync(TeamSignUpFormViewModel newTeam, CancellationToken ct = default(CancellationToken));
 
     #endregion
   }

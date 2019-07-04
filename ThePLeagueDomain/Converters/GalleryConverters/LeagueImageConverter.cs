@@ -2,9 +2,9 @@ using System.Collections.Generic;
 using System.Linq;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
-using ThePLeagueDomain.ViewModels;
+using ThePLeagueDomain.ViewModels.Gallery;
 
-namespace ThePLeagueDomain.Converters
+namespace ThePLeagueDomain.Converters.GalleryConverters
 {
   public static class LeagueImageConverter
   {

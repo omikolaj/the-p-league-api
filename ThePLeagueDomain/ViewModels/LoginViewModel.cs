@@ -10,7 +10,7 @@ namespace ThePLeagueDomain.ViewModels
 
     [Required, DataType(DataType.Password)]
     public string Password { get; set; }
-
+    public string NewPassword { get; set; }
     public ClaimsIdentity Claims { get; set; }
 
   }

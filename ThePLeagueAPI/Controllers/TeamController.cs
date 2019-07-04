@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Services.EmailService;
 using ThePLeagueAPI.Auth.Errors;
+using ThePLeagueAPI.Filters;
 using ThePLeagueDomain;
 using ThePLeagueDomain.ViewModels.Team;
 
@@ -10,7 +11,7 @@ namespace ThePLeagueAPI.Controllers
 {
   [Route("api/[controller]")]
   [Produces("application/json")]
-  // [ServiceFilter(typeof(ValidateModelStateAttribute))]
+  [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class TeamController : ThePLeagueBaseController
   {
     #region Fields and Properties

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 
-namespace ThePLeagueDomain.ViewModels
+namespace ThePLeagueDomain.ViewModels.Gallery
 {
   public class LeagueImageViewModel : ImageBaseViewModel
   {

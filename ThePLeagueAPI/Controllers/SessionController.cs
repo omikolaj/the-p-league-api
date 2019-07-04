@@ -33,7 +33,6 @@ namespace ThePLeagueAPI.Controllers
     #region Fields and Properties
 
     private readonly IThePLeagueSupervisor _supervisor;
-    private readonly ILogger _logger;
     private readonly IJwtFactory _jwtFactory;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly GetIdentity _getIdentity;
@@ -57,7 +56,6 @@ namespace ThePLeagueAPI.Controllers
       Token token)
     {
       this._supervisor = supervisor;
-      // this._logger = logger;
       this._jwtFactory = jwtFactory;
       this._userManager = userManager;
       this._jwtOptions = jwtOptions.Value;

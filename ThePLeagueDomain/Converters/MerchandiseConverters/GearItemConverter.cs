@@ -11,6 +11,10 @@ namespace ThePLeagueDomain.Converters
     #region Methods
     public static GearItemViewModel Convert(GearItem gearItem)
     {
+      if (gearItem == null)
+      {
+        return null;
+      }
       GearItemViewModel gearItemViewModel = new GearItemViewModel();
       gearItemViewModel.Id = gearItem.Id;
       gearItemViewModel.Images = GearImageConverter.ConvertList(gearItem.Images);

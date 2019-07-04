@@ -7,7 +7,7 @@ namespace ThePLeagueDomain.ViewModels.Merchandise
 {
   public class GearImageViewModel : ImageBaseViewModel
   {
-    public const string DefaultGearItemImageUrl = "https://res.cloudinary.com/dwsvaiiox/image/upload/v1560115767/movies-place/zcds8f29yreoyvoxuyfe.jpg";
+    public const string DefaultGearItemImageUrl = "https://res.cloudinary.com/dwsvaiiox/image/upload/v1561075265/movies-place/whznw3cbufax7zpaiiv1.jpg";
     public long? Id { get; set; }
     public long? GearItemId { get; set; }
     public bool Delete { get; set; }

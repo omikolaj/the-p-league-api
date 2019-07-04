@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 
-namespace ThePLeagueDomain.Repositories
+namespace ThePLeagueDomain.Repositories.Gallery
 {
   public interface ILeagueImageRepository
   {

@@ -2,10 +2,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using ThePLeagueDomain.Converters;
+using ThePLeagueDomain.Converters.GalleryConverters;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.ViewModels;
+using ThePLeagueDomain.ViewModels.Gallery;
 using ThePLeagueDomain.ViewModels.Merchandise;
 
 namespace ThePLeagueDomain.Supervisor

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ThePLeagueDomain.Converters;
+using ThePLeagueDomain.Converters.MerchandiseConverters;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Merchandise;
 using ThePLeagueDomain.ViewModels;
@@ -24,6 +25,10 @@ namespace ThePLeagueDomain.Supervisor
     public async Task<GearItemViewModel> GetGearItemByIdAsync(long? gearItemId, CancellationToken ct = default)
     {
       GearItemViewModel gearitemViewModel = GearItemConverter.Convert(await this._gearItemRepository.GetByIDAsync(gearItemId, ct));
+      if (gearitemViewModel == null)
+      {
+        return null;
+      }
       gearitemViewModel.Images = await GetAllGearImagesByGearItemIdAsync(gearItemId, ct);
       gearitemViewModel.Sizes = await GetAllGearSizesByGearItemIdAsync(gearItemId, ct);
 
@@ -218,6 +223,36 @@ namespace ThePLeagueDomain.Supervisor
     public async Task<bool> DeleteGearSizeAsync(long gearSizeId, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
+    }
+
+    #endregion
+
+    #region PreOrder
+    public async Task<PreOrderViewModel> AddPreOrderAsync(PreOrderViewModel preOrder, CancellationToken ct = default(CancellationToken))
+    {
+      PreOrder newPreOrder = new PreOrder()
+      {
+        GearItemId = preOrder.GearItemId,
+        Size = preOrder.Size,
+        Quantity = preOrder.Quantity
+      };
+
+      newPreOrder = await _preOrderRepository.AddAsync(newPreOrder, ct);
+      preOrder.Id = newPreOrder.Id;
+
+      PreOrderContact newPreOrderContact = new PreOrderContact()
+      {
+        FirstName = preOrder.Contact.FirstName,
+        LastName = preOrder.Contact.LastName,
+        Email = preOrder.Contact.Email,
+        PhoneNumber = preOrder.Contact.PhoneNumber,
+        PreOrderId = preOrder.Id,
+        PreferredContact = preOrder.Contact.PreferredContact
+      };
+
+      preOrder.Contact = PreOrderContactConverter.Convert(await this._preOrderRepository.AddPreOrderContactAsync(newPreOrderContact, ct));
+
+      return preOrder;
     }
 
     #endregion

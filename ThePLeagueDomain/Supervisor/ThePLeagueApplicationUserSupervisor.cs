@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using ThePLeagueDomain.Converters;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.ViewModels;
+using ThePLeagueDomain.ViewModels.Gallery;
 using ThePLeagueDomain.ViewModels.Merchandise;
 
 namespace ThePLeagueDomain.Supervisor

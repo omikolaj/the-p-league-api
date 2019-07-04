@@ -1,6 +1,7 @@
 using System.Linq;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using ThePLeagueDomain.Models;
 
 namespace ThePLeagueDataCore.DataBaseInitializer
@@ -26,7 +27,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
     #endregion
 
     #region Methods
-    public static async void SeedUsers(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
+    public static async void SeedUsers(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
     {
       // ThePLeagueRole[] roles = new ThePLeagueRole [] { ThePLeagueRole.User, ThePLeagueRole.Admin };
       string[] roles = new string[] { AdminRole, SuperUserRole, UserRole };
@@ -59,35 +60,35 @@ namespace ThePLeagueDataCore.DataBaseInitializer
 
       ApplicationUser admin = new ApplicationUser
       {
-        UserName = "oski",
-        Email = "abc@xyz.com"
+        UserName = "npostoloski",
+        Email = "npostoloski@icloud.com"
       };
 
-      ApplicationUser user = new ApplicationUser
+      ApplicationUser sysAdmin = new ApplicationUser
       {
-        UserName = "kaja",
-        Email = "def@ghi.com"
+        UserName = "omikolaj",
+        Email = "omikolaj1@gmail.com"
       };
 
       PasswordHasher<ApplicationUser> password = new PasswordHasher<ApplicationUser>();
 
       if (!userManager.Users.Any(u => u.UserName == admin.UserName))
       {
-        string hashed = password.HashPassword(admin, "password");
+        string hashed = password.HashPassword(admin, configuration["ThePLeague:AdminInitPassword"]);
         admin.PasswordHash = hashed;
 
         await userManager.CreateAsync(admin);
         await userManager.AddToRoleAsync(admin, AdminRole);
-        await userManager.AddToRoleAsync(admin, SuperUserRole);
+        //await userManager.AddToRoleAsync(admin, SuperUserRole);
       }
 
-      if (!userManager.Users.Any(u => u.UserName == user.UserName))
+      if (!userManager.Users.Any(u => u.UserName == sysAdmin.UserName))
       {
-        string hashed = password.HashPassword(user, "password");
-        user.PasswordHash = hashed;
+        string hashed = password.HashPassword(sysAdmin, configuration["ThePLeague:AdminInitPassword"]);
+        sysAdmin.PasswordHash = hashed;
 
-        await userManager.CreateAsync(user);
-        await userManager.AddToRoleAsync(user, UserRole);
+        await userManager.CreateAsync(sysAdmin);
+        await userManager.AddToRoleAsync(sysAdmin, AdminRole);
       }
 
     }
