@@ -20,6 +20,7 @@ using ThePLeagueDomain.Models;
 
 namespace ThePLeagueAPI.Controllers
 {
+  [AllowAnonymous]
   [Route("api/[controller]")]
   [Produces("application/json")]
   public class TokenController : ThePLeagueBaseController
@@ -56,8 +57,8 @@ namespace ThePLeagueAPI.Controllers
     #endregion
 
     #region Controllers
+
     [HttpGet("refresh")]
-    [AllowAnonymous]
     [ServiceFilter(typeof(CookieFilter))]
     public async Task<ActionResult> Refresh()
     {
@@ -72,7 +73,7 @@ namespace ThePLeagueAPI.Controllers
 
       if (user == null)
       {
-        BadRequest(Errors.AddErrorToModelState(ErrorCodes.UserNotFound, ErrorDescriptions.UserNotFoundFailure, ModelState));
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.UserNotFound, ErrorDescriptions.UserNotFoundFailure, ModelState));
       }
 
       string refreshToken = await _userManager.GetAuthenticationTokenAsync(user, TokenOptionsStrings.RefreshTokenProvider, TokenOptionsStrings.RefreshToken);

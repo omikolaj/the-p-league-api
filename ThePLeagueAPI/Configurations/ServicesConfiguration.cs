@@ -1,8 +1,12 @@
 using Microsoft.Extensions.DependencyInjection;
+using Services.EmailService;
 using ThePLeagueDataCore.Repositories;
+using ThePLeagueDataCore.Repositories.Gallery;
 using ThePLeagueDomain;
 using ThePLeagueDomain.Repositories;
+using ThePLeagueDomain.Repositories.Gallery;
 using ThePLeagueDomain.Repositories.Merchandise;
+using ThePLeagueDomain.Repositories.Team;
 using ThePLeagueDomain.Supervisor;
 
 namespace ThePLeagueAPI.Configurations
@@ -11,13 +15,14 @@ namespace ThePLeagueAPI.Configurations
   {
     public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
     {
-      //Register repository interfaces here
-      //AddScoped<IRefreshTokenRepository, RefreshTokenRepository>()
+      //Register repository interfaces here      
       services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>()
               .AddScoped<IGearItemRepository, GearItemRepository>()
               .AddScoped<IGearImageRepository, GearImageRepository>()
               .AddScoped<IGearSizeRepository, GearSizeRepository>()
-              .AddScoped<ILeagueImageRepository, LeagueImageRepository>();
+              .AddScoped<ILeagueImageRepository, LeagueImageRepository>()
+              .AddScoped<ITeamRepository, TeamRepository>()
+              .AddScoped<IPreOrderRepository, PreOrderRepository>();
 
       return services;
     }
@@ -25,6 +30,12 @@ namespace ThePLeagueAPI.Configurations
     public static IServiceCollection ConfigureSupervisor(this IServiceCollection services)
     {
       services.AddScoped<IThePLeagueSupervisor, ThePLeagueSupervisor>();
+      return services;
+    }
+
+    public static IServiceCollection ConfigureEmailSetUp(this IServiceCollection services)
+    {
+      services.AddScoped<ISendEmailService, SendEmailService>();
       return services;
     }
 

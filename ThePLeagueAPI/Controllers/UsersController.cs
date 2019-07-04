@@ -15,8 +15,8 @@ using ThePLeagueDomain.ViewModels;
 
 namespace ThePLeagueAPI.Controllers
 {
-  [Route("api/[controller]")]
   [Authorize]
+  [Route("api/[controller]")]
   public class UsersController : ThePLeagueBaseController
   {
     #region Fields and Properties

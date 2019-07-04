@@ -24,13 +24,13 @@ using ThePLeagueDomain.ViewModels;
 
 namespace ThePLeagueAPI.Controllers
 {
+  [AllowAnonymous]
   [Route("api/")]
   [Produces("application/json")]
-  [AllowAnonymous]
-  // [ServiceFilter(typeof(ValidateModelStateAttribute))]
+  [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class SessionController : ThePLeagueBaseController
   {
-    #region Private Fields
+    #region Fields and Properties
 
     private readonly IThePLeagueSupervisor _supervisor;
     private readonly ILogger _logger;
@@ -38,6 +38,7 @@ namespace ThePLeagueAPI.Controllers
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly GetIdentity _getIdentity;
     private readonly JwtIssuerOptions _jwtOptions;
+    private readonly Token _token;
 
     private readonly JsonSerializerSettings _jsonSerializerSettings = new JsonSerializerSettings
     {
@@ -47,7 +48,13 @@ namespace ThePLeagueAPI.Controllers
     #endregion
 
     #region Constructor
-    public SessionController(IThePLeagueSupervisor supervisor, IJwtFactory jwtFactory, IOptions<JwtIssuerOptions> jwtOptions, UserManager<ApplicationUser> userManager, GetIdentity getIdentity)
+    public SessionController(
+      IThePLeagueSupervisor supervisor,
+      IJwtFactory jwtFactory,
+      IOptions<JwtIssuerOptions> jwtOptions,
+      UserManager<ApplicationUser> userManager,
+      GetIdentity getIdentity,
+      Token token)
     {
       this._supervisor = supervisor;
       // this._logger = logger;
@@ -55,6 +62,7 @@ namespace ThePLeagueAPI.Controllers
       this._userManager = userManager;
       this._jwtOptions = jwtOptions.Value;
       this._getIdentity = getIdentity;
+      this._token = token;
     }
 
     #endregion
@@ -82,18 +90,68 @@ namespace ThePLeagueAPI.Controllers
       // Issue new refresh token to the user
       await _userManager.SetAuthenticationTokenAsync(user, TokenOptionsStrings.RefreshTokenProvider, TokenOptionsStrings.RefreshToken, newRefreshToken);
 
-      // var refreshToken = await _userManager.GetAuthenticationTokenAsync(user, "ThePLeague", "RefreshToken");
-      // var isValid = await _userManager.VerifyUserTokenAsync(user, "ThePLeague", "RefreshToken", refreshToken);
-
-      //string refreshToken1 = Token.GenerateRefreshToken();
-
-      //await _supervisor.SaveRefreshTokenAsync(userViewModel, refreshToken);
-
       ApplicationToken token = await Token.GenerateJwt(user.UserName, identity, this._jwtFactory, this._jwtOptions, this._jsonSerializerSettings);
 
       Utilities.CookieUtility.GenerateHttpOnlyCookie(Response, TokenOptionsStrings.ApplicationToken, token);
 
       return new OkObjectResult(token);
+    }
+
+    [HttpPost("admin/{:id}/update-password")]
+    public async Task<ActionResult<bool>> UpdatePassword([FromBody] LoginViewModel login, CancellationToken ct = default(CancellationToken))
+    {
+      ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.UserName == login.UserName);
+
+      ClaimsIdentity identity = await _getIdentity.GetClaimsIdentity(user, login.Password);
+
+      if (identity == null)
+      {
+        return Unauthorized(Errors.AddErrorToModelState(ErrorCodes.Login, ErrorDescriptions.LoginFailure, ModelState));
+      }
+
+      string token = await this._userManager.GeneratePasswordResetTokenAsync(user);
+
+      IdentityResult result = await this._userManager.ResetPasswordAsync(user, token, login.NewPassword);
+
+      if (!result.Succeeded)
+      {
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.PasswordUpdate, ErrorDescriptions.PasswordUpdateFailure, ModelState));
+      }
+
+      return new OkObjectResult(true);
+    }
+
+    [HttpDelete("logout")]
+    public async Task<ActionResult<bool>> Logout(long userId, CancellationToken ct = default(CancellationToken))
+    {
+      // Retrieve the application_token from cookies to retrieve user's username
+      string jwt = Request.Cookies.SingleOrDefault(cookie => cookie.Key == TokenOptionsStrings.ApplicationToken).Value;
+
+      if (jwt != null)
+      {
+        // We do not care if the token is valid, we only care that the token is 
+        ClaimsPrincipal principal = this._token.GetPrincipalFromExpiredToken(jwt);
+
+        string userName = principal.Identity.Name;
+
+        ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.UserName == userName);
+        if (user == null)
+        {
+          return BadRequest(Errors.AddErrorToModelState(ErrorCodes.Logout, ErrorDescriptions.UserNotFoundFailure, ModelState));
+        }
+
+        // Remove the refresh token from the database
+        IdentityResult result = await _userManager.RemoveAuthenticationTokenAsync(user, TokenOptionsStrings.RefreshTokenProvider, TokenOptionsStrings.RefreshToken);
+        if (!result.Succeeded)
+        {
+          return BadRequest(Errors.AddErrorToModelState(ErrorCodes.Logout, ErrorDescriptions.RefreshTokenDeleteFailure, ModelState));
+        }
+
+        // Delete cookie with the token
+        Response.Cookies.Delete(TokenOptionsStrings.ApplicationToken);
+      }
+
+      return new OkObjectResult(true);
     }
 
     #endregion

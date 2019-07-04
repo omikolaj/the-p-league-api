@@ -68,8 +68,8 @@ namespace ThePLeagueAPI
         .ConfigureApplicationCookies()
         .ConfigureJsonWebToken(Configuration)
         .ConfigureControllersFilters()
-        .ConfigureCloudinaryService(Configuration);
-
+        .ConfigureCloudinaryService(Configuration)
+        .ConfigureEmailSetUp();
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

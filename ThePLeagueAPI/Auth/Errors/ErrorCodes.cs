@@ -7,6 +7,7 @@ namespace ThePLeagueAPI.Auth.Errors
   public class ErrorCodes
   {
     public const string Login = "login";
+    public const string Logout = "logout";
     public const string RefreshToken = "refresh_token";
     public const string UserNotFound = "user_not_found";
     public const string GearItemUpdate = "gear_item_update";
@@ -17,5 +18,7 @@ namespace ThePLeagueAPI.Auth.Errors
     public const string GearItemNotFound = "gear_item_not_found";
     public const string LeagueImageNotFound = "league_image_not_found";
     public const string LeagueImageOrder = "league_image_order";
+    public const string PasswordUpdate = "password_update";
+    public const string SendEmail = "send_email";
   }
 }

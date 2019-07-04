@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 using CloudinaryDotNet.Actions;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
@@ -12,11 +13,13 @@ using ThePLeagueAPI.Auth.Errors;
 using ThePLeagueAPI.Filters;
 using ThePLeagueDomain;
 using ThePLeagueDomain.Models.Gallery;
+using ThePLeagueDomain.ViewModels.Gallery;
 using ThePLeagueDomain.ViewModels;
 
 namespace ThePLeagueAPI.Controllers
 {
   [Route("api/[controller]")]
+  [Produces("application/json")]
   [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class GalleryController : ThePLeagueBaseController
   {
@@ -46,13 +49,13 @@ namespace ThePLeagueAPI.Controllers
       return orderedLeagueImagesList;
     }
 
+    [Authorize]
     [HttpPost("order")]
     public async Task<ActionResult<LeagueImageViewModel>> SaveOrder([FromBody] IEnumerable<LeagueImageViewModel> leagueImages, CancellationToken ct = default(CancellationToken))
     {
+      leagueImages = await this._supervisor.UpdateLeagueImagesOrderAsync(leagueImages.ToList(), ct);
 
-      IList<LeagueImageViewModel> leagueImageViewModels = await this._supervisor.UpdateLeagueImagesOrderAsync(leagueImages.ToList(), ct);
-
-      if (leagueImageViewModels == null)
+      if (leagueImages == null)
       {
         return BadRequest(Errors.AddErrorToModelState(ErrorCodes.LeagueImageNotFound, ErrorDescriptions.LeagueImageSaveOrderFailure, ModelState));
       }
@@ -60,6 +63,7 @@ namespace ThePLeagueAPI.Controllers
       return new OkObjectResult(leagueImages);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<LeagueImageViewModel>> Create(CancellationToken ct = default(CancellationToken))
     {
@@ -85,6 +89,7 @@ namespace ThePLeagueAPI.Controllers
     }
 
     // DELETE api/values/5
+    [Authorize]
     [HttpDelete]
     public async Task<ActionResult<bool>> Delete([FromBody] long[] ids)
     {

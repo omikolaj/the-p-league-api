@@ -26,10 +26,13 @@ using Microsoft.AspNetCore.JsonPatch;
 using CloudinaryDotNet.Actions;
 using System.Net;
 using CloudinaryDotNet;
+using Microsoft.AspNetCore.Authorization;
+using Services.EmailService;
 
 namespace ThePLeagueAPI.Controllers
 {
   [Route("api/[controller]")]
+  [Produces("application/json")]
   [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class MerchandiseController : ThePLeagueBaseController
   {
@@ -38,16 +41,18 @@ namespace ThePLeagueAPI.Controllers
     private readonly ILogger _logger;
     private readonly UserManager<ApplicationUser> _userManager;
     private readonly CloudinaryService _cloudinary;
+    private readonly ISendEmailService _emailService;
 
     #endregion
 
     #region Constructor
-    public MerchandiseController(IThePLeagueSupervisor supervisor, UserManager<ApplicationUser> userManager, CloudinaryService cloudinaryService)
+    public MerchandiseController(IThePLeagueSupervisor supervisor, UserManager<ApplicationUser> userManager, CloudinaryService cloudinaryService, ISendEmailService emailService)
     {
       this._supervisor = supervisor;
       // this._logger = logger;      
       this._userManager = userManager;
       this._cloudinary = cloudinaryService;
+      this._emailService = emailService;
     }
 
     #endregion
@@ -62,6 +67,27 @@ namespace ThePLeagueAPI.Controllers
       return gearItems;
     }
 
+    [HttpPost("{id}/pre-order")]
+    public async Task<ActionResult<PreOrderViewModel>> PreOrder(PreOrderViewModel preOrderForm, CancellationToken ct = default(CancellationToken))
+    {
+      GearItemViewModel gearItem = await this._supervisor.GetGearItemByIdAsync(preOrderForm.GearItemId);
+      if (gearItem == null)
+      {
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.GearItemNotFound, ErrorDescriptions.GearItemFindFailure, ModelState));
+      }
+
+      preOrderForm = await this._supervisor.AddPreOrderAsync(preOrderForm, ct);
+
+      //Send an email out to let him know new pre-order has come in
+      if (!this._emailService.SendEmail(preOrderForm, gearItem))
+      {
+        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.SendEmail, ErrorDescriptions.SendEmailFailure, ModelState));
+      }
+
+      return preOrderForm;
+    }
+
+    [Authorize]
     [HttpPost]
     public async Task<ActionResult<GearItemViewModel>> Create([FromForm] List<IFormFile> gearImages)
     {
@@ -91,7 +117,8 @@ namespace ThePLeagueAPI.Controllers
             Url = GearImageViewModel.DefaultGearItemImageUrl,
             Small = GearImageViewModel.DefaultGearItemImageUrl,
             Medium = GearImageViewModel.DefaultGearItemImageUrl,
-            Big = GearImageViewModel.DefaultGearItemImageUrl
+            Big = GearImageViewModel.DefaultGearItemImageUrl,
+            Name = "DefaultImageName"
           }
         };
       }
@@ -102,6 +129,7 @@ namespace ThePLeagueAPI.Controllers
       return new JsonResult(gearItem);
     }
 
+    [Authorize]
     [HttpDelete("{id}")]
     public async Task<ActionResult<bool>> Delete(long id)
     {
@@ -130,6 +158,7 @@ namespace ThePLeagueAPI.Controllers
 
     }
 
+    [Authorize]
     [HttpPatch("{id}")]
     public async Task<ActionResult<GearItemViewModel>> Update([FromForm] List<IFormFile> gearImages)
     {
