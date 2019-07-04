@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>46e2b54a-553a-4e16-820d-47d842af9320</UserSecretsId>
-
+    <LangVersion>7.1</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,7 +20,8 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.4">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
-    </PackageReference>    
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="2.2.0" />    
     <PackageReference Include="Microsoft.IdentityModel.Tokens" Version="5.4.0" />    
     <PackageReference Include="NETCore.MailKit" Version="2.0.2" />        
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />

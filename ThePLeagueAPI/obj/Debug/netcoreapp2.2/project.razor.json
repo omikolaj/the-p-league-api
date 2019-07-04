@@ -2938,7 +2938,7 @@
         }
       }
     ],
-    "CSharpLanguageVersion": 703
+    "CSharpLanguageVersion": 701
   },
   "RootNamespace": "ThePLeagueAPI",
   "Documents": []
