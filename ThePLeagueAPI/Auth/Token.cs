@@ -67,7 +67,7 @@ namespace ThePLeagueAPI.Auth
         ValidIssuer = jwtAppSettingOptions[nameof(JwtIssuerOptions.Issuer)],
 
         ValidateIssuerSigningKey = true,
-        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(jwtAppSettingOptions[nameof(JwtIssuerOptions.SigningKey)])),
+        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(this._configuration["ThePLeague:JwtSecret"])),
         ValidateLifetime = false
       };
 

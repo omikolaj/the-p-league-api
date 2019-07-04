@@ -24,7 +24,6 @@ namespace ThePLeagueAPI.Configurations
         options.Password.RequireLowercase = false;
         options.Password.RequireNonAlphanumeric = false;
         options.Password.RequireUppercase = false;
-        //options.Tokens.PasswordResetTokenProvider = TokenOptions.DefaultEmailProvider;
       })
       .AddDefaultTokenProviders()
       .AddTokenProvider(TokenOptionsStrings.RefreshTokenProvider, typeof(DataProtectorTokenProvider<ApplicationUser>))
