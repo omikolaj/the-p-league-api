@@ -53,7 +53,7 @@ namespace ThePLeagueAPI
         .ConfigureRepositories()
         .ConfigureSupervisor()
         .AddMiddleware()
-        .AddCorsConfiguration()
+        .AddCorsConfiguration(Configuration)
         .AddIdentityConfiguration()
         .ConfigureApplicationCookies()
         .ConfigureJsonWebToken(Configuration)

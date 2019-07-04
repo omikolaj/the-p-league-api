@@ -1,5 +1,7 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Services.EmailService;
+using ThePLeagueAPI.Auth.Jwt;
 using ThePLeagueDataCore.Repositories;
 using ThePLeagueDataCore.Repositories.Gallery;
 using ThePLeagueDomain;
@@ -49,13 +51,15 @@ namespace ThePLeagueAPI.Configurations
       return services;
     }
 
-    public static IServiceCollection AddCorsConfiguration(this IServiceCollection services)
+    public static IServiceCollection AddCorsConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
+      IConfigurationSection jwtAppSettingOptions = configuration.GetSection(nameof(JwtIssuerOptions));
+
       services.AddCors(options =>
       {
         options.AddPolicy("AllowAll",
           new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins(jwtAppSettingOptions[nameof(JwtIssuerOptions.Audience)])
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
