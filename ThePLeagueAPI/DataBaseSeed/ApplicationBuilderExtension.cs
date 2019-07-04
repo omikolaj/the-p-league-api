@@ -1,6 +1,7 @@
 using System;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using ThePLeagueDataCore;
@@ -18,7 +19,8 @@ namespace ThePLeagueAPI.Extensions
       {
         UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
         RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
-        DataBaseInitializer.SeedUsers(userManager, roleManager);
+        IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
+        DataBaseInitializer.SeedUsers(userManager, roleManager, configuration);
       }
       catch (Exception ex)
       {
