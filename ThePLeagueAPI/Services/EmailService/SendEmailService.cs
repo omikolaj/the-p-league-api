@@ -28,7 +28,6 @@ namespace Services.EmailService
     #region Methods
     public bool SendEmail(PreOrderViewModel email, GearItemViewModel gearItemPreOrder)
     {
-      email.Contact.Email = "oscar222@sbcglobal.net";
       bool success = false;
       try
       {
@@ -87,7 +86,6 @@ namespace Services.EmailService
     }
     public bool SendEmail(TeamSignUpFormViewModel email)
     {
-      email.Contact.Email = "oscar222@sbcglobal.net";
       bool success = false;
       try
       {
