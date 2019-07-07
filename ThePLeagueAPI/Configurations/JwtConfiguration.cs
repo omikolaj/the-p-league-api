@@ -20,7 +20,7 @@ namespace ThePLeagueAPI.Configurations
       services.AddSingleton<IJwtFactory, JwtFactory>();
       var jwtAppSettingOptions = configuration.GetSection(nameof(JwtIssuerOptions));
 
-      string privateKey = configuration["ThePLeague:JwtSecret"];
+      var privateKey = configuration[nameof(VaultKeys.JwtSecret)];
       SymmetricSecurityKey signingKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(privateKey));
 
       services.Configure<JwtIssuerOptions>(options =>

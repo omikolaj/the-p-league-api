@@ -12,6 +12,7 @@ using Microsoft.Extensions.Logging;
 using ThePLeagueAPI.Configurations;
 using ThePLeagueAPI.Extensions;
 using ThePLeagueAPI.Middleware;
+using ThePLeagueDataCore;
 
 namespace ThePLeagueAPI
 {
@@ -63,7 +64,7 @@ namespace ThePLeagueAPI
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-    public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+    public void Configure(IApplicationBuilder app, IHostingEnvironment env, IServiceProvider serviceProvider)
     {
       if (env.IsDevelopment())
       {

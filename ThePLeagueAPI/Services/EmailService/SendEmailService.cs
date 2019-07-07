@@ -3,6 +3,7 @@ using MailKit.Net.Smtp;
 using Microsoft.Extensions.Configuration;
 using MimeKit;
 using Services.EmailService.Templates;
+using ThePLeagueAPI.Auth.Jwt;
 using ThePLeagueDomain.ViewModels.Merchandise;
 using ThePLeagueDomain.ViewModels.Team;
 
@@ -66,7 +67,7 @@ namespace Services.EmailService
 
         SmtpClient client = new SmtpClient();
         client.Connect(this._emailAppSettings[nameof(EmailServiceOptions.SmtpServer)], int.Parse(this._emailAppSettings[nameof(EmailServiceOptions.Port)]), true);
-        client.Authenticate(this._emailAppSettings[nameof(EmailServiceOptions.SystemAdminEmail)], this._configuration["ThePLeague:SystemAdminPassword"]);
+        client.Authenticate(this._emailAppSettings[nameof(EmailServiceOptions.SystemAdminEmail)], this._configuration[nameof(VaultKeys.SystemAdminEmailPassword)]);
 
         client.Send(messageToUser);
         client.Send(messageToAdmin);
@@ -123,7 +124,7 @@ namespace Services.EmailService
 
         SmtpClient client = new SmtpClient();
         client.Connect(this._emailAppSettings[nameof(EmailServiceOptions.SmtpServer)], int.Parse(this._emailAppSettings[nameof(EmailServiceOptions.Port)]), true);
-        client.Authenticate(this._emailAppSettings[nameof(EmailServiceOptions.SystemAdminEmail)], this._configuration["ThePLeague:SystemAdminPassword"]);
+        client.Authenticate(this._emailAppSettings[nameof(EmailServiceOptions.SystemAdminEmail)], this._configuration[nameof(VaultKeys.SystemAdminEmailPassword)]);
 
         client.Send(messageToUser);
         client.Send(messageToAdmin);

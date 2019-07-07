@@ -74,17 +74,16 @@ namespace ThePLeagueDataCore.DataBaseInitializer
 
       if (!userManager.Users.Any(u => u.UserName == admin.UserName))
       {
-        string hashed = password.HashPassword(admin, configuration["ThePLeague:AdminInitPassword"]);
+        string hashed = password.HashPassword(admin, configuration["ThePLeagueAdminInitPassword"]);
         admin.PasswordHash = hashed;
 
         await userManager.CreateAsync(admin);
         await userManager.AddToRoleAsync(admin, AdminRole);
-        //await userManager.AddToRoleAsync(admin, SuperUserRole);
       }
 
       if (!userManager.Users.Any(u => u.UserName == sysAdmin.UserName))
       {
-        string hashed = password.HashPassword(sysAdmin, configuration["ThePLeague:AdminInitPassword"]);
+        string hashed = password.HashPassword(sysAdmin, configuration["ThePLeagueAdminInitPassword"]);
         sysAdmin.PasswordHash = hashed;
 
         await userManager.CreateAsync(sysAdmin);

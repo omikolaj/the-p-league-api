@@ -7,7 +7,10 @@ using System.Web;
 using CloudinaryDotNet;
 using CloudinaryDotNet.Actions;
 using Microsoft.AspNetCore.Http;
+using Microsoft.Azure.KeyVault;
+using Microsoft.Azure.Services.AppAuthentication;
 using Microsoft.Extensions.Configuration;
+using ThePLeagueAPI.Auth.Jwt;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.ViewModels;
 using ThePLeagueDomain.ViewModels.Merchandise;
@@ -17,9 +20,9 @@ public class CloudinaryService
   private readonly Cloudinary _cloudinary;
   public CloudinaryService(IConfiguration configuration)
   {
-    string apiKey = configuration["Cloudinary:APIKEY"];
-    string apiSecret = configuration["Cloudinary:APISECRET"];
-    string cloudName = configuration["Cloudinary:CloudName"];
+    string apiKey = configuration[nameof(VaultKeys.CloudinaryApiKey)];
+    string apiSecret = configuration[nameof(VaultKeys.CloudinaryApiSecret)];
+    string cloudName = configuration[nameof(VaultKeys.CloudinaryCloudName)];
 
     Account myAccount = new Account
     {

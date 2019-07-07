@@ -1389,6 +1389,37 @@ namespace ThePLeagueDataCore.Migrations
                     b.ToTable("PreOrders");
                 });
 
+            modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.PreOrderContact", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
+
+                    b.Property<long?>("PreOrderId");
+
+                    b.Property<int>("PreferredContact");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PreOrderId")
+                        .IsUnique()
+                        .HasFilter("[PreOrderId] IS NOT NULL");
+
+                    b.ToTable("PreOrderContacts");
+                });
+
             modelBuilder.Entity("ThePLeagueDomain.Models.Team.Contact", b =>
                 {
                     b.Property<long?>("Id")
@@ -1420,37 +1451,6 @@ namespace ThePLeagueDataCore.Migrations
                     b.ToTable("TeamsContact");
                 });
 
-            modelBuilder.Entity("ThePLeagueDomain.Models.Team.PreOrderContact", b =>
-                {
-                    b.Property<long?>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Email")
-                        .IsRequired();
-
-                    b.Property<string>("FirstName")
-                        .IsRequired();
-
-                    b.Property<string>("LastName")
-                        .IsRequired();
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired();
-
-                    b.Property<long?>("PreOrderId");
-
-                    b.Property<int>("PreferredContact");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("PreOrderId")
-                        .IsUnique()
-                        .HasFilter("[PreOrderId] IS NOT NULL");
-
-                    b.ToTable("PreOrderContacts");
-                });
-
             modelBuilder.Entity("ThePLeagueDomain.Models.Team.TeamSignUpForm", b =>
                 {
                     b.Property<long?>("Id")
@@ -1459,6 +1459,8 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<int>("TESTCOLUMN");
 
                     b.HasKey("Id");
 
@@ -1524,18 +1526,18 @@ namespace ThePLeagueDataCore.Migrations
                         .HasForeignKey("GearItemId");
                 });
 
+            modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.PreOrderContact", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Merchandise.PreOrder", "PreOrder")
+                        .WithOne("Contact")
+                        .HasForeignKey("ThePLeagueDomain.Models.Merchandise.PreOrderContact", "PreOrderId");
+                });
+
             modelBuilder.Entity("ThePLeagueDomain.Models.Team.Contact", b =>
                 {
                     b.HasOne("ThePLeagueDomain.Models.Team.TeamSignUpForm", "TeamSignUpForm")
                         .WithOne("Contact")
                         .HasForeignKey("ThePLeagueDomain.Models.Team.Contact", "TeamSignUpFormId");
-                });
-
-            modelBuilder.Entity("ThePLeagueDomain.Models.Team.PreOrderContact", b =>
-                {
-                    b.HasOne("ThePLeagueDomain.Models.Merchandise.PreOrder", "PreOrder")
-                        .WithOne("Contact")
-                        .HasForeignKey("ThePLeagueDomain.Models.Team.PreOrderContact", "PreOrderId");
                 });
 #pragma warning restore 612, 618
         }
