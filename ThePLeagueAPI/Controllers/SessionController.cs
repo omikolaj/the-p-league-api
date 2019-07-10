@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -26,7 +27,6 @@ namespace ThePLeagueAPI.Controllers
 {
   [AllowAnonymous]
   [Route("api/")]
-  [Produces("application/json")]
   [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class SessionController : ThePLeagueBaseController
   {

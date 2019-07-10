@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using ThePLeagueAPI.Auth.Jwt;
@@ -41,7 +42,6 @@ namespace ThePLeagueAPI.Controllers
     [Produces(typeof(IList<string>))]
     public async Task<IList<string>> GetUserRoles(string userId, CancellationToken ct = default(CancellationToken))
     {
-
       Claim userIdClaim = User.Claims.Where(c => c.Type == Constants.Strings.JwtClaimIdentifiers.Id).FirstOrDefault();
 
       ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.Id == userIdClaim.Value);

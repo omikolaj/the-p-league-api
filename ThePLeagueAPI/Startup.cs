@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using ThePLeagueAPI.Configurations;
 using ThePLeagueAPI.Extensions;
 using ThePLeagueAPI.Middleware;
-using ThePLeagueDataCore;
 
 namespace ThePLeagueAPI
 {
@@ -77,7 +76,8 @@ namespace ThePLeagueAPI
       }
 
       // Middleware has to be registered first, otherwise we get a bearer challenge 401 error
-      app.UseMiddleware<JwtBearerMiddleware>()
+      app.UseCors("AllowAll")
+          .UseMiddleware<JwtBearerMiddleware>()
           .UseAuthentication()
           .SeedDatabase()
           .UseHttpsRedirection()

@@ -95,7 +95,7 @@ namespace Services.EmailService.Templates
         <img src='https://res.cloudinary.com/dwsvaiiox/image/upload/v1562171421/movies-place/itmfvw7fogexa8xqyzbg.png' style='max-width:100%; max-height:185px; margin: 0 auto; display: block'>
       </div>
     <div style='text-align: center'>
-        <h3>Your pre-ordered has been successfully processed. You pre-ordered {gearItem.Name} and your Total is ${total}. Order Details: </h3>
+        <h3>Your pre-ordered has been successfully processed. You pre-ordered {gearItem.Name}. Total is ${total}. Order Details: </h3>
     </div>
         <div style='margin-bottom: 10%'>
           <ul>

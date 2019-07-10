@@ -8,9 +8,10 @@ namespace ThePLeagueAPI.Utilities
   {
     private static readonly CookieOptions _cookieOptions = new CookieOptions()
     {
+      Expires = DateTime.Now.AddDays(14),
+      SameSite = SameSiteMode.None,
       HttpOnly = true,
-      SameSite = SameSiteMode.Strict,
-      Expires = DateTime.Now.AddDays(7)
+      Secure = true
     };
     public static void GenerateHttpOnlyCookie(HttpResponse response, string cookieName, ApplicationToken token)
     {

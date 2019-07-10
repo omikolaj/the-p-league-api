@@ -16,6 +16,7 @@ using CloudinaryDotNet.Actions;
 using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Services.EmailService;
+using Microsoft.AspNetCore.Cors;
 
 namespace ThePLeagueAPI.Controllers
 {

@@ -1,3 +1,4 @@
 {
-  "appService.defaultWebAppToDeploy": "None"
+  "appService.defaultWebAppToDeploy": "/subscriptions/ce731d7b-ff70-4bbe-b131-7248ce52c1f4/resourceGroups/appsvc_windows_centralus/providers/Microsoft.Web/sites/ThePLeagueAPI",
+  "appService.deploySubpath": "ThePLeagueAPI\\bin\\Release\\netcoreapp2.2\\publish"
 }
