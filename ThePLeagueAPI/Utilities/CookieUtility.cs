@@ -10,8 +10,7 @@ namespace ThePLeagueAPI.Utilities
     {
       Expires = DateTime.Now.AddDays(14),
       SameSite = SameSiteMode.None,
-      HttpOnly = true,
-      Secure = true
+      HttpOnly = true
     };
     public static void GenerateHttpOnlyCookie(HttpResponse response, string cookieName, ApplicationToken token)
     {

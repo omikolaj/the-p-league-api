@@ -27,6 +27,7 @@ namespace ThePLeagueAPI.Controllers
 {
   [AllowAnonymous]
   [Route("api/")]
+  [Produces("application/json")]
   [ServiceFilter(typeof(ValidateModelStateAttribute))]
   public class SessionController : ThePLeagueBaseController
   {

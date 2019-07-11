@@ -88,7 +88,7 @@ namespace Services.EmailService.Templates
         <img src='https://res.cloudinary.com/dwsvaiiox/image/upload/v1562171421/movies-place/itmfvw7fogexa8xqyzbg.png' style='max-width:100%; max-height:185px; margin: 0 auto; display: block'>
       </div>
     <div>
-        <h3>Hey{email.Contact.FirstName}, this is Nik from The P League I am the owner. Just wanted to say thanks for your interested in this league I am always excited to have new teams come on board. I will get back to you very soon.This email confirms I have received your inquiry and I will be contacting you shortly.</h3>
+        <h3>Hey {email.Contact.FirstName}, this is Nik from The P League, I am the owner and organizer. Just wanted to say thanks for your interested in this league I am always excited to have new teams come on board. I will get back to you very soon.This email confirms I have received your inquiry and I will be contacting you shortly.</h3>
     </div>
         <br>
         <div style='text-align: center; margin-bottom:10%'>

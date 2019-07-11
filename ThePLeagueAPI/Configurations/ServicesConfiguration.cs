@@ -61,7 +61,7 @@ namespace ThePLeagueAPI.Configurations
       {
         options.AddPolicy("AllowAll",
           new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
-            .AllowAnyMethod()
+            .AllowAnyHeader()
             .AllowCredentials()
             .AllowAnyHeader()
             .Build()
