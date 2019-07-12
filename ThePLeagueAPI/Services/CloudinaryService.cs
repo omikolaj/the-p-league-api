@@ -112,7 +112,7 @@ public class CloudinaryService
     IList<T> newGearItemImages = new List<T>();
     for (int i = 0; i < newImages.Count(); i++)
     {
-      T newGearImage = await this.UploadNewImage<T>(newImages.ElementAt(i), name);
+      T newGearImage = await this.UploadNewImage<T>(newImages.ElementAt(i), newImages.ElementAt(i).Name);
       newGearItemImages.Add(newGearImage);
     }
 
