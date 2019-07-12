@@ -87,7 +87,7 @@ namespace ThePLeagueAPI.Controllers
       if (gearImages.Count() > 0)
       {
         // IList of IFormFile for incoming images to be uploaded
-        IList<GearImageViewModel> gearItemImages = await this._cloudinary.UploadNewImages<GearImageViewModel>(gearImages, gearItem.Name);
+        IList<GearImageViewModel> gearItemImages = await this._cloudinary.UploadNewImages<GearImageViewModel>(gearImages);
 
         if (gearItemImages.Any(gI => gI == null))
         {
@@ -157,7 +157,7 @@ namespace ThePLeagueAPI.Controllers
       // Check if we are uploading any new images
       if (gearImages.Count() > 0)
       {
-        IList<GearImageViewModel> gearItemImages = await this._cloudinary.UploadNewImages<GearImageViewModel>(gearImages, gearItem.Name);
+        IList<GearImageViewModel> gearItemImages = await this._cloudinary.UploadNewImages<GearImageViewModel>(gearImages);
 
         if (gearItemImages.Any(gI => gI == null))
         {

@@ -71,7 +71,7 @@ namespace ThePLeagueAPI.Controllers
       }
       if (leagueImages.Count() > 0)
       {
-        uploadedLeagueImages = await this._cloudinary.UploadNewImages<LeagueImageViewModel>(leagueImages, LeagueImage);
+        uploadedLeagueImages = await this._cloudinary.UploadNewImages<LeagueImageViewModel>(leagueImages);
 
         if (uploadedLeagueImages.Any(lI => lI == null))
         {

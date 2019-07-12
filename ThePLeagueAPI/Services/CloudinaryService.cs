@@ -80,10 +80,6 @@ public class CloudinaryService
   public async Task<T> UploadNewImage<T>(IFormFile file, string gearImageName)
   where T : ImageBaseViewModel, new()
   {
-    // Generate random number from 0-100 for image name
-    Random random = new Random();
-    int id = random.Next(0, 100);
-
     // Try to upload to Cloudinary
     ImageUploadResult result = await this.UploadImage(file);
 
@@ -101,18 +97,18 @@ public class CloudinaryService
       newImage.Height = result.Height;
       newImage.ResourceType = result.ResourceType;
       newImage.Format = result.Format;
-      newImage.Name = $"{gearImageName}_{id}";
+      newImage.Name = gearImageName;
     }
 
     return newImage;
   }
 
-  public async Task<IList<T>> UploadNewImages<T>(IEnumerable<IFormFile> newImages, string name) where T : ImageBaseViewModel, new()
+  public async Task<IList<T>> UploadNewImages<T>(IEnumerable<IFormFile> newImages) where T : ImageBaseViewModel, new()
   {
     IList<T> newGearItemImages = new List<T>();
     for (int i = 0; i < newImages.Count(); i++)
     {
-      T newGearImage = await this.UploadNewImage<T>(newImages.ElementAt(i), newImages.ElementAt(i).Name);
+      T newGearImage = await this.UploadNewImage<T>(newImages.ElementAt(i), newImages.ElementAt(i).FileName);
       newGearItemImages.Add(newGearImage);
     }
 
