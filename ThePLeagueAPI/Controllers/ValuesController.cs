@@ -10,7 +10,7 @@ namespace ThePLeagueAPI.Controllers
   {
     // GET api/values
     [HttpGet]
-    public async Task<ActionResult<IEnumerable<string>>> Get()
+    public ActionResult<IEnumerable<string>> Get()
     {
       return new string[] { "value1", "value2", "NewValue99" };
     }

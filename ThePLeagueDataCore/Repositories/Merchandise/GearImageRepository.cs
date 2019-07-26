@@ -59,7 +59,7 @@ namespace ThePLeagueDataCore.Repositories
       return await this._dbContext.GearImages.FindAsync(id);
     }
 
-    public async Task<bool> UpdateAsync(GearImage gearSize, CancellationToken ct = default)
+    public Task<bool> UpdateAsync(GearImage gearSize, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }

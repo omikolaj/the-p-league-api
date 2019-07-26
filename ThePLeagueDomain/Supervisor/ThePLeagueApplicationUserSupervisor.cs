@@ -12,17 +12,17 @@ namespace ThePLeagueDomain.Supervisor
   public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
   {
     #region Methods
-    public async Task<ApplicationUserViewModel> AddUserAsync(ApplicationUserViewModel userViewModel, CancellationToken ct = default)
+    public Task<ApplicationUserViewModel> AddUserAsync(ApplicationUserViewModel userViewModel, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
 
-    public async Task<bool> DeleteUserAsync(string id, CancellationToken ct = default)
+    public Task<bool> DeleteUserAsync(string id, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
 
-    public async Task<List<ApplicationUserViewModel>> GetAllUsersAsync(CancellationToken ct = default)
+    public Task<List<ApplicationUserViewModel>> GetAllUsersAsync(CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
@@ -37,7 +37,7 @@ namespace ThePLeagueDomain.Supervisor
       return userViewModel;
     }
 
-    public async Task<bool> UpdateUserAsync(ApplicationUserViewModel userViewModel, CancellationToken ct = default)
+    public Task<bool> UpdateUserAsync(ApplicationUserViewModel userViewModel, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }

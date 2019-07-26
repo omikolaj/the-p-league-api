@@ -2941,5 +2941,6 @@
     "CSharpLanguageVersion": 701
   },
   "RootNamespace": "ThePLeagueAPI",
-  "Documents": []
+  "Documents": [],
+  "SerializationFormat": "0.1"
 }

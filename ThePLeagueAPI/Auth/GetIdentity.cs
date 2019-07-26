@@ -66,22 +66,5 @@ namespace ThePLeagueAPI.Auth
 
       return new ClaimsIdentity(new GenericIdentity(user.UserName, "Token"), claims);
     }
-
-    public async Task<ClaimsIdentity> GetClaimsIdentityForNewUser(ApplicationUser user)
-    {
-      // Add new user to the SuperUser Role. This is only to allow each new user to excercise
-      // all CRUD actions 
-      throw new NotImplementedException();
-      var result = await _userManager.AddToRoleAsync(user, "SUPERUSER");
-
-      if (!result.Succeeded)
-      {
-        return await Task.FromResult<ClaimsIdentity>(null);
-      }
-
-      return await this.GenerateClaimsIdentity(user);
-
-    }
-
   }
 }

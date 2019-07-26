@@ -36,12 +36,12 @@ namespace ThePLeagueDataCore.Repositories
       return newUser;
     }
 
-    public async Task<bool> DeleteAsync(string id, CancellationToken ct = default)
+    public Task<bool> DeleteAsync(string id, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
 
-    public async Task<List<ApplicationUser>> GetAllAsync(CancellationToken ct = default)
+    public Task<List<ApplicationUser>> GetAllAsync(CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
@@ -51,7 +51,7 @@ namespace ThePLeagueDataCore.Repositories
       return await _dbContext.Users.FindAsync(id);
     }
 
-    public async Task<bool> UpdateAsync(ApplicationUser user, CancellationToken ct = default)
+    public Task<bool> UpdateAsync(ApplicationUser user, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }

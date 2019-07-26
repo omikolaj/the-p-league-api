@@ -78,7 +78,7 @@ namespace Services.EmailService
         success = true;
 
       }
-      catch (Exception ex)
+      catch
       {
         success = false;
       }
@@ -135,7 +135,7 @@ namespace Services.EmailService
         success = true;
 
       }
-      catch (Exception ex)
+      catch
       {
         success = false;
       }

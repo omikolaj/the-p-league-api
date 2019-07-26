@@ -68,7 +68,7 @@ namespace ThePLeagueDomain.Supervisor
 
       return gearItemViewModel;
     }
-    public async Task<GearSizeViewModel> AddGearSizeToGearItemByIdAsync(long gearItemId, CancellationToken ct = default)
+    public Task<GearSizeViewModel> AddGearSizeToGearItemByIdAsync(long gearItemId, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
@@ -97,7 +97,11 @@ namespace ThePLeagueDomain.Supervisor
           GearImage gearImage = deleteGearImages.ElementAt(i);
           await this._gearImageRepository.DeleteAsync(gearImage.Id, ct);
         }
+      }
 
+      // Check if we are adding any newImages. If we arent this means the gearItem will have NO default image
+      if (gearItemViewModel.NewImages != null)
+      {
         // Add all new incoming images
         foreach (GearImageViewModel gearImage in gearItemViewModel.NewImages)
         {
@@ -171,11 +175,11 @@ namespace ThePLeagueDomain.Supervisor
 
       return gearImageViewModel;
     }
-    public async Task<bool> UpdateGearImageAsync(GearImageViewModel gearSizeViewModel, CancellationToken ct = default)
+    public Task<bool> UpdateGearImageAsync(GearImageViewModel gearSizeViewModel, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
-    public async Task<bool> DeleteGearImageAsync(long? gearImageId, CancellationToken ct = default)
+    public Task<bool> DeleteGearImageAsync(long? gearImageId, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
@@ -186,7 +190,7 @@ namespace ThePLeagueDomain.Supervisor
     {
       return GearSizeConverter.ConvertList(await this._gearSizeRepository.GetAllByGearItemIdAsync(gearItemId, ct));
     }
-    public async Task<GearSizeViewModel> GetGearSizeByIdAsync(long id, CancellationToken ct = default)
+    public Task<GearSizeViewModel> GetGearSizeByIdAsync(long id, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }
@@ -220,7 +224,7 @@ namespace ThePLeagueDomain.Supervisor
 
       return await this._gearSizeRepository.UpdateAsync(gearSize, ct);
     }
-    public async Task<bool> DeleteGearSizeAsync(long gearSizeId, CancellationToken ct = default)
+    public Task<bool> DeleteGearSizeAsync(long gearSizeId, CancellationToken ct = default)
     {
       throw new System.NotImplementedException();
     }

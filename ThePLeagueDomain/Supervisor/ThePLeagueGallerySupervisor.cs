@@ -24,9 +24,18 @@ namespace ThePLeagueDomain.Supervisor
     public async Task<List<LeagueImageViewModel>> AddLeagueImagesAsync(IList<LeagueImageViewModel> leagueImagesViewModel, CancellationToken ct = default)
     {
       List<LeagueImageViewModel> addedLeagueImages = new List<LeagueImageViewModel>();
-      foreach (LeagueImageViewModel leagueImage in leagueImagesViewModel)
+      List<LeagueImageViewModel> allLeagueImages = leagueImagesViewModel.Concat(await this.GetAllLeagueImagesAsync()).OrderBy(o => o.OrderId).ToList();
+      for (int i = 0; i < allLeagueImages.Count(); i++)
       {
-        addedLeagueImages.Add(await this.AddLeagueImageAsync(leagueImage, ct));
+        LeagueImageViewModel leagueImage = allLeagueImages.ElementAt(i);
+        if (allLeagueImages.ElementAt(i).OrderId == null)
+        {
+          leagueImage.OrderId = i + 1;
+          addedLeagueImages.Add(await this.AddLeagueImageAsync(leagueImage, ct));
+          continue;
+        }
+        leagueImage.OrderId = i + 1;
+        await UpdateLeagueImageAsync(leagueImage, ct);
       }
 
       return addedLeagueImages;
@@ -54,7 +63,8 @@ namespace ThePLeagueDomain.Supervisor
         ResourceType = leagueImageViewModel.ResourceType,
         Width = leagueImageViewModel.Width,
         Height = leagueImageViewModel.Height,
-        Format = leagueImageViewModel.Format
+        Format = leagueImageViewModel.Format,
+        OrderId = leagueImageViewModel.OrderId
       };
 
       newLeagueImage = await _leagueImageRepository.AddAsync(newLeagueImage, ct);
