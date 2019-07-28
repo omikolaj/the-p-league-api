@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 
 namespace ThePLeagueAPI.Controllers
 {
@@ -8,11 +9,17 @@ namespace ThePLeagueAPI.Controllers
   [ApiController]
   public class ValuesController : ControllerBase
   {
+    private readonly IConfiguration _configuration;
+    public ValuesController(IConfiguration configuration)
+    {
+      this._configuration = configuration;
+    }
     // GET api/values
     [HttpGet]
     public ActionResult<IEnumerable<string>> Get()
     {
-      return new string[] { "value1", "value2", "NewValue99" };
+      string vaultValue = this._configuration["KeyToSecret"];
+      return new string[] { "value1", "value2", "NewValue99", $"{vaultValue}" };
     }
 
     // GET api/values/5
