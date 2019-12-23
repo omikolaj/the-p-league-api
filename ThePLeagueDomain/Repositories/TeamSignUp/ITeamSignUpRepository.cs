@@ -5,9 +5,9 @@ using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Team;
 
-namespace ThePLeagueDomain.Repositories.Team
+namespace ThePLeagueDomain.Repositories.TeamSignUp
 {
-    public interface ITeamRepository
+    public interface ITeamSignUpRepository
     {
         #region Methods
 

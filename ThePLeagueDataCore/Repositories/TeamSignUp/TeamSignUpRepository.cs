@@ -8,11 +8,11 @@ using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Schedule;
 using ThePLeagueDomain.Models.Team;
 using ThePLeagueDomain.Repositories;
-using ThePLeagueDomain.Repositories.Team;
+using ThePLeagueDomain.Repositories.TeamSignUp;
 
-namespace ThePLeagueDataCore.Repositories.Gallery
+namespace ThePLeagueDataCore.Repositories.TeamSignUp
 {
-    public class TeamRepository : ITeamRepository
+    public class TeamSignUpRepository : ITeamSignUpRepository
     {
         #region Fields and Properties
         private readonly ThePLeagueContext _dbContext;
@@ -20,7 +20,7 @@ namespace ThePLeagueDataCore.Repositories.Gallery
         #endregion
 
         #region Constructor
-        public TeamRepository(ThePLeagueContext dbContext)
+        public TeamSignUpRepository(ThePLeagueContext dbContext)
         {
             this._dbContext = dbContext;
         }
@@ -69,52 +69,6 @@ namespace ThePLeagueDataCore.Repositories.Gallery
         public Task<bool> UpdateSignUpFormAsync(TeamSignUpForm leagueImage, CancellationToken ct = default)
         {
             throw new NotImplementedException();
-        }
-
-        #endregion
-
-        #region Team
-
-        private async Task<bool> TeamExists(string id, CancellationToken ct = default(CancellationToken))
-        {
-            return await GetByIdAsync(id, ct) != null;
-        }
-
-        public async Task<Team> GetByIdAsync(string id, CancellationToken ct = default)
-        {
-            return await this._dbContext.Teams.FindAsync(id);
-        }
-        public async Task<bool> DeleteAsync(string id, CancellationToken ct = default)
-        {
-            if(!await TeamExists(id, ct))
-            {
-                return false;
-            }
-
-            Team teamToDelete = this._dbContext.Teams.Find(id);
-            this._dbContext.Teams.Remove(teamToDelete);
-            await this._dbContext.SaveChangesAsync(ct);
-            return true;
-        }
-
-        public async Task<Team> AddAsync(Team newTeam, CancellationToken ct = default)
-        {
-            this._dbContext.Teams.Add(newTeam);
-            await this._dbContext.SaveChangesAsync(ct);
-
-            return newTeam;
-        }
-
-        public async Task<bool> UpdateAsync(Team updatedTeam, CancellationToken ct = default)
-        {
-            if(!await this.TeamExists(updatedTeam.Id))
-            {
-                return false;
-            }
-
-            this._dbContext.Teams.Update(updatedTeam);
-            await this._dbContext.SaveChangesAsync(ct);
-            return true;
         }
 
         #endregion

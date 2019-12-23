@@ -19,7 +19,7 @@ namespace ThePLeagueDomain.Supervisor
         Name = newTeamViewModel.Name
       };
 
-      newTeamForm = await this._teamRepository.AddSignUpFormAsync(newTeamForm);
+      newTeamForm = await this._teamSignUpRepository.AddSignUpFormAsync(newTeamForm);
       newTeamViewModel.Id = newTeamForm.Id;
 
       Contact teamContact = new Contact()
@@ -31,7 +31,7 @@ namespace ThePLeagueDomain.Supervisor
         TeamSignUpFormId = newTeamViewModel.Id
       };
 
-      newTeamViewModel.Contact = ContactConverter.Convert(await this._teamRepository.AddTeamContactAsync(teamContact, ct));
+      newTeamViewModel.Contact = ContactConverter.Convert(await this._teamSignUpRepository.AddTeamContactAsync(teamContact, ct));
 
       return newTeamViewModel;
     }
@@ -47,7 +47,7 @@ namespace ThePLeagueDomain.Supervisor
         TeamSignUpFormId = contactViewModel.TeamSignUpFormId
       };
 
-      contact = await this._teamRepository.AddTeamContactAsync(contact, ct);
+      contact = await this._teamSignUpRepository.AddTeamContactAsync(contact, ct);
       contactViewModel.Id = contact.Id;
 
       return contactViewModel;

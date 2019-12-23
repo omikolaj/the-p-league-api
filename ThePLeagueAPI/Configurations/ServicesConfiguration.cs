@@ -4,11 +4,12 @@ using Services.EmailService;
 using ThePLeagueAPI.Auth.Jwt;
 using ThePLeagueDataCore.Repositories;
 using ThePLeagueDataCore.Repositories.Gallery;
+using ThePLeagueDataCore.Repositories.TeamSignUp;
 using ThePLeagueDomain;
 using ThePLeagueDomain.Repositories;
 using ThePLeagueDomain.Repositories.Gallery;
 using ThePLeagueDomain.Repositories.Merchandise;
-using ThePLeagueDomain.Repositories.Team;
+using ThePLeagueDomain.Repositories.TeamSignUp;
 using ThePLeagueDomain.Supervisor;
 
 namespace ThePLeagueAPI.Configurations
@@ -23,7 +24,7 @@ namespace ThePLeagueAPI.Configurations
               .AddScoped<IGearImageRepository, GearImageRepository>()
               .AddScoped<IGearSizeRepository, GearSizeRepository>()
               .AddScoped<ILeagueImageRepository, LeagueImageRepository>()
-              .AddScoped<ITeamRepository, TeamRepository>()
+              .AddScoped<ITeamSignUpRepository, TeamSignUpRepository>()
               .AddScoped<IPreOrderRepository, PreOrderRepository>();
 
       return services;
