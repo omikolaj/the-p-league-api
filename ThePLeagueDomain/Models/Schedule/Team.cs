@@ -8,7 +8,7 @@ namespace ThePLeagueDomain.Models.Schedule
     {
         #region Properties and Fields
 
-        public string ID { get; set; }
+        public string Id { get; set; }
         public string Name { get; set; }
         public string LeagueID { get; set; }
         public bool Selected { get; set; }

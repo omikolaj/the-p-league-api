@@ -6,6 +6,7 @@ namespace ThePLeagueDomain.Models.Schedule
 {
     public class GameTime
     {
+        public string Id { get; set; }
         public string GamesTime { get; set; }
     }
 }

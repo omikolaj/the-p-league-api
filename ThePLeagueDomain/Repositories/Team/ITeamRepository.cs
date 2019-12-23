@@ -7,26 +7,21 @@ using ThePLeagueDomain.Models.Team;
 
 namespace ThePLeagueDomain.Repositories.Team
 {
-  public interface ITeamRepository
-  {
-    #region Methods
+    public interface ITeamRepository
+    {
+        #region Methods
 
-    #region Team SignUp
-    Task<TeamSignUpForm> GetTeamSignUpFormByIdAsync(long? id, CancellationToken ct = default(CancellationToken));
-    Task<Contact> GetTeamContactByTeamId(long? teamId, CancellationToken ct = default(CancellationToken));
-    Task<List<TeamSignUpForm>> GetAllSignUpFormsAsync(CancellationToken ct = default(CancellationToken));
-    Task<bool> DeleteSignUpFormAsync(long? id, CancellationToken ct = default(CancellationToken));
-    Task<TeamSignUpForm> AddSignUpFormAsync(TeamSignUpForm teamSignUpForm, CancellationToken ct = default(CancellationToken));
-    Task<Contact> AddTeamContactAsync(Contact teamContact, CancellationToken ct = default(CancellationToken));
-    Task<bool> UpdateSignUpFormAsync(TeamSignUpForm leagueImage, CancellationToken ct = default(CancellationToken));
+        #region Team SignUp
+        Task<TeamSignUpForm> GetTeamSignUpFormByIdAsync(long? id, CancellationToken ct = default(CancellationToken));
+        Task<Contact> GetTeamContactByTeamId(long? teamId, CancellationToken ct = default(CancellationToken));
+        Task<List<TeamSignUpForm>> GetAllSignUpFormsAsync(CancellationToken ct = default(CancellationToken));
+        Task<bool> DeleteSignUpFormAsync(long? id, CancellationToken ct = default(CancellationToken));
+        Task<TeamSignUpForm> AddSignUpFormAsync(TeamSignUpForm teamSignUpForm, CancellationToken ct = default(CancellationToken));
+        Task<Contact> AddTeamContactAsync(Contact teamContact, CancellationToken ct = default(CancellationToken));
+        Task<bool> UpdateSignUpFormAsync(TeamSignUpForm leagueImage, CancellationToken ct = default(CancellationToken));
 
-    #endregion
+        #endregion
 
-    #region Team
-    Task<bool> DeleteAsync(long? id, CancellationToken ct = default(CancellationToken));
-
-    #endregion
-
-    #endregion
-  }
+        #endregion
+    }
 }
