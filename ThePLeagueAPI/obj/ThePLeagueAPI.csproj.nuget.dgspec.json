@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj": {}
+    "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj": {}
   },
   "projects": {
-    "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj": {
+    "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
+        "projectUniqueName": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
         "projectName": "ThePLeagueAPI",
-        "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
+        "projectPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
         "packagesPath": "C:\\Users\\omiko\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\obj\\",
+        "outputPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -30,11 +30,11 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj": {
-                "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj"
+              "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj": {
+                "projectPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj"
               },
-              "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
-                "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj"
+              "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
+                "projectPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj"
               }
             }
           }
@@ -118,14 +118,14 @@
         }
       }
     },
-    "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj": {
+    "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj",
+        "projectUniqueName": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj",
         "projectName": "ThePLeagueDataCore",
-        "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj",
+        "projectPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj",
         "packagesPath": "C:\\Users\\omiko\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\obj\\",
+        "outputPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -144,8 +144,8 @@
         "frameworks": {
           "netcoreapp2.2": {
             "projectReferences": {
-              "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
-                "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj"
+              "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
+                "projectPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj"
               }
             }
           }
@@ -192,14 +192,14 @@
         }
       }
     },
-    "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
+    "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj",
+        "projectUniqueName": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj",
         "projectName": "ThePLeagueDomain",
-        "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj",
+        "projectPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj",
         "packagesPath": "C:\\Users\\omiko\\.nuget\\packages\\",
-        "outputPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\obj\\",
+        "outputPath": "d:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
