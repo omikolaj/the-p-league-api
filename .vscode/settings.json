@@ -1,4 +1,0 @@
-{
-  "appService.defaultWebAppToDeploy": "",
-  "appService.deploySubpath": "ThePLeagueAPI\\bin\\Release\\netcoreapp2.2\\publish"
-}

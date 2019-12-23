@@ -4961,7 +4961,7 @@
   },
   "libraries": {
     "Cloudinary.Core/1.31.0": {
-      "sha512": "B1WOOvWT7yt78+y785iD8JVYUUK4yP8a0ZXJGAOPYbRjQcSsCnzMq9aXNjF3GIoQIYK+l0R15v6ht7iOmmgkUg==",
+      "sha512": "w2mz3NhHjRWqUKTFkVX1oJ341AlwWHm42/GSjxm7MfuJcaronPfdEOD+iCa7IVxcYGhrs/DTjMP9OdHO9+KJVw==",
       "type": "package",
       "path": "cloudinary.core/1.31.0",
       "files": [
@@ -7269,7 +7269,7 @@
       ]
     },
     "Microsoft.IdentityModel.JsonWebTokens/5.4.0": {
-      "sha512": "WTk0k+csFrUEXvtl1BhGvAmAp3UTuGt250L7BDasTxRZN6O7bWEJ41RW11RYWZWX1W5cD+mPr2jihA745URsWw==",
+      "sha512": "CDIV/v6s7ZbNjk2Z9rgUP0TToBsIIbTauyosShTRzKRthNpyk6uWzlPQA9/gPXhYERugfhp/w75phDqpH093Pw==",
       "type": "package",
       "path": "microsoft.identitymodel.jsonwebtokens/5.4.0",
       "files": [
@@ -7295,7 +7295,7 @@
       ]
     },
     "Microsoft.IdentityModel.Logging/5.4.0": {
-      "sha512": "Y8IN/3GDrlts6NW/ROBuniDM25px9ARbUL+IBhP40xnA99kukpePK/MWyJma82xI6oRbc+yWllZpvZKNpE+ykA==",
+      "sha512": "lkLmOqJN9ELf1m/+yvvnfm2cipP/RIKzHideQqH+hfFcZMkI4nn2PEOvw6VDpPzPg+31dqJm6W+rhoq5ewrEbA==",
       "type": "package",
       "path": "microsoft.identitymodel.logging/5.4.0",
       "files": [
@@ -7399,7 +7399,7 @@
       ]
     },
     "Microsoft.IdentityModel.Tokens/5.4.0": {
-      "sha512": "DiKt1lXqbaA4nTsVymsKwbRJzvCv24ZRau00X7nV8NbGIcmtVHyc6s388ZZSsZpzkN4e1ODwv23t1JtZzDJMGQ==",
+      "sha512": "Lim2PqkdqLRbLqMaP0Hws8vmzmZVVg4sso5J2OwJi1/eE0PmfEbC22b3VeHhL5CRIYKPtzvbiyK/Ahu71/rdpA==",
       "type": "package",
       "path": "microsoft.identitymodel.tokens/5.4.0",
       "files": [
@@ -8267,12 +8267,11 @@
       ]
     },
     "runtime.native.System.IO.Compression/4.3.0": {
-      "sha512": "INBPonS5QPEgn7naufQFXJEp3zX6L4bwHgJ/ZH78aBTpeNfQMtf7C6VrAFhlq2xxWBveIOWyFzQjJ8XzHMhdOQ==",
+      "sha512": "b+V9JC/Ii3sR659flBeaBJww111425tgjcDS1k+hqV4sGh9FALRDBvJnDtQ895gAzpPTUOFDHdqaZ2Et7BpZMg==",
       "type": "package",
       "path": "runtime.native.system.io.compression/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/netstandard1.0/_._",
@@ -8373,7 +8372,7 @@
       ]
     },
     "runtime.osx.10.10-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "/p8IQT2brFMDa7BHMH71LV+w5Tb3OxoLHxhn6+MGqN5xeqhM2HRHmj+7xQGJnaRn73d7ZTvp6yRCFMvolws4wA==",
+      "sha512": "X7IdhILzr4ROXd8mI1BUCQMSHSQwelUlBjF1JyTKCjXaOGn2fB4EKBxQbCK2VjO3WaWIdlXZL3W6TiIVnrhX4g==",
       "type": "package",
       "path": "runtime.osx.10.10-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -8386,7 +8385,7 @@
       ]
     },
     "runtime.rhel.7-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "nyFNiCk/r+VOiIqreLix8yN+q3Wga9+SE8BCgkf+2BwEKiNx6DyvFjCgkfV743/grxv8jHJ8gUK4XEQw7yzRYg==",
+      "sha512": "T5NvFgmHX0WH4c7lP72krsnk+IJI10vJf2j2twGE+5QBRA4RyRAgD+ZjEgdmpLOjW4B+nZGaadewTCUcR899OQ==",
       "type": "package",
       "path": "runtime.rhel.7-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -8399,7 +8398,7 @@
       ]
     },
     "runtime.ubuntu.14.04-x64.runtime.native.System.Security.Cryptography.OpenSsl/4.3.0": {
-      "sha512": "JGc0pAWRE8lB4Ucygk2pYSKbUPLlAIq6Bczf5/WF2D/VKJEPtYlVUMxk8fbl1zRfTWzSHi+VcFZlaPlWiNxeKg==",
+      "sha512": "ytoewC6wGorL7KoCAvRfsgoJPJbNq+64k2SqW6JcOAebWsFUvCCYgfzQMrnpvPiEl4OrblUlhF2ji+Q1+SVLrQ==",
       "type": "package",
       "path": "runtime.ubuntu.14.04-x64.runtime.native.system.security.cryptography.openssl/4.3.0",
       "files": [
@@ -8723,12 +8722,11 @@
       ]
     },
     "System.Collections.NonGeneric/4.3.0": {
-      "sha512": "prtjIEMhGUnQq6RnPEYLpFt8AtLbp9yq2zxOSrY7KJJZrw25Fi97IzBqY7iqssbM61Ek5b8f3MG/sG1N2sN5KA==",
+      "sha512": "LE/oChpRvkSi3U25u0KnJcI44JeDZ1QJCyN4qFDx2uusEypdqR24w7lKYw21eYe5esuCBuc862wRmpF63Yy1KQ==",
       "type": "package",
       "path": "system.collections.nongeneric/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -8762,7 +8760,7 @@
       ]
     },
     "System.Collections.Specialized/4.3.0": {
-      "sha512": "NoPBj0ykejqAWW4p4gGtrrL+3c84ZLSvGnHgq422ew1Rj4WKj1FA8/BCybqC111EtgcqUl6ZJNFYYS22HLgbjA==",
+      "sha512": "Epx8PoVZR0iuOnJJDzp7pWvdfMMOAvpUo95pC4ScH2mJuXkKA2Y4aR3cG9qt2klHgSons1WFh4kcGW7cSXvrxg==",
       "type": "package",
       "path": "system.collections.specialized/4.3.0",
       "files": [
@@ -8947,7 +8945,7 @@
       ]
     },
     "System.ComponentModel.Primitives/4.3.0": {
-      "sha512": "KMVuoQ+8bMQ/Z59M3s64num5AD74X5YSqVc7ibwGkPTfmmkl2W8VuSxLRJtpw4KzQrSKUgR0BLbF0adPfcTSGQ==",
+      "sha512": "j8GUkCpM8V4d4vhLIIoBLGey2Z5bCkMVNjEZseyAlm4n5arcsJOeI3zkUP+zvZgzsbLTYh4lYeP/ZD/gdIAPrw==",
       "type": "package",
       "path": "system.componentmodel.primitives/4.3.0",
       "files": [
@@ -9796,7 +9794,7 @@
       ]
     },
     "System.IdentityModel.Tokens.Jwt/5.4.0": {
-      "sha512": "juMUUwWFVe6zmxyFyS44G1nkYTjDCMGOD+Ij7R5EQ3ILxOdN0AwResmg5blZClDkqp+D2kMjzMln2KeMJnAgJQ==",
+      "sha512": "3iSL/4C+K4d9k700URwCoAEXFesI1Ho0DP/QSr9nmzJZY69oi48qYlglXbl2zz3lB+XfgPiuYoSJ6qIdYBPFzQ==",
       "type": "package",
       "path": "system.identitymodel.tokens.jwt/5.4.0",
       "files": [
@@ -13036,12 +13034,11 @@
       ]
     },
     "System.Threading.ThreadPool/4.3.0": {
-      "sha512": "k/+g4b7vjdd4aix83sTgC9VG6oXYKAktSfNIJUNGxPEj7ryEOfzHHhfnmsZvjxawwcD9HyWXKCXmPjX8U4zeSw==",
+      "sha512": "SrCOmTvvOOCmJT4BBxdZcwhz6XEMsjBGZvGSVorOxdCznaUNeVotEjDfXGIZ8gcGo00qgPbTV6puHDgcFYl6Iw==",
       "type": "package",
       "path": "system.threading.threadpool/4.3.0",
       "files": [
         ".nupkg.metadata",
-        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -13455,11 +13452,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
+      "projectUniqueName": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
       "projectName": "ThePLeagueAPI",
-      "projectPath": "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
+      "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\ThePLeagueAPI.csproj",
       "packagesPath": "C:\\Users\\omiko\\.nuget\\packages\\",
-      "outputPath": "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\obj\\",
+      "outputPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -13478,11 +13475,11 @@
       "frameworks": {
         "netcoreapp2.2": {
           "projectReferences": {
-            "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj": {
-              "projectPath": "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj"
+            "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj": {
+              "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDataCore\\ThePLeagueDataCore.csproj"
             },
-            "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
-              "projectPath": "C:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj"
+            "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj": {
+              "projectPath": "D:\\Dev\\Projects\\pleague\\the-p-league-api\\ThePLeagueDomain\\ThePLeagueDomain.csproj"
             }
           }
         }

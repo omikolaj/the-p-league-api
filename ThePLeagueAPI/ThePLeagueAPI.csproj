@@ -1,11 +1,11 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
     <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
     <UserSecretsId>46e2b54a-553a-4e16-820d-47d842af9320</UserSecretsId>
     <LangVersion>7.1</LangVersion>
-    <EnvironmentName>Production</EnvironmentName>
+    <EnvironmentName>Production</EnvironmentName>    
   </PropertyGroup>
 
   <ItemGroup>

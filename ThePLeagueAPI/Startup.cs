@@ -40,26 +40,30 @@ namespace ThePLeagueAPI
 
     public IConfiguration Configuration { get; }
 
-    // This method gets called by the runtime. Use this method to add services to the container.
-    public void ConfigureServices(IServiceCollection services)
-    {
-      services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+        // This method gets called by the runtime. Use this method to add services to the container.
+        public void ConfigureServices(IServiceCollection services)
+        {
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
 
-      //Set up service provider container with custom application specific configuration
+            //Set up service provider container with custom application specific configuration
 
-      services
-        .AddEntityFrameworkSqlServer()
-        .AddConnectionProvider(Configuration)
-        .ConfigureRepositories()
-        .ConfigureSupervisor()
-        .AddMiddleware()
-        .AddCorsConfiguration(Configuration)
-        .AddIdentityConfiguration()
-        .ConfigureApplicationCookies()
-        .ConfigureJsonWebToken(Configuration)
-        .ConfigureControllersFilters()
-        .ConfigureCloudinaryService(Configuration)
-        .ConfigureEmailSetUp();
+            services
+              .AddEntityFrameworkSqlServer()
+              .AddConnectionProvider(Configuration)
+              .ConfigureRepositories()
+              .ConfigureSupervisor()
+              .AddMiddleware()
+              .AddCorsConfiguration(Configuration)
+              .AddIdentityConfiguration()
+              .ConfigureApplicationCookies()
+              .ConfigureJsonWebToken(Configuration)
+              .ConfigureControllersFilters()
+              .ConfigureCloudinaryService(Configuration)
+              .ConfigureEmailSetUp()
+              .AddSpaStaticFiles(spa => 
+              {
+                  spa.RootPath = "wwwroot";
+              });
     }
 
     // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -75,13 +79,17 @@ namespace ThePLeagueAPI
         app.UseHsts();
       }
 
-      // Middleware has to be registered first, otherwise we get a bearer challenge 401 error
-      app.UseCors("AllowAll")
-          .UseMiddleware<JwtBearerMiddleware>()
-          .UseAuthentication()
-          .SeedDatabase()
-          .UseHttpsRedirection()
-          .UseMvc();
+            // Middleware has to be registered first, otherwise we get a bearer challenge 401 error
+            app.UseCors("AllowAll")
+                .UseMiddleware<JwtBearerMiddleware>()
+                .UseAuthentication()
+                .SeedDatabase()
+                .UseHttpsRedirection()
+                .UseDefaultFiles()
+                .UseMvc()
+                .UseSpa(SpaApplicationBuilderExtensions => { });
+
+            app.UseSpaStaticFiles();
     }
   }
 }

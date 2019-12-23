@@ -17,7 +17,15 @@ namespace ThePLeagueAPI
   {
     public static void Main(string[] args)
     {
-      CreateWebHostBuilder(args).Build().Run();
+            try
+            {
+                CreateWebHostBuilder(args).Build().Run();
+            }
+            catch(Exception ex)
+            {
+
+            }
+      
     }
 
     public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

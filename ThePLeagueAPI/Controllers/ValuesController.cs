@@ -19,6 +19,10 @@ namespace ThePLeagueAPI.Controllers
     public ActionResult<IEnumerable<string>> Get()
     {
       string vaultValue = this._configuration["KeyToSecret"];
+      if (vaultValue == null)
+      {
+        return new string[] { "VaultValueWasNull" };
+      }
       return new string[] { "value1", "value2", "NewValue99", $"{vaultValue}" };
     }
 
