@@ -8,7 +8,6 @@ namespace ThePLeagueDomain.Models.Schedule
     {
         #region Properties and Fields
 
-        public string Id { get; set; }
         public string LeagueID { get; set; }
         public bool ByeWeeks { get; set; }
         public long? NumberOfWeeks { get; set; }

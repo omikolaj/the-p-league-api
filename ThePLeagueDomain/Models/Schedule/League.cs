@@ -11,7 +11,7 @@ namespace ThePLeagueDomain.Models.Schedule
         public string Type { get; set; }
         public IEnumerable<Team> Teams { get; set; }
         public bool Selected { get; set; }
-        public long? SportTypeID { get; set; }
+        public string SportTypeID { get; set; }
         public IEnumerable<LeagueSessionSchedule> Sessions { get; set; }
 
         #endregion
