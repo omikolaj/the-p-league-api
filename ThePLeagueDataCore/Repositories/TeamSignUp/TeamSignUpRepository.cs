@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Schedule;
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 using ThePLeagueDomain.Repositories;
 using ThePLeagueDomain.Repositories.TeamSignUp;
 

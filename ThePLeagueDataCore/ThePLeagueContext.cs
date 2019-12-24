@@ -5,7 +5,7 @@ using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Merchandise;
 using ThePLeagueDomain.Models.Schedule;
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 
 namespace ThePLeagueDataCore
 {

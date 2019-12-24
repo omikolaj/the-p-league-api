@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
@@ -68,6 +69,11 @@ namespace ThePLeagueDataCore.Repositories.Schedule
             this._dbContext.SportTypes.Update(sportTypeToUpdate);
             await this._dbContext.SaveChangesAsync(ct);
             return true;
+        }
+
+        public async Task<List<SportType>> GetAllAsync(CancellationToken ct = default)
+        {
+            return await this._dbContext.SportTypes.Include(sportType => sportType.Leagues).ThenInclude(league => league.Teams).ToListAsync(ct);
         }
 
         #endregion

@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 
 namespace ThePLeagueDomain.Repositories.TeamSignUp
 {

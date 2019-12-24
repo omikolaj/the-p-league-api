@@ -4,7 +4,7 @@ using System.Text;
 
 namespace ThePLeagueDomain.Supervisor
 {
-    class ThePLeagueTeamSupervisor
+    class ThePLeagueLeagueSupervisor
     {
     }
 }

@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.AspNetCore.Identity;
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 
 namespace ThePLeagueDomain.Models.Merchandise
 {

@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace ThePLeagueDomain.Models.Team
+namespace ThePLeagueDomain.Models.TeamSignUp
 {
   public class Contact : ContactBase
   {

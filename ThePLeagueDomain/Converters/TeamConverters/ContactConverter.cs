@@ -1,6 +1,6 @@
 using System;
 using ThePLeagueDomain.Models;
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 using ThePLeagueDomain.ViewModels;
 using ThePLeagueDomain.ViewModels.Team;
 

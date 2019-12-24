@@ -1,4 +1,4 @@
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 using ThePLeagueDomain.ViewModels.Team;
 
 namespace ThePLeagueDomain.Converters.TeamConverters

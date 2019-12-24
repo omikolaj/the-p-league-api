@@ -11,7 +11,10 @@ namespace ThePLeagueDomain.Repositories.Schedule
     {
         #region Method
 
-        Task<LeagueSessionSchedule> PublishSessionSchedule(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default(CancellationToken));
+        Task<LeagueSessionSchedule> AddScheduleAsync(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default(CancellationToken));        
+        Task<Match> AddMatchAsync(Match newMatch, CancellationToken ct = default(CancellationToken));
+        Task<GameDay> AddGameDayAsync(GameDay newGameDay, CancellationToken ct = default);
+        Task<GameTime> AddGameTimeAsync(GameTime newGameTime, CancellationToken ct = default);
 
         #endregion
     }

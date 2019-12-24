@@ -27,13 +27,36 @@ namespace ThePLeagueDomain.Repositories.Schedule
 
         #region Methods
 
-
-        public async Task<LeagueSessionSchedule> PublishSessionSchedule(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default)
+        public async Task<LeagueSessionSchedule> AddScheduleAsync(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default)
         {
             this._dbContext.LeagueSessions.Add(newLeagueSessionSchedule);
             await this._dbContext.SaveChangesAsync(ct);
 
             return newLeagueSessionSchedule;
+        }
+
+        public async Task<GameDay> AddGameDayAsync(GameDay newGameDay, CancellationToken ct = default)
+        {
+            this._dbContext.GameDays.Add(newGameDay);
+            await this._dbContext.SaveChangesAsync(ct);
+
+            return newGameDay;
+        }
+
+        public async Task<GameTime> AddGameTimeAsync(GameTime newGameTime, CancellationToken ct = default)
+        {
+            this._dbContext.Add(newGameTime);
+            await this._dbContext.SaveChangesAsync(ct);
+
+            return newGameTime;
+        }
+
+        public async Task<Match> AddMatchAsync(Match newMatch, CancellationToken ct = default)
+        {
+            this._dbContext.Add(newMatch);
+            await this._dbContext.SaveChangesAsync(ct);
+
+            return newMatch;
         }
 
         #endregion

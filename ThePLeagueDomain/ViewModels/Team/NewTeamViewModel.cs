@@ -1,4 +1,4 @@
-using ThePLeagueDomain.Models.Team;
+using ThePLeagueDomain.Models.TeamSignUp;
 
 namespace ThePLeagueDomain.ViewModels.Team
 {
