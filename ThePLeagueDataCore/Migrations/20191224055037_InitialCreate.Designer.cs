@@ -10,14 +10,14 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20190625023444_InitialCreate")]
+    [Migration("20191224055037_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
+                .HasAnnotation("ProductVersion", "2.2.6-servicing-10079")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -1374,7 +1374,24 @@ namespace ThePLeagueDataCore.Migrations
                         });
                 });
 
-            modelBuilder.Entity("ThePLeagueDomain.Models.Team.Contact", b =>
+            modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.PreOrder", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long?>("GearItemId");
+
+                    b.Property<long?>("Quantity");
+
+                    b.Property<int>("Size");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PreOrders");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.PreOrderContact", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -1392,6 +1409,186 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("PhoneNumber")
                         .IsRequired();
 
+                    b.Property<long?>("PreOrderId");
+
+                    b.Property<int>("PreferredContact");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PreOrderId")
+                        .IsUnique()
+                        .HasFilter("[PreOrderId] IS NOT NULL");
+
+                    b.ToTable("PreOrderContacts");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.GameDay", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("GamesDay");
+
+                    b.Property<string>("LeagueSessionScheduleId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeagueSessionScheduleId");
+
+                    b.ToTable("GameDays");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.GameTime", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("GameDayId");
+
+                    b.Property<string>("GamesTime");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("GameDayId");
+
+                    b.ToTable("GameTimes");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.League", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.Property<string>("SportTypeID");
+
+                    b.Property<string>("Type");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SportTypeID");
+
+                    b.ToTable("Leagues");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
+
+                    b.Property<bool>("ByeWeeks");
+
+                    b.Property<string>("LeagueID");
+
+                    b.Property<long?>("NumberOfWeeks");
+
+                    b.Property<DateTime>("SessionEnd");
+
+                    b.Property<DateTime>("SessionStart");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeagueID");
+
+                    b.ToTable("LeagueSessions");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Match", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long?>("AwayTeamId");
+
+                    b.Property<string>("AwayTeamId1");
+
+                    b.Property<DateTime>("DateTime");
+
+                    b.Property<long?>("HomeTeamId");
+
+                    b.Property<string>("HomeTeamId1");
+
+                    b.Property<string>("LeagueID");
+
+                    b.Property<string>("LeagueSessionScheduleId");
+
+                    b.Property<string>("SessionID");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AwayTeamId1");
+
+                    b.HasIndex("HomeTeamId1");
+
+                    b.HasIndex("LeagueSessionScheduleId");
+
+                    b.ToTable("Matches");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.SportType", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SportTypes");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Team", b =>
+                {
+                    b.Property<string>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired();
+
+                    b.Property<string>("LeagueID");
+
+                    b.Property<string>("LeagueSessionScheduleId");
+
+                    b.Property<string>("Name");
+
+                    b.Property<bool>("Selected");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("LeagueID");
+
+                    b.HasIndex("LeagueSessionScheduleId");
+
+                    b.ToTable("Teams");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("Team");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.TeamSignUp.Contact", b =>
+                {
+                    b.Property<long?>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Email")
+                        .IsRequired();
+
+                    b.Property<string>("FirstName")
+                        .IsRequired();
+
+                    b.Property<string>("LastName")
+                        .IsRequired();
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired();
+
+                    b.Property<int>("PreferredContact");
+
                     b.Property<long?>("TeamSignUpFormId");
 
                     b.HasKey("Id");
@@ -1403,7 +1600,7 @@ namespace ThePLeagueDataCore.Migrations
                     b.ToTable("TeamsContact");
                 });
 
-            modelBuilder.Entity("ThePLeagueDomain.Models.Team.TeamSignUpForm", b =>
+            modelBuilder.Entity("ThePLeagueDomain.Models.TeamSignUp.TeamSignUpForm", b =>
                 {
                     b.Property<long?>("Id")
                         .ValueGeneratedOnAdd()
@@ -1415,6 +1612,20 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("TeamSignUpForms");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.AwayTeam", b =>
+                {
+                    b.HasBaseType("ThePLeagueDomain.Models.Schedule.Team");
+
+                    b.HasDiscriminator().HasValue("AwayTeam");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.HomeTeam", b =>
+                {
+                    b.HasBaseType("ThePLeagueDomain.Models.Schedule.Team");
+
+                    b.HasDiscriminator().HasValue("HomeTeam");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1476,11 +1687,72 @@ namespace ThePLeagueDataCore.Migrations
                         .HasForeignKey("GearItemId");
                 });
 
-            modelBuilder.Entity("ThePLeagueDomain.Models.Team.Contact", b =>
+            modelBuilder.Entity("ThePLeagueDomain.Models.Merchandise.PreOrderContact", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.Team.TeamSignUpForm", "TeamSignUpForm")
+                    b.HasOne("ThePLeagueDomain.Models.Merchandise.PreOrder", "PreOrder")
                         .WithOne("Contact")
-                        .HasForeignKey("ThePLeagueDomain.Models.Team.Contact", "TeamSignUpFormId");
+                        .HasForeignKey("ThePLeagueDomain.Models.Merchandise.PreOrderContact", "PreOrderId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.GameDay", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
+                        .WithMany("GamesDays")
+                        .HasForeignKey("LeagueSessionScheduleId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.GameTime", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.GameDay")
+                        .WithMany("GamesTimes")
+                        .HasForeignKey("GameDayId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.League", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.SportType")
+                        .WithMany("Leagues")
+                        .HasForeignKey("SportTypeID");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.League")
+                        .WithMany("Sessions")
+                        .HasForeignKey("LeagueID");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Match", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.AwayTeam", "AwayTeam")
+                        .WithMany("Matches")
+                        .HasForeignKey("AwayTeamId1");
+
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.HomeTeam", "HomeTeam")
+                        .WithMany("Matches")
+                        .HasForeignKey("HomeTeamId1");
+
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
+                        .WithMany("Matches")
+                        .HasForeignKey("LeagueSessionScheduleId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Team", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.League")
+                        .WithMany("Teams")
+                        .HasForeignKey("LeagueID");
+
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
+                        .WithMany("Teams")
+                        .HasForeignKey("LeagueSessionScheduleId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.TeamSignUp.Contact", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.TeamSignUp.TeamSignUpForm", "TeamSignUpForm")
+                        .WithOne("Contact")
+                        .HasForeignKey("ThePLeagueDomain.Models.TeamSignUp.Contact", "TeamSignUpFormId");
                 });
 #pragma warning restore 612, 618
         }

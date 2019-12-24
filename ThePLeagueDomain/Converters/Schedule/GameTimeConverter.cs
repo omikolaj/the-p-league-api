@@ -22,14 +22,14 @@ namespace ThePLeagueDomain.Converters.Schedule
 
         public static List<GameTimeViewModel> ConvertList(IEnumerable<GameTime> gameTimes)
         {
-            return gameTimes.Select(gameTime => 
+            return gameTimes.Select(gameTime =>
             {
                 GameTimeViewModel model = new GameTimeViewModel();
                 model.GamesTime = gameTime.GamesTime;
                 model.Id = gameTime.Id;
 
                 return model;
-            }).ToList()
+            }).ToList();
         }
 
         #endregion

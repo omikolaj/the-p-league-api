@@ -4,11 +4,13 @@ using Services.EmailService;
 using ThePLeagueAPI.Auth.Jwt;
 using ThePLeagueDataCore.Repositories;
 using ThePLeagueDataCore.Repositories.Gallery;
+using ThePLeagueDataCore.Repositories.Schedule;
 using ThePLeagueDataCore.Repositories.TeamSignUp;
 using ThePLeagueDomain;
 using ThePLeagueDomain.Repositories;
 using ThePLeagueDomain.Repositories.Gallery;
 using ThePLeagueDomain.Repositories.Merchandise;
+using ThePLeagueDomain.Repositories.Schedule;
 using ThePLeagueDomain.Repositories.TeamSignUp;
 using ThePLeagueDomain.Supervisor;
 
@@ -18,14 +20,18 @@ namespace ThePLeagueAPI.Configurations
   {
     public static IServiceCollection ConfigureRepositories(this IServiceCollection services)
     {
-      //Register repository interfaces here      
-      services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>()
-              .AddScoped<IGearItemRepository, GearItemRepository>()
-              .AddScoped<IGearImageRepository, GearImageRepository>()
-              .AddScoped<IGearSizeRepository, GearSizeRepository>()
-              .AddScoped<ILeagueImageRepository, LeagueImageRepository>()
-              .AddScoped<ITeamSignUpRepository, TeamSignUpRepository>()
-              .AddScoped<IPreOrderRepository, PreOrderRepository>();
+            //Register repository interfaces here      
+            services.AddScoped<IApplicationUserRepository, ApplicationUserRepository>()
+                    .AddScoped<IGearItemRepository, GearItemRepository>()
+                    .AddScoped<IGearImageRepository, GearImageRepository>()
+                    .AddScoped<IGearSizeRepository, GearSizeRepository>()
+                    .AddScoped<ILeagueImageRepository, LeagueImageRepository>()
+                    .AddScoped<ITeamSignUpRepository, TeamSignUpRepository>()
+                    .AddScoped<IPreOrderRepository, PreOrderRepository>()
+                    .AddScoped<ILeagueRepository, LeagueRepository>()
+                    .AddScoped<ISessionScheduleRepository, SessionScheduleRepository>()
+                    .AddScoped<ISportTypeRepository, SportTypeRepository>()
+                    .AddScoped<ITeamRepository, TeamRepository>();
 
       return services;
     }

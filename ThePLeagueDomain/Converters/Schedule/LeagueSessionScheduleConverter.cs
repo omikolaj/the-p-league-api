@@ -45,7 +45,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.Teams = TeamConverter.ConvertList(sessionSchedule.Teams);
 
                 return model;
-            }).Tolist();
+            }).ToList();
         }
 
         #endregion

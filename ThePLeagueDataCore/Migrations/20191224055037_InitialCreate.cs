@@ -90,6 +90,33 @@ namespace ThePLeagueDataCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PreOrders",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    GearItemId = table.Column<long>(nullable: true),
+                    Quantity = table.Column<long>(nullable: true),
+                    Size = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreOrders", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SportTypes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SportTypes", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeamSignUpForms",
                 columns: table => new
                 {
@@ -262,16 +289,62 @@ namespace ThePLeagueDataCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PreOrderContacts",
+                columns: table => new
+                {
+                    Id = table.Column<long>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    FirstName = table.Column<string>(nullable: false),
+                    LastName = table.Column<string>(nullable: false),
+                    Email = table.Column<string>(nullable: false),
+                    PhoneNumber = table.Column<string>(nullable: false),
+                    PreferredContact = table.Column<int>(nullable: false),
+                    PreOrderId = table.Column<long>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PreOrderContacts", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PreOrderContacts_PreOrders_PreOrderId",
+                        column: x => x.PreOrderId,
+                        principalTable: "PreOrders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Leagues",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Type = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Selected = table.Column<bool>(nullable: false),
+                    SportTypeID = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Leagues", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Leagues_SportTypes_SportTypeID",
+                        column: x => x.SportTypeID,
+                        principalTable: "SportTypes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "TeamsContact",
                 columns: table => new
                 {
                     Id = table.Column<long>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    TeamSignUpFormId = table.Column<long>(nullable: true),
                     FirstName = table.Column<string>(nullable: false),
                     LastName = table.Column<string>(nullable: false),
                     Email = table.Column<string>(nullable: false),
-                    PhoneNumber = table.Column<string>(nullable: false)
+                    PhoneNumber = table.Column<string>(nullable: false),
+                    PreferredContact = table.Column<int>(nullable: false),
+                    TeamSignUpFormId = table.Column<long>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -280,6 +353,132 @@ namespace ThePLeagueDataCore.Migrations
                         name: "FK_TeamsContact_TeamSignUpForms_TeamSignUpFormId",
                         column: x => x.TeamSignUpFormId,
                         principalTable: "TeamSignUpForms",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "LeagueSessions",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    LeagueID = table.Column<string>(nullable: true),
+                    ByeWeeks = table.Column<bool>(nullable: false),
+                    NumberOfWeeks = table.Column<long>(nullable: true),
+                    SessionStart = table.Column<DateTime>(nullable: false),
+                    SessionEnd = table.Column<DateTime>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LeagueSessions", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_LeagueSessions_Leagues_LeagueID",
+                        column: x => x.LeagueID,
+                        principalTable: "Leagues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameDays",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    GamesDay = table.Column<string>(nullable: true),
+                    LeagueSessionScheduleId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameDays", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameDays_LeagueSessions_LeagueSessionScheduleId",
+                        column: x => x.LeagueSessionScheduleId,
+                        principalTable: "LeagueSessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    LeagueID = table.Column<string>(nullable: true),
+                    Selected = table.Column<bool>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false),
+                    LeagueSessionScheduleId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_Leagues_LeagueID",
+                        column: x => x.LeagueID,
+                        principalTable: "Leagues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Teams_LeagueSessions_LeagueSessionScheduleId",
+                        column: x => x.LeagueSessionScheduleId,
+                        principalTable: "LeagueSessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameTimes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    GamesTime = table.Column<string>(nullable: true),
+                    GameDayId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameTimes_GameDays_GameDayId",
+                        column: x => x.GameDayId,
+                        principalTable: "GameDays",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Matches",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    DateTime = table.Column<DateTime>(nullable: false),
+                    HomeTeamId = table.Column<long>(nullable: true),
+                    HomeTeamId1 = table.Column<string>(nullable: true),
+                    AwayTeamId = table.Column<long>(nullable: true),
+                    AwayTeamId1 = table.Column<string>(nullable: true),
+                    SessionID = table.Column<string>(nullable: true),
+                    LeagueID = table.Column<string>(nullable: true),
+                    LeagueSessionScheduleId = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Matches", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Matches_Teams_AwayTeamId1",
+                        column: x => x.AwayTeamId1,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Matches_Teams_HomeTeamId1",
+                        column: x => x.HomeTeamId1,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Matches_LeagueSessions_LeagueSessionScheduleId",
+                        column: x => x.LeagueSessionScheduleId,
+                        principalTable: "LeagueSessions",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -455,6 +654,16 @@ namespace ThePLeagueDataCore.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_GameDays_LeagueSessionScheduleId",
+                table: "GameDays",
+                column: "LeagueSessionScheduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_GameTimes_GameDayId",
+                table: "GameTimes",
+                column: "GameDayId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_GearImages_GearItemId",
                 table: "GearImages",
                 column: "GearItemId");
@@ -463,6 +672,48 @@ namespace ThePLeagueDataCore.Migrations
                 name: "IX_GearSizes_GearItemId",
                 table: "GearSizes",
                 column: "GearItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Leagues_SportTypeID",
+                table: "Leagues",
+                column: "SportTypeID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_LeagueSessions_LeagueID",
+                table: "LeagueSessions",
+                column: "LeagueID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Matches_AwayTeamId1",
+                table: "Matches",
+                column: "AwayTeamId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Matches_HomeTeamId1",
+                table: "Matches",
+                column: "HomeTeamId1");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Matches_LeagueSessionScheduleId",
+                table: "Matches",
+                column: "LeagueSessionScheduleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PreOrderContacts_PreOrderId",
+                table: "PreOrderContacts",
+                column: "PreOrderId",
+                unique: true,
+                filter: "[PreOrderId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_LeagueID",
+                table: "Teams",
+                column: "LeagueID");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Teams_LeagueSessionScheduleId",
+                table: "Teams",
+                column: "LeagueSessionScheduleId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_TeamsContact_TeamSignUpFormId",
@@ -490,6 +741,9 @@ namespace ThePLeagueDataCore.Migrations
                 name: "AspNetUserTokens");
 
             migrationBuilder.DropTable(
+                name: "GameTimes");
+
+            migrationBuilder.DropTable(
                 name: "GearImages");
 
             migrationBuilder.DropTable(
@@ -497,6 +751,12 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "LeagueImages");
+
+            migrationBuilder.DropTable(
+                name: "Matches");
+
+            migrationBuilder.DropTable(
+                name: "PreOrderContacts");
 
             migrationBuilder.DropTable(
                 name: "TeamsContact");
@@ -508,10 +768,28 @@ namespace ThePLeagueDataCore.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "GameDays");
+
+            migrationBuilder.DropTable(
                 name: "GearItems");
 
             migrationBuilder.DropTable(
+                name: "Teams");
+
+            migrationBuilder.DropTable(
+                name: "PreOrders");
+
+            migrationBuilder.DropTable(
                 name: "TeamSignUpForms");
+
+            migrationBuilder.DropTable(
+                name: "LeagueSessions");
+
+            migrationBuilder.DropTable(
+                name: "Leagues");
+
+            migrationBuilder.DropTable(
+                name: "SportTypes");
         }
     }
 }

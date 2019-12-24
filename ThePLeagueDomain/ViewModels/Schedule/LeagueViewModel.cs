@@ -10,6 +10,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
 
         public string Id { get; set; }
         public string Type { get; set; }
+        public string Name { get; set; }
         public IEnumerable<TeamViewModel> Teams { get; set; }
         public bool Selected { get; set; }
         public string SportTypeID { get; set; }

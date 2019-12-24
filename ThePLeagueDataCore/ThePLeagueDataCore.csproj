@@ -19,4 +19,8 @@
     <ProjectReference Include="..\ThePLeagueDomain\ThePLeagueDomain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

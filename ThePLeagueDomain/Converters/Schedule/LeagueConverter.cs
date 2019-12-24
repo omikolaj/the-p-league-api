@@ -20,13 +20,14 @@ namespace ThePLeagueDomain.Converters.Schedule
             model.SportTypeID = league.SportTypeID;
             model.Teams = TeamConverter.ConvertList(league.Teams);
             model.Type = league.Type;
+            model.Name = league.Name;
 
             return model;
         }
 
         public static List<LeagueViewModel> ConvertList(IEnumerable<League> leagues)
         {
-            return leagues.Select(league => 
+            return leagues.Select(league =>
             {
                 LeagueViewModel model = new LeagueViewModel();
                 model.Id = league.Id;
@@ -35,9 +36,10 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.SportTypeID = league.SportTypeID;
                 model.Teams = TeamConverter.ConvertList(league.Teams);
                 model.Type = league.Type;
+                model.Name = league.Name;
 
                 return model;
-            }).ToList()
+            }).ToList();
         }
 
         #endregion

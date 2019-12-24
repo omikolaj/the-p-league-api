@@ -23,7 +23,7 @@ namespace ThePLeagueDomain.Converters.Schedule
 
         public static List<SportTypeViewModel> ConvertList(IEnumerable<SportType> sportTypes)
         {
-            return sportTypes.Select(sportType => 
+            return sportTypes.Select(sportType =>
             {
                 SportTypeViewModel model = new SportTypeViewModel();
                 model.Id = sportType.Id;
@@ -31,7 +31,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.Name = sportType.Name;
 
                 return model;
-            }).ToList()
+            }).ToList();
         }
 
         #endregion

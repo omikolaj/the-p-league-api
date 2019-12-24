@@ -3,35 +3,63 @@ using System.Collections.Generic;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using ThePLeagueDomain.Converters.Schedule;
 using ThePLeagueDomain.Models.Schedule;
+using ThePLeagueDomain.ViewModels.Schedule;
 
 namespace ThePLeagueDomain.Supervisor
 {
-    public partial class ThePLeagueLeagueSupervisor : IThePLeagueSupervisor
+    public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
     {
-        public async Task<Team> GetTeamByIdAsync(string id, CancellationToken ct = default(CancellationToken))
+        #region Methods
+        public async Task<LeagueViewModel> GetLeagueByIdAsync(string id, CancellationToken ct = default(CancellationToken))
         {
+            LeagueViewModel league = LeagueConverter.Convert(await this._leagueRepository.GetByIdAsync(id, ct));
 
+            return league;
         }
-        public async Task<Team> AddTeamAsync(Team newTeam, CancellationToken ct = default(CancellationToken))
+        public async Task<LeagueViewModel> AddLeagueAsync(LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken))
         {
+            League league = new League()
+            {
+                Selected = newLeague.Selected,
+                SportTypeID = newLeague.SportTypeID,
+                Type = newLeague.Type
+            };
 
+            league = await this._leagueRepository.AddAsync(league, ct);
+            newLeague.Id = league.Id;
+
+            return newLeague;
         }
-        public async Task<bool> UpdateTeamAsync(Team teamToUpdate, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> UpdateLeagueAsync(LeagueViewModel leagueToUpdate, CancellationToken ct = default(CancellationToken))
         {
+            League league = await this._leagueRepository.GetByIdAsync(leagueToUpdate.Id, ct);
 
+            if(league == null)
+            {
+                return false;
+            }
+
+            league.Selected = leagueToUpdate.Selected;
+            league.SportTypeID = leagueToUpdate.SportTypeID;
+            league.Type = leagueToUpdate.Type;
+            league.Name = leagueToUpdate.Name;
+
+            return await this._leagueRepository.UpdateAsync(league, ct);
         }
-        public async Task<List<Team>> AssignTeamsAsync(List<Team> teamsToAssign, CancellationToken ct = default(CancellationToken))
+        public async Task<bool> DeleteLeagueAsync(string id, CancellationToken ct = default(CancellationToken))
         {
+            LeagueViewModel leagueToDelete = LeagueConverter.Convert(await this._leagueRepository.GetByIdAsync(id, ct));
 
-        }
-        public async Task<List<Team>> UnassignTeamsAsync(List<Team> teamsToUnassign, CancellationToken ct = default(CancellationToken))
-        {
+            if(leagueToDelete == null)
+            {
+                return false;
+            }
 
+            return await this._teamRepository.DeleteAsync(leagueToDelete.Id, ct);
         }
-        public async Task<bool> DeleteTeamAsync(string id, CancellationToken ct = default(CancellationToken))
-        {
 
-        }
+        #endregion
     }
 }
