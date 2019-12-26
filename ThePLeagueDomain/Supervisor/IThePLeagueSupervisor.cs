@@ -87,6 +87,7 @@ namespace ThePLeagueDomain
         Task<LeagueViewModel> AddLeagueAsync(LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken));
         Task<bool> UpdateLeagueAsync(LeagueViewModel leagueToUpdate, CancellationToken ct = default(CancellationToken));        
         Task<bool> DeleteLeagueAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<bool> UpdateLeaguesAsync(List<LeagueViewModel> leaguesToUpdate, CancellationToken ct = default(CancellationToken));
 
         #endregion
 

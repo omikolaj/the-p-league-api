@@ -12,7 +12,8 @@ using ThePLeagueDomain.ViewModels.Schedule;
 
 namespace ThePLeagueAPI.Controllers
 {
-    [Route("api/sport-type")]
+    [Authorize]
+    [Route("api/sport-types")]
     [Produces("application/json")]
     [ServiceFilter(typeof(ValidateModelStateAttribute))]
     public class SportTypeController : ControllerBase
@@ -34,7 +35,7 @@ namespace ThePLeagueAPI.Controllers
 
         #region Controllers
 
-        [Authorize]
+        
         [HttpGet]
         public async Task<ActionResult<SportTypeViewModel>> GetAll(CancellationToken ct = default(CancellationToken))
         {
@@ -43,7 +44,6 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(sportTypes);
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult<SportTypeViewModel>> Create([FromBody]SportTypeViewModel newSportType, CancellationToken ct = default(CancellationToken))
         {
@@ -57,7 +57,6 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(newSportType);            
         }
 
-        [Authorize]
         [HttpPatch("{id}")]
         public async Task<ActionResult<SportTypeViewModel>> Update([FromBody]SportTypeViewModel updatedSportType, CancellationToken ct = default(CancellationToken))
         {
@@ -71,7 +70,6 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(updatedSportType);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Delete([FromBody]string id, CancellationToken ct = default(CancellationToken))
         {

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -47,6 +48,18 @@ namespace ThePLeagueDomain.Supervisor
             league.Name = leagueToUpdate.Name;
 
             return await this._leagueRepository.UpdateAsync(league, ct);
+        }
+        public async Task<bool> UpdateLeaguesAsync(List<LeagueViewModel> leaguesToUpdate, CancellationToken ct = default(CancellationToken))
+        {
+            List<bool> updateOperations = new List<bool>();
+
+            foreach (LeagueViewModel leagueViewModel in leaguesToUpdate)
+            {
+                updateOperations.Add(await UpdateLeagueAsync(leagueViewModel, ct));
+            }
+
+            // check if all succeeded
+            return updateOperations.All(op => op == true);
         }
         public async Task<bool> DeleteLeagueAsync(string id, CancellationToken ct = default(CancellationToken))
         {

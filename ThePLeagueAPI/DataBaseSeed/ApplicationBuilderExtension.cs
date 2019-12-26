@@ -10,25 +10,27 @@ using ThePLeagueDomain.Models;
 
 namespace ThePLeagueAPI.Extensions
 {
-  public static class ApplicationBuilderExtensions
-  {
-    public static IApplicationBuilder SeedDatabase(this IApplicationBuilder app)
+    public static class ApplicationBuilderExtensions
     {
-      IServiceProvider serviceProvider = app.ApplicationServices.CreateScope().ServiceProvider;
-      try
-      {
-        UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-        RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
-        IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
-        DataBaseInitializer.SeedUsers(userManager, roleManager, configuration);
-      }
-      catch (Exception ex)
-      {
-        ILogger<Program> logger = serviceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogError(ex, "An error occurred while seeding the database.");
-      }
-      return app;
-    }
+        public static IApplicationBuilder SeedDatabase(this IApplicationBuilder app)
+        {
+            IServiceProvider serviceProvider = app.ApplicationServices.CreateScope().ServiceProvider;
+            try
+            {
+                UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+                RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+                IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
+                ThePLeagueContext dbContext = serviceProvider.GetService<ThePLeagueContext>();                
+                DataBaseInitializer.SeedUsers(userManager, roleManager, configuration);
+                DataBaseInitializer.SeedTeams(dbContext);
+            }
+            catch (Exception ex)
+            {
+                ILogger<Program> logger = serviceProvider.GetRequiredService<ILogger<Program>>();
+                logger.LogError(ex, "An error occurred while seeding the database.");
+            }
+            return app;
+        }
 
-  }
+    }
 }

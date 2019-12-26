@@ -10,7 +10,7 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20191224055037_InitialCreate")]
+    [Migration("20191226175143_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1472,6 +1472,64 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasIndex("SportTypeID");
 
                     b.ToTable("Leagues");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Monday",
+                            Selected = false,
+                            SportTypeID = "1",
+                            Type = "Basketball"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Tuesday",
+                            Selected = false,
+                            SportTypeID = "1",
+                            Type = "Basketball"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Wednesday",
+                            Selected = false,
+                            SportTypeID = "1",
+                            Type = "Basketball"
+                        },
+                        new
+                        {
+                            Id = "4",
+                            Name = "Thursday",
+                            Selected = false,
+                            SportTypeID = "2",
+                            Type = "Volleyball"
+                        },
+                        new
+                        {
+                            Id = "5",
+                            Name = "Friday",
+                            Selected = false,
+                            SportTypeID = "2",
+                            Type = "Volleyball"
+                        },
+                        new
+                        {
+                            Id = "6",
+                            Name = "Saturday",
+                            Selected = false,
+                            SportTypeID = "2",
+                            Type = "Volleyball"
+                        },
+                        new
+                        {
+                            Id = "7",
+                            Name = "Sunday",
+                            Selected = false,
+                            SportTypeID = "3",
+                            Type = "Soccer"
+                        });
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule", b =>
@@ -1503,15 +1561,11 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
-                    b.Property<long?>("AwayTeamId");
-
-                    b.Property<string>("AwayTeamId1");
+                    b.Property<string>("AwayTeamId");
 
                     b.Property<DateTime>("DateTime");
 
-                    b.Property<long?>("HomeTeamId");
-
-                    b.Property<string>("HomeTeamId1");
+                    b.Property<string>("HomeTeamId");
 
                     b.Property<string>("LeagueID");
 
@@ -1521,9 +1575,11 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AwayTeamId1");
+                    b.HasIndex("AwayTeamId");
 
-                    b.HasIndex("HomeTeamId1");
+                    b.HasIndex("HomeTeamId");
+
+                    b.HasIndex("LeagueID");
 
                     b.HasIndex("LeagueSessionScheduleId");
 
@@ -1540,6 +1596,23 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("SportTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "1",
+                            Name = "Basketball"
+                        },
+                        new
+                        {
+                            Id = "2",
+                            Name = "Volleyball"
+                        },
+                        new
+                        {
+                            Id = "3",
+                            Name = "Soccer"
+                        });
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Team", b =>
@@ -1710,7 +1783,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.League", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.Schedule.SportType")
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.SportType", "SportType")
                         .WithMany("Leagues")
                         .HasForeignKey("SportTypeID");
                 });
@@ -1726,11 +1799,15 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     b.HasOne("ThePLeagueDomain.Models.Schedule.AwayTeam", "AwayTeam")
                         .WithMany("Matches")
-                        .HasForeignKey("AwayTeamId1");
+                        .HasForeignKey("AwayTeamId");
 
                     b.HasOne("ThePLeagueDomain.Models.Schedule.HomeTeam", "HomeTeam")
                         .WithMany("Matches")
-                        .HasForeignKey("HomeTeamId1");
+                        .HasForeignKey("HomeTeamId");
+
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.League", "League")
+                        .WithMany()
+                        .HasForeignKey("LeagueID");
 
                     b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
                         .WithMany("Matches")
@@ -1739,7 +1816,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Team", b =>
                 {
-                    b.HasOne("ThePLeagueDomain.Models.Schedule.League")
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.League", "League")
                         .WithMany("Teams")
                         .HasForeignKey("LeagueID");
 

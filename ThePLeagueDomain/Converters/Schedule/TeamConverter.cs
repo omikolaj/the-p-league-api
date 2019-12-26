@@ -30,7 +30,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 TeamViewModel model = new TeamViewModel();
                 model.Id = team.Id;
                 model.LeagueID = team.LeagueID;
-                model.Matches = MatchConverter.ConvertList(team.Matches);
+                model.Matches = team.Matches == null ? null : MatchConverter.ConvertList(team.Matches);
                 model.Name = team.Name;
                 model.Selected = team.Selected;
 

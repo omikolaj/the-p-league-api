@@ -452,10 +452,8 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     Id = table.Column<string>(nullable: false),
                     DateTime = table.Column<DateTime>(nullable: false),
-                    HomeTeamId = table.Column<long>(nullable: true),
-                    HomeTeamId1 = table.Column<string>(nullable: true),
-                    AwayTeamId = table.Column<long>(nullable: true),
-                    AwayTeamId1 = table.Column<string>(nullable: true),
+                    HomeTeamId = table.Column<string>(nullable: true),
+                    AwayTeamId = table.Column<string>(nullable: true),
                     SessionID = table.Column<string>(nullable: true),
                     LeagueID = table.Column<string>(nullable: true),
                     LeagueSessionScheduleId = table.Column<string>(nullable: true)
@@ -464,15 +462,21 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     table.PrimaryKey("PK_Matches", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Matches_Teams_AwayTeamId1",
-                        column: x => x.AwayTeamId1,
+                        name: "FK_Matches_Teams_AwayTeamId",
+                        column: x => x.AwayTeamId,
                         principalTable: "Teams",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Matches_Teams_HomeTeamId1",
-                        column: x => x.HomeTeamId1,
+                        name: "FK_Matches_Teams_HomeTeamId",
+                        column: x => x.HomeTeamId,
                         principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Matches_Leagues_LeagueID",
+                        column: x => x.LeagueID,
+                        principalTable: "Leagues",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -502,6 +506,16 @@ namespace ThePLeagueDataCore.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "SportTypes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { "1", "Basketball" },
+                    { "2", "Volleyball" },
+                    { "3", "Soccer" }
+                });
+
+            migrationBuilder.InsertData(
                 table: "GearImages",
                 columns: new[] { "Id", "Big", "CloudinaryPublicId", "Format", "GearItemId", "Height", "Medium", "Name", "ResourceType", "Size", "Small", "Type", "Url", "Width" },
                 values: new object[,]
@@ -510,11 +524,11 @@ namespace ThePLeagueDataCore.Migrations
                     { 11240L, "https://via.placeholder.com/300.png/09f/fff", null, null, 10L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 11234L, "https://via.placeholder.com/300.png/09f/fff", null, null, 4L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2325L, "https://via.placeholder.com/300.png/09f/fff", null, null, 4L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 34331L, "https://via.placeholder.com/300.png/09f/fff", null, null, 9L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 2330L, "https://via.placeholder.com/300.png/09f/fff", null, null, 9L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 11235L, "https://via.placeholder.com/300.png/09f/fff", null, null, 5L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2326L, "https://via.placeholder.com/300.png/09f/fff", null, null, 5L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 34327L, "https://via.placeholder.com/300.png/09f/fff", null, null, 5L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
+                    { 34331L, "https://via.placeholder.com/300.png/09f/fff", null, null, 9L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
+                    { 2330L, "https://via.placeholder.com/300.png/09f/fff", null, null, 9L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2331L, "https://via.placeholder.com/300.png/09f/fff", null, null, 10L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 11239L, "https://via.placeholder.com/300.png/09f/fff", null, null, 9L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2327L, "https://via.placeholder.com/300.png/09f/fff", null, null, 6L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
@@ -528,17 +542,17 @@ namespace ThePLeagueDataCore.Migrations
                     { 11236L, "https://via.placeholder.com/300.png/09f/fff", null, null, 6L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 34332L, "https://via.placeholder.com/300.png/09f/fff", null, null, 10L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 34326L, "https://via.placeholder.com/300.png/09f/fff", null, null, 4L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
+                    { 34324L, "https://via.placeholder.com/300.png/09f/fff", null, null, 2L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
+                    { 2323L, "https://via.placeholder.com/300.png/09f/fff", null, null, 2L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 34325L, "https://via.placeholder.com/300.png/09f/fff", null, null, 3L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2324L, "https://via.placeholder.com/300.png/09f/fff", null, null, 3L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 11233L, "https://via.placeholder.com/300.png/09f/fff", null, null, 3L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2322L, "https://via.placeholder.com/300.png/09f/fff", null, null, 1L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 34323L, "https://via.placeholder.com/300.png/09f/fff", null, null, 1L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 2323L, "https://via.placeholder.com/300.png/09f/fff", null, null, 2L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 34324L, "https://via.placeholder.com/300.png/09f/fff", null, null, 2L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 11241L, "https://via.placeholder.com/300.png/09f/fff", null, null, 11L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 11232L, "https://via.placeholder.com/300.png/09f/fff", null, null, 2L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
+                    { 34333L, "https://via.placeholder.com/300.png/09f/fff", null, null, 11L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
                     { 2332L, "https://via.placeholder.com/300.png/09f/fff", null, null, 11L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwee", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
-                    { 34333L, "https://via.placeholder.com/300.png/09f/fff", null, null, 11L, 0, "https://via.placeholder.com/300.png/09f/fff", "wowwaw", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 }
+                    { 11232L, "https://via.placeholder.com/300.png/09f/fff", null, null, 2L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 },
+                    { 11241L, "https://via.placeholder.com/300.png/09f/fff", null, null, 11L, 0, "https://via.placeholder.com/300.png/09f/fff", "wow", null, 19392L, "https://via.placeholder.com/300.png/09f/fff", "png", "https://via.placeholder.com/300.png/09f/fff", 0 }
                 });
 
             migrationBuilder.InsertData(
@@ -546,35 +560,36 @@ namespace ThePLeagueDataCore.Migrations
                 columns: new[] { "Id", "Available", "Color", "GearItemId", "Size" },
                 values: new object[,]
                 {
-                    { 1344L, false, "warn", 11L, 5 },
                     { 112L, true, "warn", 11L, 4 },
-                    { 1341L, false, "warn", 8L, 5 },
+                    { 1344L, false, "warn", 11L, 5 },
                     { 54L, true, "warn", 11L, 6 },
-                    { 85849L, true, "warn", 7L, 1 },
-                    { 9105L, false, "warn", 7L, 2 },
-                    { 45688L, false, "warn", 11L, 3 },
+                    { 1341L, false, "warn", 8L, 5 },
                     { 109L, true, "warn", 8L, 4 },
+                    { 45688L, false, "warn", 11L, 3 },
+                    { 9109L, false, "warn", 11L, 2 },
+                    { 85853L, true, "warn", 11L, 1 },
+                    { 85849L, true, "warn", 7L, 1 },
                     { 51L, true, "warn", 8L, 6 },
+                    { 45685L, false, "warn", 8L, 3 },
+                    { 1343L, false, "warn", 10L, 5 },
                     { 85850L, true, "warn", 8L, 1 },
-                    { 9106L, false, "warn", 8L, 2 },
-                    { 111L, true, "warn", 10L, 4 },
+                    { 53L, true, "warn", 10L, 6 },
                     { 85852L, true, "warn", 10L, 1 },
-                    { 9108L, false, "warn", 10L, 2 },
-                    { 45687L, false, "warn", 10L, 3 },
                     { 110L, true, "warn", 9L, 4 },
                     { 1342L, false, "warn", 9L, 5 },
                     { 52L, true, "warn", 9L, 6 },
                     { 45686L, false, "warn", 9L, 3 },
-                    { 45684L, false, "warn", 7L, 3 },
-                    { 53L, true, "warn", 10L, 6 },
-                    { 1343L, false, "warn", 10L, 5 },
                     { 9107L, false, "warn", 9L, 2 },
                     { 85851L, true, "warn", 9L, 1 },
-                    { 45685L, false, "warn", 8L, 3 },
+                    { 9105L, false, "warn", 7L, 2 },
+                    { 9108L, false, "warn", 10L, 2 },
+                    { 45687L, false, "warn", 10L, 3 },
+                    { 111L, true, "warn", 10L, 4 },
+                    { 9106L, false, "warn", 8L, 2 },
+                    { 45684L, false, "warn", 7L, 3 },
+                    { 9104L, false, "warn", 6L, 2 },
+                    { 1340L, false, "warn", 7L, 5 },
                     { 50L, true, "warn", 7L, 6 },
-                    { 1339L, false, "warn", 6L, 5 },
-                    { 108L, true, "warn", 7L, 4 },
-                    { 45680L, false, "warn", 3L, 3 },
                     { 46L, true, "warn", 3L, 6 },
                     { 1336L, false, "warn", 3L, 5 },
                     { 104L, true, "warn", 3L, 4 },
@@ -591,18 +606,18 @@ namespace ThePLeagueDataCore.Migrations
                     { 1334L, false, "warn", 1L, 5 },
                     { 102L, true, "warn", 1L, 4 },
                     { 1335L, false, "warn", 2L, 5 },
-                    { 1340L, false, "warn", 7L, 5 },
                     { 85845L, true, "warn", 3L, 1 },
+                    { 45680L, false, "warn", 3L, 3 },
                     { 1337L, false, "warn", 4L, 5 },
+                    { 108L, true, "warn", 7L, 4 },
                     { 85848L, true, "warn", 6L, 1 },
-                    { 9104L, false, "warn", 6L, 2 },
                     { 45683L, false, "warn", 6L, 3 },
                     { 49L, true, "warn", 6L, 6 },
-                    { 9109L, false, "warn", 11L, 2 },
+                    { 105L, true, "warn", 4L, 4 },
                     { 107L, true, "warn", 6L, 4 },
                     { 85847L, true, "warn", 5L, 1 },
-                    { 105L, true, "warn", 4L, 4 },
                     { 9103L, false, "warn", 5L, 2 },
+                    { 1339L, false, "warn", 6L, 5 },
                     { 48L, true, "warn", 5L, 6 },
                     { 1338L, false, "warn", 5L, 5 },
                     { 106L, true, "warn", 5L, 4 },
@@ -610,8 +625,21 @@ namespace ThePLeagueDataCore.Migrations
                     { 9102L, false, "warn", 4L, 2 },
                     { 45681L, false, "warn", 4L, 3 },
                     { 47L, true, "warn", 4L, 6 },
-                    { 45682L, false, "warn", 5L, 3 },
-                    { 85853L, true, "warn", 11L, 1 }
+                    { 45682L, false, "warn", 5L, 3 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Leagues",
+                columns: new[] { "Id", "Name", "Selected", "SportTypeID", "Type" },
+                values: new object[,]
+                {
+                    { "6", "Saturday", false, "2", "Volleyball" },
+                    { "1", "Monday", false, "1", "Basketball" },
+                    { "2", "Tuesday", false, "1", "Basketball" },
+                    { "3", "Wednesday", false, "1", "Basketball" },
+                    { "4", "Thursday", false, "2", "Volleyball" },
+                    { "5", "Friday", false, "2", "Volleyball" },
+                    { "7", "Sunday", false, "3", "Soccer" }
                 });
 
             migrationBuilder.CreateIndex(
@@ -684,14 +712,19 @@ namespace ThePLeagueDataCore.Migrations
                 column: "LeagueID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matches_AwayTeamId1",
+                name: "IX_Matches_AwayTeamId",
                 table: "Matches",
-                column: "AwayTeamId1");
+                column: "AwayTeamId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Matches_HomeTeamId1",
+                name: "IX_Matches_HomeTeamId",
                 table: "Matches",
-                column: "HomeTeamId1");
+                column: "HomeTeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Matches_LeagueID",
+                table: "Matches",
+                column: "LeagueID");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Matches_LeagueSessionScheduleId",

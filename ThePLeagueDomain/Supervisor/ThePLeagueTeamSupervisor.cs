@@ -13,6 +13,7 @@ namespace ThePLeagueDomain.Supervisor
     public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
     {
         #region Constants
+
         private const string UNASSIGNED = "-1";
 
         #endregion

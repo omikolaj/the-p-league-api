@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using ThePLeagueDataCore.Configurations.Merchandise;
+using ThePLeagueDataCore.Configurations.Schedule;
 using ThePLeagueDomain.Models;
 using ThePLeagueDomain.Models.Gallery;
 using ThePLeagueDomain.Models.Merchandise;
@@ -35,6 +36,10 @@ namespace ThePLeagueDataCore
             new GearImageConfiguration(builder.Entity<GearImage>());
             new GearItemConfiguration(builder.Entity<GearItem>());
             new GearSizeConfiguration(builder.Entity<GearSize>());
+            new SportTypeConfiguration(builder.Entity<SportType>());
+            new LeagueConfiguration(builder.Entity<League>());
+            new TeamConfiguration(builder.Entity<Team>());
+            new MatchesConfiguration(builder.Entity<Match>());
         }
     }
 }

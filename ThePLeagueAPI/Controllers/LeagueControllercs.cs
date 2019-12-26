@@ -6,11 +6,16 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using ThePLeagueAPI.Auth.Errors;
+using ThePLeagueAPI.Filters;
 using ThePLeagueDomain;
 using ThePLeagueDomain.ViewModels.Schedule;
 
 namespace ThePLeagueAPI.Controllers
 {
+    [Authorize]
+    [Route("api/leagues")]
+    [Produces("application/json")]
+    [ServiceFilter(typeof(ValidateModelStateAttribute))]
     public class LeagueControllercs : ControllerBase
     {
         #region Properties and Fields
@@ -30,7 +35,6 @@ namespace ThePLeagueAPI.Controllers
 
         #region Controllers
 
-        [Authorize]
         [HttpPost]
         public async Task<ActionResult<LeagueViewModel>> Create([FromBody]LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken))
         {
@@ -44,7 +48,6 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(newLeague);
         }
 
-        [Authorize]
         [HttpPatch("{id}")]
         public async Task<ActionResult<LeagueViewModel>> Update([FromBody]LeagueViewModel updatedLeague, CancellationToken ct = default(CancellationToken))
         {
@@ -58,7 +61,6 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(updatedLeague);
         }
 
-        [Authorize]
         [HttpPatch]
         public async Task<ActionResult<LeagueViewModel>> BulkUpdate([FromBody]List<LeagueViewModel> updatedLeagues, CancellationToken ct = default(CancellationToken))
         {
@@ -72,7 +74,6 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(updatedLeagues);
         }
 
-        [Authorize]
         [HttpDelete("{id}")]
         public async Task<ActionResult<bool>> Delete([FromBody]string id, CancellationToken ct = default(CancellationToken))
         {
@@ -91,7 +92,6 @@ namespace ThePLeagueAPI.Controllers
             return new OkObjectResult(true);
         }
 
-        [Authorize]
         [HttpPatch]
         public async Task<ActionResult<LeagueViewModel>> BulkDelete([FromBody]List<string> idsToDelete, CancellationToken ct = default(CancellationToken))
         {
