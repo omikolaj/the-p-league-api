@@ -92,7 +92,7 @@ namespace ThePLeagueAPI.Controllers
             return new OkObjectResult(true);
         }
 
-        [HttpPatch]
+        [HttpDelete]
         public async Task<ActionResult<LeagueViewModel>> BulkDelete([FromBody]List<string> idsToDelete, CancellationToken ct = default(CancellationToken))
         {
             //if (!await this._supervisor.UpdateLeagueAsync(updatedLeague, ct))

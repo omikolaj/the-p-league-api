@@ -71,7 +71,7 @@ namespace ThePLeagueAPI.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<bool>> Delete([FromBody]string id, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult<bool>> Delete(string id, CancellationToken ct = default(CancellationToken))
         {
             SportTypeViewModel sportTypeToDelete = await this._supervisor.GetSportTypeByIdAsync(id, ct);
 

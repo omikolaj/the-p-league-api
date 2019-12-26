@@ -58,7 +58,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         {
             return await this._dbContext.SportTypes.FindAsync(id);
         }
-
+        
         public async Task<bool> UpdateAsync(SportType sportTypeToUpdate, CancellationToken ct = default)
         {
             if(!await this.SportTypeExists(sportTypeToUpdate.Id))
