@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -33,6 +35,11 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         public async Task<League> GetByIdAsync(string id, CancellationToken ct = default)
         {
             return await this._dbContext.Leagues.FindAsync(id);
+        }
+
+        public async Task<List<League>> GetBySportTypeIdAsync(string sportTypeId, CancellationToken ct = default)
+        {
+            return await this._dbContext.Leagues.Where(league => league.SportTypeID == sportTypeId).ToListAsync();
         }
 
         public async Task<League> AddAsync(League newLeague, CancellationToken ct = default)

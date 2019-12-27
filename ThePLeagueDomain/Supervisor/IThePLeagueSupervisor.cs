@@ -73,21 +73,28 @@ namespace ThePLeagueDomain
         #region Team
 
         Task<TeamViewModel> GetTeamByIdAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<List<TeamViewModel>> GetTeamsByIdsAsync(List<string> ids, CancellationToken ct = default(CancellationToken));
         Task<TeamViewModel> AddTeamAsync(TeamViewModel newTeam, CancellationToken ct = default(CancellationToken));
         Task<bool> UpdateTeamAsync(TeamViewModel teamToUpdate, CancellationToken ct = default(CancellationToken));
+        Task<bool> UpdateTeamsAsync(List<TeamViewModel> teamsToUpdate, CancellationToken ct = default(CancellationToken));
         Task<List<TeamViewModel>> AssignTeamsAsync(List<TeamViewModel> teamsToAssign, CancellationToken ct = default(CancellationToken));
-        Task<List<TeamViewModel>> UnassignTeamsAsync(List<TeamViewModel> teamsToUnassign, CancellationToken ct = default(CancellationToken));
+        Task<List<string>> UnassignTeamsAsync(List<string> teamsToUnassignFromLeagueIds, CancellationToken ct = default(CancellationToken));
+        Task<List<TeamViewModel>> GetTeamsByLeagueId(string leagueID, CancellationToken ct = default(CancellationToken));
         Task<bool> DeleteTeamAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<bool> DeleteTeamsAsync(List<string> ids, CancellationToken ct = default(CancellationToken));
 
         #endregion
 
         #region League
 
         Task<LeagueViewModel> GetLeagueByIdAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<List<LeagueViewModel>> GetLeaguesByIdsAsync(List<string> ids, CancellationToken ct = default(CancellationToken));
+        Task<List<LeagueViewModel>> GetLeaguesBySportTypeIdAsync(string sportTypeId, CancellationToken ct = default(CancellationToken));
         Task<LeagueViewModel> AddLeagueAsync(LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken));
-        Task<bool> UpdateLeagueAsync(LeagueViewModel leagueToUpdate, CancellationToken ct = default(CancellationToken));        
-        Task<bool> DeleteLeagueAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<bool> UpdateLeagueAsync(LeagueViewModel leagueToUpdate, CancellationToken ct = default(CancellationToken));
         Task<bool> UpdateLeaguesAsync(List<LeagueViewModel> leaguesToUpdate, CancellationToken ct = default(CancellationToken));
+        Task<bool> DeleteLeagueAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<bool> DeleteLeaguesAsync(List<string> leagueIDsToDelete, CancellationToken ct = default(CancellationToken));
 
         #endregion
 

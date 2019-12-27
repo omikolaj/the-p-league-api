@@ -12,6 +12,7 @@ namespace ThePLeagueDomain.Repositories.Schedule
         #region Team
 
         Task<Team> GetByIdAsync(string id, CancellationToken ct = default(CancellationToken));
+        Task<List<Team>> GetAllByLeagueIdAsync(string leagueID, CancellationToken ct = default(CancellationToken));
         Task<Team> AddAsync(Team newTeam, CancellationToken ct = default(CancellationToken));
         Task<bool> UpdateAsync(Team teamToUpdate, CancellationToken ct = default(CancellationToken));        
         Task<bool> DeleteAsync(string id, CancellationToken ct = default(CancellationToken));

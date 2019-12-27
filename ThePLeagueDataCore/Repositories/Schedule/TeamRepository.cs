@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -15,7 +17,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         private readonly ThePLeagueContext _dbContext;
 
         #endregion
-        
+
         #region Constructor
 
         public TeamRepository(ThePLeagueContext dbContext)
@@ -35,6 +37,11 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         public async Task<Team> GetByIdAsync(string id, CancellationToken ct = default)
         {
             return await this._dbContext.Teams.FindAsync(id);
+        }
+
+        public async Task<List<Team>> GetAllByLeagueIdAsync(string leagueID, CancellationToken ct = default)
+        {
+            return await this._dbContext.Teams.Where(team => team.LeagueID == leagueID).ToListAsync();
         }
         public async Task<bool> DeleteAsync(string id, CancellationToken ct = default)
         {
@@ -66,6 +73,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
             this._dbContext.Teams.Update(updatedTeam);
             await this._dbContext.SaveChangesAsync(ct);
+
             return true;
         }
 

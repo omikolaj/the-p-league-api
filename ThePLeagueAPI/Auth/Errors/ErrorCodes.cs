@@ -26,5 +26,10 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string LeagueAdd = "league_add";
         public const string LeagueUpdate = "league_update";
         public const string LeagueDelete = "league_delete";
+        public const string TeamAdd = "team_add";
+        public const string TeamUpdate = "team_update";
+        public const string TeamDelete = "team_delete";
+        public const string TeamAssign = "team_assign";
+        public const string TeamUnassign = "team_unassign";
     }
 }

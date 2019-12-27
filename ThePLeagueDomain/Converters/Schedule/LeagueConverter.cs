@@ -16,9 +16,9 @@ namespace ThePLeagueDomain.Converters.Schedule
             LeagueViewModel model = new LeagueViewModel();
             model.Id = league.Id;
             model.Selected = league.Selected;
-            model.Sessions = LeagueSessionScheduleConverter.ConvertList(league?.Sessions) ?? null;
+            model.Sessions = league.Sessions == null ? null : LeagueSessionScheduleConverter.ConvertList(league?.Sessions);
             model.SportTypeID = league.SportTypeID;
-            model.Teams = TeamConverter.ConvertList(league.Teams);
+            model.Teams = league.Teams == null ? null : TeamConverter.ConvertList(league.Teams);
             model.Type = league.Type;
             model.Name = league.Name;
 
@@ -34,7 +34,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.Selected = league.Selected;
                 model.Sessions = model.Sessions == null ? null : LeagueSessionScheduleConverter.ConvertList(league?.Sessions);
                 model.SportTypeID = league.SportTypeID;
-                model.Teams = TeamConverter.ConvertList(league.Teams);
+                model.Teams = league.Teams == null ? null : TeamConverter.ConvertList(league.Teams);
                 model.Type = league.Type;
                 model.Name = league.Name;
 

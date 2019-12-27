@@ -34,7 +34,6 @@ namespace ThePLeagueAPI.Controllers
         #endregion
 
         #region Controllers
-
         
         [HttpGet]
         public async Task<ActionResult<SportTypeViewModel>> GetAll(CancellationToken ct = default(CancellationToken))

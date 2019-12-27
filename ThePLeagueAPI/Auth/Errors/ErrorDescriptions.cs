@@ -31,5 +31,7 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string TeamUpdateFailure = "Failed to update the team";
         public const string TeamDeleteFailure = "Failed to delete the team";
         public const string TeamNotFound = "Failed to find the specified team";
+        public const string TeamAssign = "Failed to assign teams to the specified league";
+        public const string TeamUnassign = "Failed to unassign team from the specified league";
     }
 }

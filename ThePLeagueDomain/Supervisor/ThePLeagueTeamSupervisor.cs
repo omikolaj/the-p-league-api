@@ -12,12 +12,6 @@ namespace ThePLeagueDomain.Supervisor
 {
     public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
     {
-        #region Constants
-
-        private const string UNASSIGNED = "-1";
-
-        #endregion
-
         #region Methods
 
         public async Task<TeamViewModel> GetTeamByIdAsync(string id, CancellationToken ct = default(CancellationToken))
@@ -25,6 +19,24 @@ namespace ThePLeagueDomain.Supervisor
             TeamViewModel team = TeamConverter.Convert(await this._teamRepository.GetByIdAsync(id));
 
             return team;
+        }
+        public async Task<List<TeamViewModel>> GetTeamsByLeagueId(string leagueID, CancellationToken ct = default(CancellationToken))
+        {
+            // given league ID retrieve all teams
+            List<TeamViewModel> teams = TeamConverter.ConvertList(await this._teamRepository.GetAllByLeagueIdAsync(leagueID, ct));
+
+            return teams;            
+        }
+        public async Task<List<TeamViewModel>> GetTeamsByIdsAsync(List<string> ids, CancellationToken ct = default(CancellationToken))
+        {
+            List<TeamViewModel> teams = new List<TeamViewModel>();
+
+            foreach (string teamId in ids)
+            {
+                teams.Add(await GetTeamByIdAsync(teamId, ct));
+            }
+
+            return teams;
         }
         public async Task<TeamViewModel> AddTeamAsync(TeamViewModel newTeam, CancellationToken ct = default(CancellationToken))
         {
@@ -49,12 +61,24 @@ namespace ThePLeagueDomain.Supervisor
                 return false;
             }
 
-            teamToUpdate.LeagueID = teamToUpdateViewModel.LeagueID;
-            teamToUpdate.Name = teamToUpdateViewModel.Name;
+            teamToUpdate.LeagueID = teamToUpdateViewModel.LeagueID ?? teamToUpdate.LeagueID;
+            teamToUpdate.Name = teamToUpdateViewModel.Name ?? teamToUpdate.Name;
             teamToUpdate.Selected = teamToUpdateViewModel.Selected;
 
             return await this._teamRepository.UpdateAsync(teamToUpdate, ct);
 
+        }
+        public async Task<bool> UpdateTeamsAsync(List<TeamViewModel> teamsToUpdate, CancellationToken ct = default(CancellationToken))
+        {
+            List<bool> updateOperations = new List<bool>();
+
+            foreach (TeamViewModel team in teamsToUpdate)
+            {
+                updateOperations.Add(await UpdateTeamAsync(team, ct));
+            }
+
+            // check if all succeeded
+            return updateOperations.All(op => op == true);
         }
         public async Task<List<TeamViewModel>> AssignTeamsAsync(List<TeamViewModel> teamsToAssign, CancellationToken ct = default(CancellationToken))
         {
@@ -72,22 +96,24 @@ namespace ThePLeagueDomain.Supervisor
 
             return teamsToAssign;
         }
-        public async Task<List<TeamViewModel>> UnassignTeamsAsync(List<TeamViewModel> teamsToUnassign, CancellationToken ct = default(CancellationToken))
+        public async Task<List<string>> UnassignTeamsAsync(List<string> teamsIdsToUnassignFromLeague, CancellationToken ct = default(CancellationToken))
         {
-            for (int i = 0; i < teamsToUnassign.Count; i++)
+            for (int i = 0; i < teamsIdsToUnassignFromLeague.Count; i++)
             {
-                TeamViewModel teamViewModel = teamsToUnassign.ElementAt(i);
-                Team team = await this._teamRepository.GetByIdAsync(teamViewModel.Id);
+                string unassignId = teamsIdsToUnassignFromLeague.ElementAt(i);
+                Team team = await this._teamRepository.GetByIdAsync(unassignId, ct);
                 if (team != null)
                 {
-                    team.LeagueID = UNASSIGNED;
+                    // unassign team from the league
+                    team.LeagueID = null;
                     team.Selected = false;
                     await this._teamRepository.UpdateAsync(team, ct);
                 }
             }
 
-            return teamsToUnassign;
+            return teamsIdsToUnassignFromLeague;
         }
+
         public async Task<bool> DeleteTeamAsync(string id, CancellationToken ct = default(CancellationToken))
         {
             TeamViewModel teamToDelete = TeamConverter.Convert(await this._teamRepository.GetByIdAsync(id, ct));
@@ -99,6 +125,19 @@ namespace ThePLeagueDomain.Supervisor
 
             return await this._teamRepository.DeleteAsync(teamToDelete.Id, ct);
         }
+
+        public async Task<bool> DeleteTeamsAsync(List<string> ids, CancellationToken ct = default(CancellationToken))
+        {
+            List<bool> deleteOperations = new List<bool>();
+
+            foreach (string deleteID in ids)
+            {
+                deleteOperations.Add(await DeleteTeamAsync(deleteID, ct));
+            }
+
+            return deleteOperations.All(op => op == true);
+        }
+
 
         #endregion
     }

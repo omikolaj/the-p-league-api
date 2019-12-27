@@ -46,7 +46,25 @@ namespace ThePLeagueDomain.Supervisor
 
             sportType.Name = sportTypeToUpdate.Name;
 
-            return await this._sportTypeRepository.UpdateAsync(sportType, ct);
+            // if sport type successfully updated, update all of its leagues
+            if(await this._sportTypeRepository.UpdateAsync(sportType, ct))
+            {
+                // when the sport type name changes we also need to update all of the associated leagues type property
+                // since the type property on the league represents the name of the sport
+                List<LeagueViewModel> leagues = await GetLeaguesBySportTypeIdAsync(sportType.Id);
+                List<LeagueViewModel> updatedLeagues = new List<LeagueViewModel>();
+
+                foreach (LeagueViewModel league in leagues)
+                {
+                    league.Type = sportTypeToUpdate.Name;
+                    updatedLeagues.Add(league);
+                }
+
+                return await UpdateLeaguesAsync(updatedLeagues, ct);
+            }
+
+            // if updating sport type failed
+            return false;
         }
         public async Task<bool> DeleteSportTypeAsync(string id, CancellationToken ct = default(CancellationToken))
         {
