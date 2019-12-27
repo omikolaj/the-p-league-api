@@ -97,7 +97,7 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(newTeam);
         }
 
-        [HttpPatch("update")]
+        [HttpPatch]
         [Authorize]
         public async Task<ActionResult<TeamViewModel>> UpdateTeams([FromBody]List<TeamViewModel> updatedTeams, CancellationToken ct = default(CancellationToken))
         {
@@ -111,7 +111,7 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(updatedTeams);
         }
 
-        [HttpDelete("delete")]
+        [HttpDelete]
         [Authorize]
         public async Task<ActionResult<bool>> DeleteTeams([FromBody]List<string> idsToDelete, CancellationToken ct = default(CancellationToken))
         {

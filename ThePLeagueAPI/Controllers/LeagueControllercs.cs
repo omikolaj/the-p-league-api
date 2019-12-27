@@ -35,7 +35,7 @@ namespace ThePLeagueAPI.Controllers
 
         #region Controllers
 
-        [HttpPost]
+        [HttpPost("new")]
         public async Task<ActionResult<LeagueViewModel>> Create([FromBody]LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken))
         {
             newLeague = await this._supervisor.AddLeagueAsync(newLeague, ct);
