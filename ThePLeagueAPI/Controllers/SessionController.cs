@@ -99,7 +99,7 @@ namespace ThePLeagueAPI.Controllers
     [HttpPost("admin/{:id}/update-password")]
     public async Task<ActionResult<bool>> UpdatePassword([FromBody] LoginViewModel login, CancellationToken ct = default(CancellationToken))
     {
-      ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.UserName == login.UserName);
+      ApplicationUser user = _userManager.Users.SingleOrDefault(u => u.UserName == login.UserName);            
 
       ClaimsIdentity identity = await _getIdentity.GetClaimsIdentity(user, login.Password);
 

@@ -38,8 +38,9 @@ namespace ThePLeagueDataCore
             new GearSizeConfiguration(builder.Entity<GearSize>());
             new SportTypeConfiguration(builder.Entity<SportType>());
             new LeagueConfiguration(builder.Entity<League>());
-            new TeamConfiguration(builder.Entity<Team>());
+            new TeamConfiguration(builder.Entity<Team>());            
             new MatchesConfiguration(builder.Entity<Match>());
+            new TeamSessionConfiguration(builder.Entity<TeamSession>());
         }
     }
 }

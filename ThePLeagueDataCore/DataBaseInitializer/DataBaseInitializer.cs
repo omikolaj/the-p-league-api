@@ -90,7 +90,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
         #endregion
 
         #region Methods
-        public async static void SeedUsers(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        public async static void SeedUsers(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration, ThePLeagueContext dbContext)
         {
             // ThePLeagueRole[] roles = new ThePLeagueRole [] { ThePLeagueRole.User, ThePLeagueRole.Admin };
             string[] roles = new string[] { AdminRole, SuperUserRole, UserRole };
@@ -153,9 +153,13 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                 await userManager.AddToRoleAsync(sysAdmin, AdminRole);
             }
 
+        // TODO this should be called from ApplicationBuilderExtensions.cs class. Currently it is not working 
+        // https://stackoverflow.com/questions/59539480/unable-to-seed-data-in-asp-net-core-in-a-static-method-due-to-exception-a-secon
+            SeedTeams(dbContext);
+
         }
 
-        public async static void SeedTeams(ThePLeagueContext dbContext)
+        public static async void SeedTeams(ThePLeagueContext dbContext)
         {
             List<Team> teams = new List<Team>();
 
@@ -215,8 +219,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
             if (dbContext.Teams.Count() < teams.Count)
             {
                 foreach (Team newTeam in teams)
-                {
-                    Console.WriteLine("adding new team to the database");
+                {                    
                     await dbContext.Teams.AddAsync(newTeam);
                     await dbContext.SaveChangesAsync();
                 }

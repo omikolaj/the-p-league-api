@@ -381,6 +381,27 @@ namespace ThePLeagueDataCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Teams",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    LeagueID = table.Column<string>(nullable: true),
+                    Selected = table.Column<bool>(nullable: false),
+                    Discriminator = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Teams", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Teams_Leagues_LeagueID",
+                        column: x => x.LeagueID,
+                        principalTable: "Leagues",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "GameDays",
                 columns: table => new
                 {
@@ -400,53 +421,6 @@ namespace ThePLeagueDataCore.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Teams",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: true),
-                    LeagueID = table.Column<string>(nullable: true),
-                    Selected = table.Column<bool>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false),
-                    LeagueSessionScheduleId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Teams", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_Teams_Leagues_LeagueID",
-                        column: x => x.LeagueID,
-                        principalTable: "Leagues",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Teams_LeagueSessions_LeagueSessionScheduleId",
-                        column: x => x.LeagueSessionScheduleId,
-                        principalTable: "LeagueSessions",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "GameTimes",
-                columns: table => new
-                {
-                    Id = table.Column<string>(nullable: false),
-                    GamesTime = table.Column<string>(nullable: true),
-                    GameDayId = table.Column<string>(nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_GameTimes", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_GameTimes_GameDays_GameDayId",
-                        column: x => x.GameDayId,
-                        principalTable: "GameDays",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Matches",
                 columns: table => new
                 {
@@ -454,9 +428,8 @@ namespace ThePLeagueDataCore.Migrations
                     DateTime = table.Column<DateTime>(nullable: false),
                     HomeTeamId = table.Column<string>(nullable: true),
                     AwayTeamId = table.Column<string>(nullable: true),
-                    SessionID = table.Column<string>(nullable: true),
-                    LeagueID = table.Column<string>(nullable: true),
-                    LeagueSessionScheduleId = table.Column<string>(nullable: true)
+                    LeagueSessionScheduleId = table.Column<string>(nullable: true),
+                    LeagueID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -483,6 +456,50 @@ namespace ThePLeagueDataCore.Migrations
                         name: "FK_Matches_LeagueSessions_LeagueSessionScheduleId",
                         column: x => x.LeagueSessionScheduleId,
                         principalTable: "LeagueSessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "TeamsSessions",
+                columns: table => new
+                {
+                    TeamId = table.Column<string>(nullable: false),
+                    LeagueSessionScheduleId = table.Column<string>(nullable: false),
+                    Id = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_TeamsSessions", x => new { x.TeamId, x.LeagueSessionScheduleId });
+                    table.ForeignKey(
+                        name: "FK_TeamsSessions_LeagueSessions_LeagueSessionScheduleId",
+                        column: x => x.LeagueSessionScheduleId,
+                        principalTable: "LeagueSessions",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_TeamsSessions_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "GameTimes",
+                columns: table => new
+                {
+                    Id = table.Column<string>(nullable: false),
+                    GameDayId = table.Column<string>(nullable: true),
+                    GamesTime = table.Column<DateTime>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_GameTimes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_GameTimes_GameDays_GameDayId",
+                        column: x => x.GameDayId,
+                        principalTable: "GameDays",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -744,16 +761,16 @@ namespace ThePLeagueDataCore.Migrations
                 column: "LeagueID");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Teams_LeagueSessionScheduleId",
-                table: "Teams",
-                column: "LeagueSessionScheduleId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_TeamsContact_TeamSignUpFormId",
                 table: "TeamsContact",
                 column: "TeamSignUpFormId",
                 unique: true,
                 filter: "[TeamSignUpFormId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_TeamsSessions_LeagueSessionScheduleId",
+                table: "TeamsSessions",
+                column: "LeagueSessionScheduleId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -795,6 +812,9 @@ namespace ThePLeagueDataCore.Migrations
                 name: "TeamsContact");
 
             migrationBuilder.DropTable(
+                name: "TeamsSessions");
+
+            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
@@ -807,13 +827,13 @@ namespace ThePLeagueDataCore.Migrations
                 name: "GearItems");
 
             migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
                 name: "PreOrders");
 
             migrationBuilder.DropTable(
                 name: "TeamSignUpForms");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "LeagueSessions");

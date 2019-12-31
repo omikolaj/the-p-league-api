@@ -33,5 +33,8 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string TeamNotFound = "Failed to find the specified team";
         public const string TeamAssign = "Failed to assign teams to the specified league";
         public const string TeamUnassign = "Failed to unassign team from the specified league";
+        public const string GetUnassignedTeamsFailure = "Failed to retrieve all of the teams that are not assigned to a league";
+        public const string ActiveSessionsInfoFailure = "Failed to retrieve one or session schedules for the specified league ids";
+        public const string PublishingNewSessionsFailure = "Failed to publish new sessions";
     }
 }

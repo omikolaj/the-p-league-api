@@ -69,6 +69,20 @@ namespace ThePLeagueAPI.Controllers
 
         }
 
+        [HttpGet("unassigned")]
+        [Authorize]
+        public async Task<ActionResult<List<TeamViewModel>>> GetUnassigned(CancellationToken ct = default(CancellationToken))
+        {
+            List<TeamViewModel> teams = await this._supervisor.GetUnassignedTeams(ct);
+            
+            if(teams == null)
+            {
+                return BadRequest(Errors.AddErrorToModelState(ErrorCodes.UnassignedTeams, ErrorDescriptions.GetUnassignedTeamsFailure, ModelState));
+            }
+
+            return new JsonResult(teams);
+        }
+
         [HttpPost("unassign")]
         [Authorize]
         public async Task<ActionResult<List<string>>> UnassignTeams(List<string> teamsToUnassignFromLeague, CancellationToken ct = default(CancellationToken))

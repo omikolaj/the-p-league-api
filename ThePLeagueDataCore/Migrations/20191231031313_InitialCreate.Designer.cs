@@ -10,7 +10,7 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20191226175143_InitialCreate")]
+    [Migration("20191231031313_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1445,7 +1445,7 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("GameDayId");
 
-                    b.Property<string>("GamesTime");
+                    b.Property<DateTime>("GamesTime");
 
                     b.HasKey("Id");
 
@@ -1571,8 +1571,6 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("LeagueSessionScheduleId");
 
-                    b.Property<string>("SessionID");
-
                     b.HasKey("Id");
 
                     b.HasIndex("AwayTeamId");
@@ -1625,8 +1623,6 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("LeagueID");
 
-                    b.Property<string>("LeagueSessionScheduleId");
-
                     b.Property<string>("Name");
 
                     b.Property<bool>("Selected");
@@ -1635,11 +1631,24 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.HasIndex("LeagueID");
 
-                    b.HasIndex("LeagueSessionScheduleId");
-
                     b.ToTable("Teams");
 
                     b.HasDiscriminator<string>("Discriminator").HasValue("Team");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.TeamSession", b =>
+                {
+                    b.Property<string>("TeamId");
+
+                    b.Property<string>("LeagueSessionScheduleId");
+
+                    b.Property<string>("Id");
+
+                    b.HasKey("TeamId", "LeagueSessionScheduleId");
+
+                    b.HasIndex("LeagueSessionScheduleId");
+
+                    b.ToTable("TeamsSessions");
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.TeamSignUp.Contact", b =>
@@ -1819,10 +1828,19 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasOne("ThePLeagueDomain.Models.Schedule.League", "League")
                         .WithMany("Teams")
                         .HasForeignKey("LeagueID");
+                });
 
-                    b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
-                        .WithMany("Teams")
-                        .HasForeignKey("LeagueSessionScheduleId");
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.TeamSession", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule", "LeagueSessionSchedule")
+                        .WithMany("TeamsSessions")
+                        .HasForeignKey("LeagueSessionScheduleId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.Team", "Team")
+                        .WithMany("TeamsSessions")
+                        .HasForeignKey("TeamId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.TeamSignUp.Contact", b =>

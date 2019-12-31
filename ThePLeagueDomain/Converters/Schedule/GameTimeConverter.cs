@@ -14,7 +14,8 @@ namespace ThePLeagueDomain.Converters.Schedule
         public static GameTimeViewModel Convert(GameTime gameTime)
         {
             GameTimeViewModel model = new GameTimeViewModel();
-            model.GamesTime = gameTime.GamesTime;
+            model.GamesTime = (Int64)DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalSeconds;
+            model.GameDayId = gameTime.GameDayId;
             model.Id = gameTime.Id;
 
             return model;
@@ -25,8 +26,9 @@ namespace ThePLeagueDomain.Converters.Schedule
             return gameTimes.Select(gameTime =>
             {
                 GameTimeViewModel model = new GameTimeViewModel();
-                model.GamesTime = gameTime.GamesTime;
+                model.GamesTime = (Int64)DateTime.UtcNow.Subtract(DateTime.UnixEpoch).TotalSeconds;
                 model.Id = gameTime.Id;
+                model.GameDayId = gameTime.GameDayId;
 
                 return model;
             }).ToList();

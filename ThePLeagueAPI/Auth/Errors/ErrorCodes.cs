@@ -31,5 +31,8 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string TeamDelete = "team_delete";
         public const string TeamAssign = "team_assign";
         public const string TeamUnassign = "team_unassign";
+        public const string UnassignedTeams = "unassigned_teams";
+        public const string ActiveSessionsInfo = "active_sessions_info";
+        public const string PublishNewSession = "publish_new_sessions";
     }
 }

@@ -12,6 +12,12 @@ namespace ThePLeagueDomain.Supervisor
 {
     public partial class ThePLeagueSupervisor : IThePLeagueSupervisor
     {
+        #region Constants
+
+        public const string UNASSIGNED = "-1";
+
+        #endregion
+
         #region Methods
 
         public async Task<TeamViewModel> GetTeamByIdAsync(string id, CancellationToken ct = default(CancellationToken))
@@ -112,6 +118,18 @@ namespace ThePLeagueDomain.Supervisor
             }
 
             return teamsIdsToUnassignFromLeague;
+        }
+
+        public async Task<List<TeamViewModel>> GetUnassignedTeams(CancellationToken ct = default(CancellationToken))
+        {
+            List<TeamViewModel> unassignedTeams = TeamConverter.ConvertList(await this._teamRepository.GetUnassignedTeams(ct));
+
+            foreach (TeamViewModel team in unassignedTeams)
+            {
+                team.LeagueID = UNASSIGNED;
+            }
+
+            return unassignedTeams;
         }
 
         public async Task<bool> DeleteTeamAsync(string id, CancellationToken ct = default(CancellationToken))

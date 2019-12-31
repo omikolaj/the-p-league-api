@@ -21,7 +21,7 @@ namespace ThePLeagueDataCore.Configurations.Schedule
 
             model.HasOne(team => team.League)
                 .WithMany(league => league.Teams)
-                .HasForeignKey(team => team.LeagueID);
+                .HasForeignKey(team => team.LeagueID);   
         }
 
         #endregion

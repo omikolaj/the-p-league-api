@@ -36,6 +36,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         {
             return await this._dbContext.Leagues.FindAsync(id);
         }
+        
 
         public async Task<List<League>> GetBySportTypeIdAsync(string sportTypeId, CancellationToken ct = default)
         {

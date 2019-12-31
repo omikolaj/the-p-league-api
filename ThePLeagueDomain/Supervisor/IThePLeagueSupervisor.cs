@@ -80,6 +80,7 @@ namespace ThePLeagueDomain
         Task<List<TeamViewModel>> AssignTeamsAsync(List<TeamViewModel> teamsToAssign, CancellationToken ct = default(CancellationToken));
         Task<List<string>> UnassignTeamsAsync(List<string> teamsToUnassignFromLeagueIds, CancellationToken ct = default(CancellationToken));
         Task<List<TeamViewModel>> GetTeamsByLeagueId(string leagueID, CancellationToken ct = default(CancellationToken));
+        Task<List<TeamViewModel>> GetUnassignedTeams(CancellationToken ct = default(CancellationToken));
         Task<bool> DeleteTeamAsync(string id, CancellationToken ct = default(CancellationToken));
         Task<bool> DeleteTeamsAsync(List<string> ids, CancellationToken ct = default(CancellationToken));
 
@@ -94,7 +95,7 @@ namespace ThePLeagueDomain
         Task<bool> UpdateLeagueAsync(LeagueViewModel leagueToUpdate, CancellationToken ct = default(CancellationToken));
         Task<bool> UpdateLeaguesAsync(List<LeagueViewModel> leaguesToUpdate, CancellationToken ct = default(CancellationToken));
         Task<bool> DeleteLeagueAsync(string id, CancellationToken ct = default(CancellationToken));
-        Task<bool> DeleteLeaguesAsync(List<string> leagueIDsToDelete, CancellationToken ct = default(CancellationToken));
+        Task<bool> DeleteLeaguesAsync(List<string> leagueIDsToDelete, CancellationToken ct = default(CancellationToken));        
 
         #endregion
 
@@ -110,7 +111,8 @@ namespace ThePLeagueDomain
 
         #region League Session Schedule
 
-        Task<LeagueSessionScheduleViewModel> PublishSessionSchedule(LeagueSessionScheduleViewModel newLeagueSessionSchedule, CancellationToken ct = default(CancellationToken));
+        Task<bool> PublishSessionsSchedulesAsync(List<LeagueSessionScheduleViewModel> newLeagueSessionSchedule, CancellationToken ct = default(CancellationToken));
+        Task<List<ActiveSessionInfoViewModel>> GetActiveSessionsInfoAsync(List<string> leagueIDs, CancellationToken ct = default(CancellationToken));
 
         #endregion
     }

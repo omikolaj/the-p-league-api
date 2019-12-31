@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -26,6 +28,19 @@ namespace ThePLeagueDomain.Repositories.Schedule
         #endregion
 
         #region Methods
+
+        public async Task<List<ActiveSessionInfo>> GetAllActiveSessionsAsync(CancellationToken ct = default)
+        {
+            return await this._dbContext.LeagueSessions
+                .Where(session => session.Active == true)
+                .Select(session => new ActiveSessionInfo
+                {
+                    Id = session.Id,
+                    LeagueId = session.LeagueID,
+                    StartDate = session.SessionStart,
+                    EndDate = session.SessionEnd
+                }).ToListAsync();
+        }
 
         public async Task<LeagueSessionSchedule> AddScheduleAsync(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default)
         {

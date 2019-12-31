@@ -16,7 +16,7 @@ namespace ThePLeagueAPI.Configurations
       //string connection = configuration.GetConnectionString("PostgreSQL");
 
       //Add ThePLeagueContext to the DI container          
-      services.AddDbContext<ThePLeagueContext>(options => options.UseSqlServer(connection), ServiceLifetime.Transient);
+      services.AddDbContext<ThePLeagueContext>(options => options.UseSqlServer(connection), ServiceLifetime.Scoped);
 
       services.AddSingleton(new DbInfo(connection));
 

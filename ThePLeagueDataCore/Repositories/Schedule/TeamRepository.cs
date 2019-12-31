@@ -43,6 +43,10 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         {
             return await this._dbContext.Teams.Where(team => team.LeagueID == leagueID).ToListAsync();
         }
+        public async Task<List<Team>> GetUnassignedTeams(CancellationToken ct = default)
+        {
+            return await this._dbContext.Teams.Where(team => team.LeagueID == null).ToListAsync();
+        }
         public async Task<bool> DeleteAsync(string id, CancellationToken ct = default)
         {
             if (!await TeamExists(id, ct))

@@ -12,7 +12,6 @@ using ThePLeagueDomain.ViewModels.Schedule;
 
 namespace ThePLeagueAPI.Controllers
 {
-    [Authorize]
     [Route("api/leagues")]
     [Produces("application/json")]
     [ServiceFilter(typeof(ValidateModelStateAttribute))]
@@ -36,6 +35,7 @@ namespace ThePLeagueAPI.Controllers
         #region Controllers
 
         [HttpPost("new")]
+        [Authorize]
         public async Task<ActionResult<LeagueViewModel>> Create([FromBody]LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken))
         {
             newLeague = await this._supervisor.AddLeagueAsync(newLeague, ct);
@@ -63,6 +63,7 @@ namespace ThePLeagueAPI.Controllers
         //}
 
         [HttpPatch]
+        [Authorize]
         public async Task<ActionResult<LeagueViewModel>> UpdateLeagues([FromBody]List<LeagueViewModel> updatedLeagues, CancellationToken ct = default(CancellationToken))
         {
             if (!await this._supervisor.UpdateLeaguesAsync(updatedLeagues, ct))
@@ -95,6 +96,7 @@ namespace ThePLeagueAPI.Controllers
         //}
 
         [HttpDelete]
+        [Authorize]
         public async Task<ActionResult<LeagueViewModel>> DeleteLeagues([FromBody]List<string> idsToDelete, CancellationToken ct = default(CancellationToken))
         {
             if (!await this._supervisor.DeleteLeaguesAsync(idsToDelete, ct))
@@ -104,6 +106,36 @@ namespace ThePLeagueAPI.Controllers
 
             return new OkObjectResult(true);
         }
+
+        #region Session Schedules
+
+        [HttpPost("sessions/active-sessions-info")]
+        [Authorize]
+        public async Task<ActionResult<List<ActiveSessionInfoViewModel>>> ActiveSchedulesInfo([FromBody]List<string> leagueIds, CancellationToken ct = default(CancellationToken))
+        {
+            List<ActiveSessionInfoViewModel> activeSessions = await this._supervisor.GetActiveSessionsInfoAsync(leagueIds, ct);
+            
+            if(activeSessions == null)
+            {
+                return BadRequest(Errors.AddErrorToModelState(ErrorCodes.ActiveSessionsInfo, ErrorDescriptions.ActiveSessionsInfoFailure, ModelState));
+            }
+
+            return new JsonResult(activeSessions);
+        }
+
+        [HttpPost("sessions")]
+        [Authorize]
+        public async Task<ActionResult<bool>> PublishLeagueSessionSchedules([FromBody]List<LeagueSessionScheduleViewModel> newSessionSchedules, CancellationToken ct = default(CancellationToken))
+        {
+            if (!await this._supervisor.PublishSessionsSchedulesAsync(newSessionSchedules, ct))
+            {
+                return BadRequest(Errors.AddErrorToModelState(ErrorCodes.PublishNewSession, ErrorDescriptions.PublishingNewSessionsFailure, ModelState));
+            }
+
+            return new JsonResult(true);
+        }
+
+        #endregion
 
         #endregion
     }

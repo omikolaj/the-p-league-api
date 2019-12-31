@@ -20,15 +20,19 @@ namespace ThePLeagueAPI.Extensions
                 UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
                 RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
                 IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
-                ThePLeagueContext dbContext = serviceProvider.GetService<ThePLeagueContext>();                
-                DataBaseInitializer.SeedUsers(userManager, roleManager, configuration);
-                DataBaseInitializer.SeedTeams(dbContext);
+                ThePLeagueContext dbContext = serviceProvider.GetService<ThePLeagueContext>();
+                DataBaseInitializer.SeedUsers(userManager, roleManager, configuration, dbContext);
+                // Currently not working, as there are dbContext issues, as of right now it is called inside
+                // DataBaseInitializer.SeedUsers method
+                //DataBaseInitializer.SeedTeams(dbContext);
+
             }
             catch (Exception ex)
             {
                 ILogger<Program> logger = serviceProvider.GetRequiredService<ILogger<Program>>();
                 logger.LogError(ex, "An error occurred while seeding the database.");
             }
+
             return app;
         }
 

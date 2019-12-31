@@ -15,10 +15,13 @@ namespace ThePLeagueDomain.Converters.Schedule
         {
             MatchViewModel model = new MatchViewModel();
             model.AwayTeam = TeamConverter.Convert(match.AwayTeam);
+            model.AwayTeamId = match.AwayTeamId;
             model.HomeTeam = TeamConverter.Convert(match.HomeTeam);
+            model.HomeTeamId = match.HomeTeamId;
             model.Id = match.Id;
             model.LeagueID = match.LeagueID;
-            model.SessionID = match.SessionID;
+            model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
+            model.League = LeagueConverter.Convert(match.League);
 
             return model;
         }
@@ -32,7 +35,8 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.HomeTeam = TeamConverter.Convert(match.HomeTeam);
                 model.Id = match.Id;
                 model.LeagueID = match.LeagueID;
-                model.SessionID = match.SessionID;
+                model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
+                model.League = LeagueConverter.Convert(match.League);
 
                 return model;
 

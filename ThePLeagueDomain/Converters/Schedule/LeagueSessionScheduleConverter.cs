@@ -23,7 +23,7 @@ namespace ThePLeagueDomain.Converters.Schedule
             model.NumberOfWeeks = sessionSchedule.NumberOfWeeks;
             model.SessionEnd = sessionSchedule.SessionEnd;
             model.SessionStart = sessionSchedule.SessionStart;
-            model.Teams = TeamConverter.ConvertList(sessionSchedule.Teams);
+            model.TeamsSessions = TeamSessionConverter.ConvertList(sessionSchedule.TeamsSessions.ToList());
 
             return model;
         }
@@ -42,7 +42,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.NumberOfWeeks = sessionSchedule.NumberOfWeeks;
                 model.SessionEnd = sessionSchedule.SessionEnd;
                 model.SessionStart = sessionSchedule.SessionStart;
-                model.Teams = TeamConverter.ConvertList(sessionSchedule.Teams);
+                model.TeamsSessions = TeamSessionConverter.ConvertList(sessionSchedule.TeamsSessions.ToList());
 
                 return model;
             }).ToList();

@@ -9,7 +9,8 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         #region Fields and Properties
 
         public string Id { get; set; }
-        public string GamesTime { get; set; }
+        public string GameDayId { get; set; }
+        public long GamesTime { get; set; }
 
         #endregion
     }

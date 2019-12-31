@@ -15,6 +15,8 @@ namespace ThePLeagueDomain.Converters.Schedule
         {
             GameDayViewModel model = new GameDayViewModel();
             model.GamesDay = gameDay.GamesDay;
+            model.Id = gameDay.Id;
+            model.LeagueSessionScheduleId = gameDay.LeagueSessionScheduleId;
             model.GamesTimes = GameTimeConverter.ConvertList(gameDay.GamesTimes);
 
             return model;
@@ -26,6 +28,8 @@ namespace ThePLeagueDomain.Converters.Schedule
             {
                 GameDayViewModel model = new GameDayViewModel();
                 model.GamesDay = gameDay.GamesDay;
+                model.Id = gameDay.Id;
+                model.LeagueSessionScheduleId = gameDay.LeagueSessionScheduleId;
                 model.GamesTimes = GameTimeConverter.ConvertList(gameDay.GamesTimes);
 
                 return model;

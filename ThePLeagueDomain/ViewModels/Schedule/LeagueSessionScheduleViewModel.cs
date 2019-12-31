@@ -16,7 +16,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         public long? NumberOfWeeks { get; set; }
         public DateTime SessionStart { get; set; }
         public DateTime SessionEnd { get; set; }
-        public IEnumerable<TeamViewModel> Teams { get; set; }
+        public IEnumerable<TeamSessionViewModel> TeamsSessions { get; set; }
         public IEnumerable<GameDayViewModel> GamesDays { get; set; }
 
         #endregion
