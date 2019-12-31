@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
@@ -14,16 +15,17 @@ namespace ThePLeagueAPI.Extensions
     {
         public static IApplicationBuilder SeedDatabase(this IApplicationBuilder app)
         {
-            IServiceProvider serviceProvider = app.ApplicationServices.CreateScope().ServiceProvider;
+            IServiceProvider serviceProvider = app.ApplicationServices.CreateScope().ServiceProvider;                        
             try
             {
-                UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-                RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
-                IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
-                ThePLeagueContext dbContext = serviceProvider.GetService<ThePLeagueContext>();
-                DataBaseInitializer.SeedUsers(userManager, roleManager, configuration, dbContext);
-                // Currently not working, as there are dbContext issues, as of right now it is called inside
-                // DataBaseInitializer.SeedUsers method
+                // UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+                // RoleManager<IdentityRole> roleManager = serviceProvider.GetService<RoleManager<IdentityRole>>();
+                // IConfiguration configuration = serviceProvider.GetService<IConfiguration>();
+                // ThePLeagueContext dbContext = serviceProvider.GetService<ThePLeagueContext>();
+                DataBaseInitializer.Initialize(serviceProvider);
+                //new DataBaseInitializer(userManager, roleManager, configuration, dbContext).Initialize();
+                //DataBaseInitializer.SeedUsers(userManager, roleManager, configuration, dbContext);
+                // Currently not working, as there are dbContext issues, as of right now it is called inside                
                 //DataBaseInitializer.SeedTeams(dbContext);
 
             }
