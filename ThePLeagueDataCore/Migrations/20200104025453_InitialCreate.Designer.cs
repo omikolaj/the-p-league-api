@@ -10,7 +10,7 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20191231031313_InitialCreate")]
+    [Migration("20200104025453_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1563,7 +1563,7 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("AwayTeamId");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<long>("DateTime");
 
                     b.Property<string>("HomeTeamId");
 

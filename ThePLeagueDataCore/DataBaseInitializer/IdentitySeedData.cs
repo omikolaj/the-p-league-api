@@ -25,6 +25,8 @@ namespace ThePLeagueDataCore.DataBaseInitializer
 
         #endregion
 
+        #region Methods
+
         public async static Task Populate(IServiceProvider serviceProvider)
         {
             UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
@@ -34,7 +36,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
             await Seed(userManager, roleManager, configuration);
         }
 
-        public async static Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
+        private async static Task Seed(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager, IConfiguration configuration)
         {
             // ThePLeagueRole[] roles = new ThePLeagueRole [] { ThePLeagueRole.User, ThePLeagueRole.Admin };
             string[] roles = new string[] { AdminRole, SuperUserRole, UserRole };
@@ -98,7 +100,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
             }
 
         }
-    }
 
-    
+        #endregion
+    }
 }

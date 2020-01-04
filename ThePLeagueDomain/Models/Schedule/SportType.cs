@@ -11,7 +11,7 @@ namespace ThePLeagueDomain.Models.Schedule
 
         public string Id { get; set; }
         public string Name { get; set; }
-        public  IEnumerable<League> Leagues { get; set; }
+        public  ICollection<League> Leagues { get; set; }
 
         #endregion
     }

@@ -1561,7 +1561,7 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("AwayTeamId");
 
-                    b.Property<DateTime>("DateTime");
+                    b.Property<long>("DateTime");
 
                     b.Property<string>("HomeTeamId");
 

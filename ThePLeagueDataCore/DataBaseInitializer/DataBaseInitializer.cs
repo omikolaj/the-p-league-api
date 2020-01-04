@@ -11,7 +11,6 @@ using ThePLeagueDomain.Models.Schedule;
 
 namespace ThePLeagueDataCore.DataBaseInitializer
 {
-    
     public class DataBaseInitializer
     {
         #region Methods

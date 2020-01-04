@@ -11,7 +11,7 @@ namespace ThePLeagueDomain.Models.Schedule
         #region Properties and Fields
 
         public string Id { get; set; }
-        public DateTime DateTime { get; set; }                        
+        public long DateTime { get; set; }                        
         public HomeTeam HomeTeam { get; set; }
         public string HomeTeamId { get; set; }
         public AwayTeam AwayTeam { get; set; }

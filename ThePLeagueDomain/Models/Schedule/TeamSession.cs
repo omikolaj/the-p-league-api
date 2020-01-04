@@ -17,6 +17,7 @@ namespace ThePLeagueDomain.Models.Schedule
 
         #region Fields and Properties
 
+        // TODO Remove currently not used
         public string Id { get; set; }
         public string TeamId { get; set; }
         public Team Team { get; set; }

@@ -15,7 +15,8 @@ namespace ThePLeagueDomain.Repositories.Schedule
         Task<Match> AddMatchAsync(Match newMatch, CancellationToken ct = default(CancellationToken));
         Task<GameDay> AddGameDayAsync(GameDay newGameDay, CancellationToken ct = default);
         Task<GameTime> AddGameTimeAsync(GameTime newGameTime, CancellationToken ct = default);
-        Task<List<ActiveSessionInfo>> GetAllActiveSessionsAsync(CancellationToken ct = default);
+        Task<List<ActiveSessionInfo>> GetAllActiveSessionsInfoAsync(CancellationToken ct = default);
+        Task<List<LeagueSessionSchedule>> GetAllActiveSessionsAsync(CancellationToken ct = default);
 
         #endregion
     }

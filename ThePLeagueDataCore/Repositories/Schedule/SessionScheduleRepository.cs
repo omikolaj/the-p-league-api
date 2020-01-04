@@ -29,7 +29,7 @@ namespace ThePLeagueDomain.Repositories.Schedule
 
         #region Methods
 
-        public async Task<List<ActiveSessionInfo>> GetAllActiveSessionsAsync(CancellationToken ct = default)
+        public async Task<List<ActiveSessionInfo>> GetAllActiveSessionsInfoAsync(CancellationToken ct = default)
         {
             return await this._dbContext.LeagueSessions
                 .Where(session => session.Active == true)
@@ -40,6 +40,21 @@ namespace ThePLeagueDomain.Repositories.Schedule
                     StartDate = session.SessionStart,
                     EndDate = session.SessionEnd
                 }).ToListAsync();
+        }
+
+        public async Task<List<LeagueSessionSchedule>> GetAllActiveSessionsAsync(CancellationToken ct = default)
+        {
+                return await this._dbContext.LeagueSessions
+                .Where(session => session.Active == true)
+                .Include(session => session.Matches)
+                    .ThenInclude((Match match) => match.League)
+                .Include(session => session.TeamsSessions)
+                    .ThenInclude((TeamSession teamSession) => teamSession.LeagueSessionSchedule)
+                .Include(session => session.TeamsSessions)
+                    .ThenInclude((TeamSession teamSession) => teamSession.Team)
+                .Include(session => session.GamesDays)
+                    .ThenInclude((GameDay gameDay) => gameDay.GamesTimes)
+                .ToListAsync();            
         }
 
         public async Task<LeagueSessionSchedule> AddScheduleAsync(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default)

@@ -11,7 +11,6 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         public string Id { get; set; }
         public string Name { get; set; }
         public string LeagueID { get; set; }
-        public string LeagueSessionScheduleId { get; set; }
         public bool Selected { get; set; }
         public IEnumerable<MatchViewModel> Matches { get; set; }
 

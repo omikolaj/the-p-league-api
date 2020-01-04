@@ -37,9 +37,7 @@ namespace ThePLeagueDomain.Supervisor
                     {
                         GamesDay = gameDay.GamesDay
                     };
-
-                     // leagueSessionSchedule.GamesDays.Add(newGameDay);
-
+                    
                     // create game time entry for every game day
                     foreach (GameTimeViewModel gameTime in gameDay.GamesTimes)
                     {
@@ -75,15 +73,19 @@ namespace ThePLeagueDomain.Supervisor
                 // update matches for this session
                 foreach (MatchViewModel match in newSchedule.Matches)
                 {
-                    Match newMatch = new Match()
+                    // if match DateTime is not set do not add it to the database
+                    if(match.DateTime != 0)
                     {
-                        DateTime = match.DateTime,
-                        HomeTeamId = match.HomeTeam.Id,
-                        AwayTeamId = match.AwayTeam.Id,
-                        LeagueID = match.LeagueID                        
-                    };
+                        Match newMatch = new Match()
+                        {
+                            DateTime = match.DateTime,
+                            HomeTeamId = match.HomeTeam.Id,
+                            AwayTeamId = match.AwayTeam.Id,
+                            LeagueID = match.LeagueID
+                        };
 
-                    leagueSessionSchedule.Matches.Add(newMatch);
+                        leagueSessionSchedule.Matches.Add(newMatch);
+                    }                    
                 }
 
                 leagueSessionOperations.Add(await this._sessionScheduleRepository.AddScheduleAsync(leagueSessionSchedule, ct));
@@ -95,10 +97,28 @@ namespace ThePLeagueDomain.Supervisor
 
         public async Task<List<ActiveSessionInfoViewModel>> GetActiveSessionsInfoAsync(List<string> leagueIDs, CancellationToken ct = default(CancellationToken))
         {
-            List<ActiveSessionInfoViewModel> activeSessions = ActiveSessionInfoConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsAsync(ct));
+            List<ActiveSessionInfoViewModel> activeSessionsInfo = ActiveSessionInfoConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsInfoAsync(ct));
+
+            return activeSessionsInfo;
+            
+        }
+
+        public async Task<List<LeagueSessionScheduleViewModel>> GetAllActiveSessions(CancellationToken ct = default(CancellationToken))
+        {
+            List<LeagueSessionScheduleViewModel> activeSessions = LeagueSessionScheduleConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsAsync(ct));
+
+            // for each session loop through all matches and include the team. EF is not returning teams for some reason. HomeTeam or AwayTeam
+
+            foreach (LeagueSessionScheduleViewModel session in activeSessions)
+            {
+                foreach (MatchViewModel match in session.Matches)
+                {
+                    match.AwayTeam = await this.GetTeamByIdAsync(match.AwayTeamId, ct);
+                    match.HomeTeam = await this.GetTeamByIdAsync(match.HomeTeamId, ct);                    
+                }
+            }
 
             return activeSessions;
-            
         }
 
         #endregion

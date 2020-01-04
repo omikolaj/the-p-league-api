@@ -425,7 +425,7 @@ namespace ThePLeagueDataCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
-                    DateTime = table.Column<DateTime>(nullable: false),
+                    DateTime = table.Column<long>(nullable: false),
                     HomeTeamId = table.Column<string>(nullable: true),
                     AwayTeamId = table.Column<string>(nullable: true),
                     LeagueSessionScheduleId = table.Column<string>(nullable: true),

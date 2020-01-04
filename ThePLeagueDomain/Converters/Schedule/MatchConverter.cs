@@ -14,14 +14,14 @@ namespace ThePLeagueDomain.Converters.Schedule
         public static MatchViewModel Convert(Match match)
         {
             MatchViewModel model = new MatchViewModel();
-            model.AwayTeam = TeamConverter.Convert(match.AwayTeam);
             model.AwayTeamId = match.AwayTeamId;
-            model.HomeTeam = TeamConverter.Convert(match.HomeTeam);
+            model.AwayTeam = match.AwayTeam == null ? null : TeamConverter.Convert(match.AwayTeam);
             model.HomeTeamId = match.HomeTeamId;
+            model.HomeTeam = match.HomeTeam == null ? null : TeamConverter.Convert(match.HomeTeam);
             model.Id = match.Id;
             model.LeagueID = match.LeagueID;
             model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
-            model.League = LeagueConverter.Convert(match.League);
+            model.League = match.League == null ? null : LeagueConverter.Convert(match.League);
 
             return model;
         }
@@ -31,12 +31,15 @@ namespace ThePLeagueDomain.Converters.Schedule
             return matches.Select(match => 
             {
                 MatchViewModel model = new MatchViewModel();
-                model.AwayTeam = TeamConverter.Convert(match.AwayTeam);
-                model.HomeTeam = TeamConverter.Convert(match.HomeTeam);
+                model.DateTime = match.DateTime;
+                model.AwayTeamId = match.AwayTeamId;
+                model.AwayTeam = match.AwayTeam == null ? null : TeamConverter.Convert(match.AwayTeam);
+                model.HomeTeamId = match.HomeTeamId;
+                model.HomeTeam = match.HomeTeam == null ? null : TeamConverter.Convert(match.HomeTeam);
                 model.Id = match.Id;
                 model.LeagueID = match.LeagueID;
                 model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
-                model.League = LeagueConverter.Convert(match.League);
+                model.League = match.League == null ? null : LeagueConverter.Convert(match.League);
 
                 return model;
 

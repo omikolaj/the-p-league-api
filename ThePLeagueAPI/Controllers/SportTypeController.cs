@@ -43,7 +43,7 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(sportTypes);
         }
 
-        [HttpPost("new")]
+        [HttpPost]
         public async Task<ActionResult<SportTypeViewModel>> Create([FromBody]SportTypeViewModel newSportType, CancellationToken ct = default(CancellationToken))
         {
             newSportType = await this._supervisor.AddSportTypeAsync(newSportType, ct);

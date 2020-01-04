@@ -34,7 +34,7 @@ namespace ThePLeagueAPI.Controllers
 
         #region Controllers
 
-        [HttpPost("new")]
+        [HttpPost]
         [Authorize]
         public async Task<ActionResult<LeagueViewModel>> Create([FromBody]LeagueViewModel newLeague, CancellationToken ct = default(CancellationToken))
         {
@@ -47,20 +47,6 @@ namespace ThePLeagueAPI.Controllers
 
             return new JsonResult(newLeague);
         }
-
-        // currently not in use, only BulkUpdate is used
-        //[HttpPatch("{id}")]
-        //public async Task<ActionResult<LeagueViewModel>> Update([FromBody]LeagueViewModel updatedLeague, CancellationToken ct = default(CancellationToken))
-        //{
-        //    if (!await this._supervisor.UpdateLeagueAsync(updatedLeague, ct))
-        //    {
-        //        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.LeagueUpdate, ErrorDescriptions.LeagueUpdateFailure, ModelState));
-        //    }
-
-        //    updatedLeague = await this._supervisor.GetLeagueByIdAsync(updatedLeague.Id, ct);
-
-        //    return new JsonResult(updatedLeague);
-        //}
 
         [HttpPatch]
         [Authorize]
@@ -75,25 +61,6 @@ namespace ThePLeagueAPI.Controllers
 
             return new JsonResult(updatedLeagues);
         }
-
-        // currently not in use. Only bulkDelete is used by the client
-        //[HttpDelete("{id}")]
-        //public async Task<ActionResult<bool>> Delete([FromBody]string id, CancellationToken ct = default(CancellationToken))
-        //{
-        //    LeagueViewModel leagueToDelete = await this._supervisor.GetLeagueByIdAsync(id, ct);
-
-        //    if (leagueToDelete == null)
-        //    {
-        //        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.LeagueDelete, ErrorDescriptions.LeagueNotFound, ModelState));
-        //    }
-
-        //    if (!await this._supervisor.DeleteLeagueAsync(id))
-        //    {
-        //        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.LeagueDelete, ErrorDescriptions.LeagueDeleteFailure, ModelState));
-        //    }
-
-        //    return new OkObjectResult(true);
-        //}
 
         [HttpDelete]
         [Authorize]
@@ -133,6 +100,14 @@ namespace ThePLeagueAPI.Controllers
             }
 
             return new JsonResult(true);
+        }
+
+        [HttpGet("sessions")]        
+        public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetLeagueSessionSchedules(CancellationToken ct = default(CancellationToken))
+        {
+            List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessions(ct);
+
+            return new JsonResult(sessions);
         }
 
         #endregion

@@ -97,7 +97,7 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(teamsToUnassignFromLeague);
         }
 
-        [HttpPost("new")]
+        [HttpPost]
         [Authorize]
         public async Task<ActionResult<TeamViewModel>> CreateTeam([FromBody]TeamViewModel newTeam, CancellationToken ct = default(CancellationToken))
         {
