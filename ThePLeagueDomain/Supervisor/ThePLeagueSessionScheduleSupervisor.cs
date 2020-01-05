@@ -121,6 +121,37 @@ namespace ThePLeagueDomain.Supervisor
             return activeSessions;
         }
 
+        public async Task<bool> ReportMatch(MatchResultViewModel matchResult, CancellationToken ct = default(CancellationToken))
+        {
+            MatchResult reportMatch = new MatchResult()
+            {
+                MatchResultId = matchResult.Id,
+                MatchId = matchResult.MatchId,
+                Status = matchResult.Status,
+                AwayTeamScore = matchResult.AwayTeamScore,
+                AwayTeamId = matchResult.AwayTeamId,
+                HomeTeamScore = matchResult.HomeTeamScore,
+                HomeTeamId = matchResult.HomeTeamId,
+                Score = matchResult.Score,
+                WonTeamName = matchResult.WonTeamName,
+                LostTeamName = matchResult.LostTeamName
+            };
+
+            return await this._sessionScheduleRepository.ReportMatch(reportMatch, ct);
+        }
+
+        public async Task<bool> ReportMatches(List<MatchResultViewModel> matchesResults, CancellationToken ct = default(CancellationToken))
+        {
+            List<bool> matchResultsReportingOperations = new List<bool>();
+
+            foreach (MatchResultViewModel matchResult in matchesResults)
+            {
+                matchResultsReportingOperations.Add(await this.ReportMatch(matchResult, ct));
+            }
+
+            return matchResultsReportingOperations.All(op => op == true);
+        }
+
         #endregion
     }
 }

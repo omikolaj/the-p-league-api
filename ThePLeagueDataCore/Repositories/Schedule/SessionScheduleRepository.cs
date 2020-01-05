@@ -46,8 +46,8 @@ namespace ThePLeagueDomain.Repositories.Schedule
         {
                 return await this._dbContext.LeagueSessions
                 .Where(session => session.Active == true)
-                .Include(session => session.Matches)
-                    .ThenInclude((Match match) => match.League)
+                .Include(session => session.Matches)                
+                    //.ThenInclude((Match match) => match.League)                
                 .Include(session => session.TeamsSessions)
                     .ThenInclude((TeamSession teamSession) => teamSession.LeagueSessionSchedule)
                 .Include(session => session.TeamsSessions)
@@ -87,6 +87,26 @@ namespace ThePLeagueDomain.Repositories.Schedule
             await this._dbContext.SaveChangesAsync(ct);
 
             return newMatch;
+        }
+
+        public async Task<bool> ReportMatch(MatchResult matchResult, CancellationToken ct = default)
+        {
+            bool operation = false;
+            try
+            {
+                this._dbContext.MatchResults.Add(matchResult);
+                await this._dbContext.SaveChangesAsync(ct);
+
+                operation = true;
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine($"Error occured when attempting to add match result to the database. ${ ex.Message }");
+                operation = false;
+            }
+
+            return operation;
+
         }
 
         #endregion

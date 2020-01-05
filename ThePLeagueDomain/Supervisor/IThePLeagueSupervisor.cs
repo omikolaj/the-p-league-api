@@ -114,6 +114,8 @@ namespace ThePLeagueDomain
         Task<bool> PublishSessionsSchedulesAsync(List<LeagueSessionScheduleViewModel> newLeagueSessionSchedule, CancellationToken ct = default(CancellationToken));
         Task<List<ActiveSessionInfoViewModel>> GetActiveSessionsInfoAsync(List<string> leagueIDs, CancellationToken ct = default(CancellationToken));
         Task<List<LeagueSessionScheduleViewModel>> GetAllActiveSessions(CancellationToken ct = default(CancellationToken));
+        Task<bool> ReportMatch(MatchResultViewModel matchResult, CancellationToken ct = default(CancellationToken));
+        Task<bool> ReportMatches(List<MatchResultViewModel> matchesResults, CancellationToken ct = default(CancellationToken));
 
         #endregion
     }

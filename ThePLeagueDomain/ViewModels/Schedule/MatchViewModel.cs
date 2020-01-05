@@ -17,7 +17,8 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         public string AwayTeamId { get; set; }
         public string LeagueSessionScheduleId { get; set; }
         public string LeagueID { get; set; }
-        public LeagueViewModel League { get; set; }
+        public LeagueViewModel League { get; set; }        
+        public MatchResult MatchResult { get; set; }
 
         #endregion
     }

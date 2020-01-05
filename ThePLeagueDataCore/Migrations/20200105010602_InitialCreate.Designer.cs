@@ -10,7 +10,7 @@ using ThePLeagueDataCore;
 namespace ThePLeagueDataCore.Migrations
 {
     [DbContext(typeof(ThePLeagueContext))]
-    [Migration("20200104025453_InitialCreate")]
+    [Migration("20200105010602_InitialCreate")]
     partial class InitialCreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -1558,7 +1558,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Match", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("MatchId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("AwayTeamId");
@@ -1571,7 +1571,7 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("LeagueSessionScheduleId");
 
-                    b.HasKey("Id");
+                    b.HasKey("MatchId");
 
                     b.HasIndex("AwayTeamId");
 
@@ -1582,6 +1582,40 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasIndex("LeagueSessionScheduleId");
 
                     b.ToTable("Matches");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.MatchResult", b =>
+                {
+                    b.Property<string>("MatchResultId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AwayTeamId");
+
+                    b.Property<long>("AwayTeamScore");
+
+                    b.Property<string>("HomeTeamId");
+
+                    b.Property<long>("HomeTeamScore");
+
+                    b.Property<string>("LeagueId");
+
+                    b.Property<string>("LostTeamName");
+
+                    b.Property<string>("MatchId");
+
+                    b.Property<string>("Score");
+
+                    b.Property<int>("Status");
+
+                    b.Property<string>("WonTeamName");
+
+                    b.HasKey("MatchResultId");
+
+                    b.HasIndex("MatchId")
+                        .IsUnique()
+                        .HasFilter("[MatchId] IS NOT NULL");
+
+                    b.ToTable("MatchResults");
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.SportType", b =>
@@ -1821,6 +1855,13 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
                         .WithMany("Matches")
                         .HasForeignKey("LeagueSessionScheduleId");
+                });
+
+            modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.MatchResult", b =>
+                {
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.Match", "Match")
+                        .WithOne("MatchResult")
+                        .HasForeignKey("ThePLeagueDomain.Models.Schedule.MatchResult", "MatchId");
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Team", b =>

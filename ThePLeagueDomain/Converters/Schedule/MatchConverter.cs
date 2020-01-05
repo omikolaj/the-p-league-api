@@ -18,10 +18,11 @@ namespace ThePLeagueDomain.Converters.Schedule
             model.AwayTeam = match.AwayTeam == null ? null : TeamConverter.Convert(match.AwayTeam);
             model.HomeTeamId = match.HomeTeamId;
             model.HomeTeam = match.HomeTeam == null ? null : TeamConverter.Convert(match.HomeTeam);
-            model.Id = match.Id;
+            model.Id = match.MatchId;
             model.LeagueID = match.LeagueID;
             model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
             model.League = match.League == null ? null : LeagueConverter.Convert(match.League);
+            model.MatchResult = match.MatchResult;            
 
             return model;
         }
@@ -36,10 +37,11 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.AwayTeam = match.AwayTeam == null ? null : TeamConverter.Convert(match.AwayTeam);
                 model.HomeTeamId = match.HomeTeamId;
                 model.HomeTeam = match.HomeTeam == null ? null : TeamConverter.Convert(match.HomeTeam);
-                model.Id = match.Id;
+                model.Id = match.MatchId;
                 model.LeagueID = match.LeagueID;
                 model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
                 model.League = match.League == null ? null : LeagueConverter.Convert(match.League);
+                model.MatchResult = match.MatchResult;                
 
                 return model;
 

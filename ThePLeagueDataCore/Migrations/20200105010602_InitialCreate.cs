@@ -424,7 +424,7 @@ namespace ThePLeagueDataCore.Migrations
                 name: "Matches",
                 columns: table => new
                 {
-                    Id = table.Column<string>(nullable: false),
+                    MatchId = table.Column<string>(nullable: false),
                     DateTime = table.Column<long>(nullable: false),
                     HomeTeamId = table.Column<string>(nullable: true),
                     AwayTeamId = table.Column<string>(nullable: true),
@@ -433,7 +433,7 @@ namespace ThePLeagueDataCore.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Matches", x => x.Id);
+                    table.PrimaryKey("PK_Matches", x => x.MatchId);
                     table.ForeignKey(
                         name: "FK_Matches_Teams_AwayTeamId",
                         column: x => x.AwayTeamId,
@@ -501,6 +501,33 @@ namespace ThePLeagueDataCore.Migrations
                         column: x => x.GameDayId,
                         principalTable: "GameDays",
                         principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "MatchResults",
+                columns: table => new
+                {
+                    MatchResultId = table.Column<string>(nullable: false),
+                    MatchId = table.Column<string>(nullable: true),
+                    LeagueId = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    AwayTeamScore = table.Column<long>(nullable: false),
+                    AwayTeamId = table.Column<string>(nullable: true),
+                    HomeTeamScore = table.Column<long>(nullable: false),
+                    HomeTeamId = table.Column<string>(nullable: true),
+                    Score = table.Column<string>(nullable: true),
+                    WonTeamName = table.Column<string>(nullable: true),
+                    LostTeamName = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MatchResults", x => x.MatchResultId);
+                    table.ForeignKey(
+                        name: "FK_MatchResults_Matches_MatchId",
+                        column: x => x.MatchId,
+                        principalTable: "Matches",
+                        principalColumn: "MatchId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -749,6 +776,13 @@ namespace ThePLeagueDataCore.Migrations
                 column: "LeagueSessionScheduleId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_MatchResults_MatchId",
+                table: "MatchResults",
+                column: "MatchId",
+                unique: true,
+                filter: "[MatchId] IS NOT NULL");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_PreOrderContacts_PreOrderId",
                 table: "PreOrderContacts",
                 column: "PreOrderId",
@@ -803,7 +837,7 @@ namespace ThePLeagueDataCore.Migrations
                 name: "LeagueImages");
 
             migrationBuilder.DropTable(
-                name: "Matches");
+                name: "MatchResults");
 
             migrationBuilder.DropTable(
                 name: "PreOrderContacts");
@@ -825,6 +859,9 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.DropTable(
                 name: "GearItems");
+
+            migrationBuilder.DropTable(
+                name: "Matches");
 
             migrationBuilder.DropTable(
                 name: "PreOrders");

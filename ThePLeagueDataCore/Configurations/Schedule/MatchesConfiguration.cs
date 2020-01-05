@@ -17,6 +17,10 @@ namespace ThePLeagueDataCore.Configurations.Schedule
             model.HasOne(match => match.HomeTeam);
 
             model.HasOne(match => match.League);
+
+            model.HasOne(match => match.MatchResult)
+                .WithOne(result => result.Match)
+                .HasForeignKey<MatchResult>(result => result.MatchId);
                
         }
 

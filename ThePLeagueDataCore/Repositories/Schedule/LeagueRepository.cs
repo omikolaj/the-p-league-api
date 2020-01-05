@@ -34,7 +34,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
         public async Task<League> GetByIdAsync(string id, CancellationToken ct = default)
         {
-            return await this._dbContext.Leagues.FindAsync(id);
+            return await this._dbContext.Leagues.Include(l => l.Teams).SingleOrDefaultAsync(l => l.Id == id);
         }
         
 

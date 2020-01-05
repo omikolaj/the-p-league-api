@@ -14,6 +14,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         public IEnumerable<TeamViewModel> Teams { get; set; }
         public bool Selected { get; set; }
         public string SportTypeID { get; set; }
+        public SportTypeViewModel SportType { get; set; }
         public IEnumerable<LeagueSessionScheduleViewModel> Sessions { get; set; }
 
         #endregion

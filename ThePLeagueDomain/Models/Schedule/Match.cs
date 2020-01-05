@@ -10,7 +10,7 @@ namespace ThePLeagueDomain.Models.Schedule
     {
         #region Properties and Fields
 
-        public string Id { get; set; }
+        public string MatchId { get; set; }
         public long DateTime { get; set; }                        
         public HomeTeam HomeTeam { get; set; }
         public string HomeTeamId { get; set; }
@@ -19,6 +19,7 @@ namespace ThePLeagueDomain.Models.Schedule
         public string LeagueSessionScheduleId { get; set; }
         public string LeagueID { get; set; }
         public League League { get; set; }
+        public MatchResult MatchResult { get; set; }        
 
         #endregion
     }

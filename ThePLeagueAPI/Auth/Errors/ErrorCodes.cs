@@ -24,6 +24,7 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string SportTypeUpdate = "sport_type_update";
         public const string SportTypeDelete = "sport_type_delete";
         public const string LeagueAdd = "league_add";
+        public const string LeagueRetrieval = "league_retrieval";
         public const string LeagueUpdate = "league_update";
         public const string LeagueDelete = "league_delete";
         public const string TeamAdd = "team_add";
@@ -34,5 +35,6 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string UnassignedTeams = "unassigned_teams";
         public const string ActiveSessionsInfo = "active_sessions_info";
         public const string PublishNewSession = "publish_new_sessions";
+        public const string MatchResult = "match_result";
     }
 }

@@ -17,6 +17,8 @@ namespace ThePLeagueDomain.Supervisor
         {
             LeagueViewModel league = LeagueConverter.Convert(await this._leagueRepository.GetByIdAsync(id, ct));
 
+            league.SportType = await this.GetSportTypeByIdAsync(league.SportTypeID, ct);
+
             return league;
         }
 

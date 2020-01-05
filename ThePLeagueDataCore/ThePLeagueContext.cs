@@ -29,6 +29,7 @@ namespace ThePLeagueDataCore
         public DbSet<Match> Matches { get; set; }
         public DbSet<SportType> SportTypes { get; set; }
         public DbSet<Team> Teams { get; set; }
+        public DbSet<MatchResult> MatchResults { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -41,6 +42,7 @@ namespace ThePLeagueDataCore
             new TeamConfiguration(builder.Entity<Team>());            
             new MatchesConfiguration(builder.Entity<Match>());
             new TeamSessionConfiguration(builder.Entity<TeamSession>());
+            new MatchResultsConfigration(builder.Entity<MatchResult>());
         }
     }
 }

@@ -36,5 +36,6 @@ namespace ThePLeagueAPI.Auth.Errors
         public const string GetUnassignedTeamsFailure = "Failed to retrieve all of the teams that are not assigned to a league";
         public const string ActiveSessionsInfoFailure = "Failed to retrieve one or session schedules for the specified league ids";
         public const string PublishingNewSessionsFailure = "Failed to publish new sessions";
+        public const string MatchResulFailure = "Failed to report the specified match";
     }
 }
