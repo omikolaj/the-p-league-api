@@ -21,7 +21,7 @@ namespace ThePLeagueDataCore.Configurations.Schedule
             model.HasOne(match => match.MatchResult)
                 .WithOne(result => result.Match)
                 .HasForeignKey<MatchResult>(result => result.MatchId);
-               
+
         }
 
         #endregion

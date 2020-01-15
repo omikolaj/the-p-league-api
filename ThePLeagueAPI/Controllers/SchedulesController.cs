@@ -64,21 +64,22 @@ namespace ThePLeagueAPI.Controllers
         [HttpGet("sessions")]
         public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetLeagueSessionSchedules(CancellationToken ct = default(CancellationToken))
         {
-            List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessions(ct);
+            List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessionsAsync(ct);
 
             return new JsonResult(sessions);
         }
 
         [HttpPost("sessions/{id}/matches/{matchId}/report")]
         [Authorize]
-        public async Task<ActionResult<bool>> ReportMatch(MatchResultViewModel reportMatch, CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult<MatchResultViewModel>> ReportMatch([FromBody]MatchResultViewModel reportMatch, CancellationToken ct = default(CancellationToken))
         {
-            if (!await this._supervisor.ReportMatch(reportMatch, ct))
+            reportMatch = await this._supervisor.ReportMatchAsync(reportMatch, ct);
+            if (reportMatch == null)
             {
                 return BadRequest(Errors.AddErrorToModelState(ErrorCodes.MatchResult, ErrorDescriptions.MatchResulFailure, ModelState));
             }
 
-            return new JsonResult(true);
+            return new JsonResult(reportMatch);
         }
 
         #endregion

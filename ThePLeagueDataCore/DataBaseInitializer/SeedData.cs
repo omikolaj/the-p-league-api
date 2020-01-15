@@ -99,12 +99,24 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                         Console.WriteLine("Inside case statement 0, 3, 6");
                         for (int j = 0; j < TeamNamesA.Count; j++)
                         {
-                            var newTeam = new Team
+                            if(j % 2 == 0)
                             {
-                                Name = TeamNamesA.ElementAt(j),
-                                LeagueID = (i + 1).ToString()
-                            };
-                            teams.Add(newTeam);
+                                var newTeam = new HomeTeam
+                                {
+                                    Name = TeamNamesA.ElementAt(j),
+                                    LeagueID = (i + 1).ToString()
+                                };
+                                teams.Add(newTeam);
+                            }
+                            else
+                            {
+                                var newTeam = new AwayTeam
+                                {
+                                    Name = TeamNamesA.ElementAt(j),
+                                    LeagueID = (i + 1).ToString()
+                                };
+                                teams.Add(newTeam);
+                            }
                         }
                         break;
                     // leagues 2 and 5
@@ -113,12 +125,24 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                         Console.WriteLine("Inside case statement 1, 4");
                         for (int j = 0; j < TeamNamesB.Count; j++)
                         {
-                            var newTeam = new Team
+                            if (j % 2 == 0)
                             {
-                                Name = TeamNamesB.ElementAt(j),
-                                LeagueID = (i + 1).ToString()
-                            };
-                            teams.Add(newTeam);
+                                var newTeam = new HomeTeam
+                                {
+                                    Name = TeamNamesA.ElementAt(j),
+                                    LeagueID = (i + 1).ToString()
+                                };
+                                teams.Add(newTeam);
+                            }
+                            else
+                            {
+                                var newTeam = new AwayTeam
+                                {
+                                    Name = TeamNamesA.ElementAt(j),
+                                    LeagueID = (i + 1).ToString()
+                                };
+                                teams.Add(newTeam);
+                            }
                         }
                         break;
                     // leagues 3 and 6
@@ -126,12 +150,24 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                     case 5:
                         for (int j = 0; j < TeamNamesC.Count; j++)
                         {
-                            var newTeam = new Team
+                            if (j % 2 == 0)
                             {
-                                Name = TeamNamesC.ElementAt(j),
-                                LeagueID = (i + 1).ToString()
-                            };
-                            teams.Add(newTeam);
+                                var newTeam = new HomeTeam
+                                {
+                                    Name = TeamNamesA.ElementAt(j),
+                                    LeagueID = (i + 1).ToString()
+                                };
+                                teams.Add(newTeam);
+                            }
+                            else
+                            {
+                                var newTeam = new AwayTeam
+                                {
+                                    Name = TeamNamesA.ElementAt(j),
+                                    LeagueID = (i + 1).ToString()
+                                };
+                                teams.Add(newTeam);
+                            }
                         }
                         break;
                     default:

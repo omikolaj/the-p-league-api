@@ -73,7 +73,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
         public async Task<List<SportType>> GetAllAsync(CancellationToken ct = default)
         {
-            return await this._dbContext.SportTypes.Include(sportType => sportType.Leagues).ThenInclude(league => league.Teams).ToListAsync(ct);            
+            return await this._dbContext.SportTypes.Include(sportType => sportType.Leagues).ThenInclude(league => league.Teams).ToListAsync(ct);
         }
 
         #endregion

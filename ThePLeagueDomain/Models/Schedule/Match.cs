@@ -12,8 +12,10 @@ namespace ThePLeagueDomain.Models.Schedule
 
         public string MatchId { get; set; }
         public long DateTime { get; set; }                        
+        [NotMapped]
         public HomeTeam HomeTeam { get; set; }
         public string HomeTeamId { get; set; }
+        [NotMapped]
         public AwayTeam AwayTeam { get; set; }
         public string AwayTeamId { get; set; }
         public string LeagueSessionScheduleId { get; set; }

@@ -14,7 +14,7 @@ namespace ThePLeagueDomain.Converters.Schedule
         public static TeamViewModel Convert(Team team)
         {
             TeamViewModel model = new TeamViewModel();
-            model.Id = team.Id;
+            model.Id = team.TeamId;
             model.LeagueID = team.LeagueID;
             model.Matches = team.Matches == null ? null : MatchConverter.ConvertList(team.Matches);
             model.Name = team.Name;
@@ -28,7 +28,7 @@ namespace ThePLeagueDomain.Converters.Schedule
             return teams.Select(team => 
             {
                 TeamViewModel model = new TeamViewModel();
-                model.Id = team.Id;
+                model.Id = team.TeamId;
                 model.LeagueID = team.LeagueID;
                 model.Matches = team.Matches == null ? null : MatchConverter.ConvertList(team.Matches);
                 model.Name = team.Name;

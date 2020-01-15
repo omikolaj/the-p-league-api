@@ -6,5 +6,6 @@ namespace ThePLeagueDomain.Models.Schedule
 {
     public class AwayTeam : Team
     {
+        // public string AwayTeamId { get; set; }
     }
 }

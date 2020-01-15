@@ -39,10 +39,15 @@ namespace ThePLeagueDataCore
             new GearSizeConfiguration(builder.Entity<GearSize>());
             new SportTypeConfiguration(builder.Entity<SportType>());
             new LeagueConfiguration(builder.Entity<League>());
-            new TeamConfiguration(builder.Entity<Team>());            
+            new TeamConfiguration(builder);            
             new MatchesConfiguration(builder.Entity<Match>());
             new TeamSessionConfiguration(builder.Entity<TeamSession>());
-            new MatchResultsConfigration(builder.Entity<MatchResult>());
+            new MatchResultsConfigration(builder.Entity<MatchResult>());            
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.EnableSensitiveDataLogging();
         }
     }
 }

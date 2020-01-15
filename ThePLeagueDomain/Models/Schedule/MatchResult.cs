@@ -18,9 +18,10 @@ namespace ThePLeagueDomain.Models.Schedule
 
         public string MatchResultId { get; set; }        
         public string MatchId { get; set; }
+        [NotMapped]
         public Match Match { get; set; }
-        public string LeagueId { get; set; }        
-        public MatchStatus Status { get; set; }        
+        public string LeagueId { get; set; }
+        public MatchStatus Status { get; set; } = MatchStatus.Pending;     
         public long AwayTeamScore { get; set; }
         public string AwayTeamId { get; set; }
         public long HomeTeamScore { get; set; }

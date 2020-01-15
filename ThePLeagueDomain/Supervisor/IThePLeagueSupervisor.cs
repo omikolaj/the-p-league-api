@@ -112,10 +112,12 @@ namespace ThePLeagueDomain
         #region League Session Schedule
 
         Task<bool> PublishSessionsSchedulesAsync(List<LeagueSessionScheduleViewModel> newLeagueSessionSchedule, CancellationToken ct = default(CancellationToken));
+        Task<bool> UpdateSessionScheduleAsync(LeagueSessionScheduleViewModel leagueSessionToUpdate, CancellationToken ct = default);
         Task<List<ActiveSessionInfoViewModel>> GetActiveSessionsInfoAsync(List<string> leagueIDs, CancellationToken ct = default(CancellationToken));
-        Task<List<LeagueSessionScheduleViewModel>> GetAllActiveSessions(CancellationToken ct = default(CancellationToken));
-        Task<bool> ReportMatch(MatchResultViewModel matchResult, CancellationToken ct = default(CancellationToken));
-        Task<bool> ReportMatches(List<MatchResultViewModel> matchesResults, CancellationToken ct = default(CancellationToken));
+        Task<List<LeagueSessionScheduleViewModel>> GetAllActiveSessionsAsync(CancellationToken ct = default(CancellationToken));
+        Task<MatchResultViewModel> ReportMatchAsync(MatchResultViewModel matchResult, CancellationToken ct = default(CancellationToken));
+        Task<bool> ReportMatchesAsync(List<MatchResultViewModel> matchesResults, CancellationToken ct = default(CancellationToken));
+        Task<bool> UpdateSessionActiveStatusAsync(LeagueSessionScheduleViewModel session, CancellationToken ct = default(CancellationToken));
 
         #endregion
     }

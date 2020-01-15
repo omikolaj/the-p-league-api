@@ -6,5 +6,6 @@ namespace ThePLeagueDomain.Models.Schedule
 {
     public class HomeTeam : Team
     {
+        // public string HomeTeamId { get; set; }
     }
 }

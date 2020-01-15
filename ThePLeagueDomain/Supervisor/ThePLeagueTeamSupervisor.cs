@@ -54,7 +54,7 @@ namespace ThePLeagueDomain.Supervisor
             };
 
             team = await _teamRepository.AddAsync(team, ct);
-            newTeam.Id = team.Id;
+            newTeam.Id = team.TeamId;
 
             return newTeam;
         }

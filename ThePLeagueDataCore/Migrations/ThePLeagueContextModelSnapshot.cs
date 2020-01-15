@@ -1569,6 +1569,8 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<string>("LeagueSessionScheduleId");
 
+                    b.Property<string>("TeamId");
+
                     b.HasKey("MatchId");
 
                     b.HasIndex("AwayTeamId");
@@ -1578,6 +1580,8 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasIndex("LeagueID");
 
                     b.HasIndex("LeagueSessionScheduleId");
+
+                    b.HasIndex("TeamId");
 
                     b.ToTable("Matches");
                 });
@@ -1647,7 +1651,7 @@ namespace ThePLeagueDataCore.Migrations
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Team", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("TeamId")
                         .ValueGeneratedOnAdd();
 
                     b.Property<string>("Discriminator")
@@ -1659,7 +1663,7 @@ namespace ThePLeagueDataCore.Migrations
 
                     b.Property<bool>("Selected");
 
-                    b.HasKey("Id");
+                    b.HasKey("TeamId");
 
                     b.HasIndex("LeagueID");
 
@@ -1839,11 +1843,11 @@ namespace ThePLeagueDataCore.Migrations
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.Match", b =>
                 {
                     b.HasOne("ThePLeagueDomain.Models.Schedule.AwayTeam", "AwayTeam")
-                        .WithMany("Matches")
+                        .WithMany()
                         .HasForeignKey("AwayTeamId");
 
                     b.HasOne("ThePLeagueDomain.Models.Schedule.HomeTeam", "HomeTeam")
-                        .WithMany("Matches")
+                        .WithMany()
                         .HasForeignKey("HomeTeamId");
 
                     b.HasOne("ThePLeagueDomain.Models.Schedule.League", "League")
@@ -1853,6 +1857,10 @@ namespace ThePLeagueDataCore.Migrations
                     b.HasOne("ThePLeagueDomain.Models.Schedule.LeagueSessionSchedule")
                         .WithMany("Matches")
                         .HasForeignKey("LeagueSessionScheduleId");
+
+                    b.HasOne("ThePLeagueDomain.Models.Schedule.Team")
+                        .WithMany("Matches")
+                        .HasForeignKey("TeamId");
                 });
 
             modelBuilder.Entity("ThePLeagueDomain.Models.Schedule.MatchResult", b =>

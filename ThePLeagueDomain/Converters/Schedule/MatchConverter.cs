@@ -14,15 +14,12 @@ namespace ThePLeagueDomain.Converters.Schedule
         public static MatchViewModel Convert(Match match)
         {
             MatchViewModel model = new MatchViewModel();
-            model.AwayTeamId = match.AwayTeamId;
-            model.AwayTeam = match.AwayTeam == null ? null : TeamConverter.Convert(match.AwayTeam);
-            model.HomeTeamId = match.HomeTeamId;
-            model.HomeTeam = match.HomeTeam == null ? null : TeamConverter.Convert(match.HomeTeam);
+            model.AwayTeamId = match.AwayTeamId;            
+            model.HomeTeamId = match.HomeTeamId;            
             model.Id = match.MatchId;
             model.LeagueID = match.LeagueID;
-            model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
-            model.League = match.League == null ? null : LeagueConverter.Convert(match.League);
-            model.MatchResult = match.MatchResult;            
+            model.SessionId = match.LeagueSessionScheduleId;            
+            model.MatchResult = match.MatchResult == null ? null : MatchResultConverter.Convert(match.MatchResult);
 
             return model;
         }
@@ -33,15 +30,12 @@ namespace ThePLeagueDomain.Converters.Schedule
             {
                 MatchViewModel model = new MatchViewModel();
                 model.DateTime = match.DateTime;
-                model.AwayTeamId = match.AwayTeamId;
-                model.AwayTeam = match.AwayTeam == null ? null : TeamConverter.Convert(match.AwayTeam);
-                model.HomeTeamId = match.HomeTeamId;
-                model.HomeTeam = match.HomeTeam == null ? null : TeamConverter.Convert(match.HomeTeam);
+                model.AwayTeamId = match.AwayTeamId;                
+                model.HomeTeamId = match.HomeTeamId;                
                 model.Id = match.MatchId;
                 model.LeagueID = match.LeagueID;
-                model.LeagueSessionScheduleId = match.LeagueSessionScheduleId;
-                model.League = match.League == null ? null : LeagueConverter.Convert(match.League);
-                model.MatchResult = match.MatchResult;                
+                model.SessionId = match.LeagueSessionScheduleId;                
+                model.MatchResult = match.MatchResult == null ? null : MatchResultConverter.Convert(match.MatchResult);             
 
                 return model;
 

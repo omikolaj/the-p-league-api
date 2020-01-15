@@ -17,9 +17,9 @@ namespace ThePLeagueDomain.Converters.Schedule
             {
                 Id = teamSession.Id,
                 TeamId = teamSession.TeamId,
-                // Team = teamSession.Team == null ? null : TeamConverter.Convert(teamSession.Team),
-                // LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId,
-                LeagueSessionSchedule = teamSession.LeagueSessionSchedule == null ? null : LeagueSessionScheduleConverter.Convert(teamSession.LeagueSessionSchedule)
+                Team = teamSession.Team == null ? null : TeamConverter.Convert(teamSession.Team),
+                LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId,
+                // LeagueSessionSchedule = teamSession.LeagueSessionSchedule == null ? null : LeagueSessionScheduleConverter.Convert(teamSession.LeagueSessionSchedule)
             };
 
             return model;
@@ -33,7 +33,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 {
                     Id = teamSession.Id,
                     TeamId = teamSession.TeamId,
-                    // Team = teamSession.Team == null ? null : TeamConverter.Convert(teamSession.Team),
+                    Team = teamSession.Team == null ? null : TeamConverter.Convert(teamSession.Team),
                     LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId,
                     // LeagueSessionSchedule = teamSession.LeagueSessionSchedule == null ? null : LeagueSessionScheduleConverter.Convert(teamSession.LeagueSessionSchedule)
                 };

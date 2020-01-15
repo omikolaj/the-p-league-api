@@ -15,7 +15,7 @@ namespace ThePLeagueDomain.Converters.Schedule
         {
             return new MatchResultViewModel
             {
-                Id = match.MatchId,
+                MatchResultId = match.MatchResultId,
                 MatchId = match.MatchId,
                 Status = match.Status,
                 AwayTeamScore = match.AwayTeamScore,
@@ -35,7 +35,7 @@ namespace ThePLeagueDomain.Converters.Schedule
             {
                 return new MatchResultViewModel
                 {
-                    Id = match.MatchId,
+                    MatchResultId = match.MatchResultId,
                     MatchId = match.MatchId,
                     Status = match.Status,
                     AwayTeamScore = match.AwayTeamScore,

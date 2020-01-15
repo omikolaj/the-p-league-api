@@ -9,7 +9,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
     {
         #region Fields and Properties
 
-        public string Id { get; set; }
+        public string MatchResultId { get; set; }
         public string MatchId { get; set; }
         public Match Match { get; set; }
         public string LeagueId { get; set; }        
@@ -21,6 +21,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         public string Score { get; set; }
         public string WonTeamName { get; set; }
         public string LostTeamName { get; set; }
+        public string SessionId { get; set; }
 
         #endregion
     }

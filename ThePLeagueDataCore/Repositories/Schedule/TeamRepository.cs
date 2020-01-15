@@ -70,7 +70,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
         public async Task<bool> UpdateAsync(Team updatedTeam, CancellationToken ct = default)
         {
-            if (!await this.TeamExists(updatedTeam.Id))
+            if (!await this.TeamExists(updatedTeam.TeamId))
             {
                 return false;
             }

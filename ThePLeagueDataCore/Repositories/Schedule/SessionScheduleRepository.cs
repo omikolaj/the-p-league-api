@@ -29,6 +29,16 @@ namespace ThePLeagueDomain.Repositories.Schedule
 
         #region Methods
 
+        private async Task<bool> LeagueSessionScheduleExists(string id, CancellationToken ct = default)
+        {
+            return await this.GetLeagueSessionScheduleByIdAsync(id, ct) != null;
+        }
+
+        public async Task<LeagueSessionSchedule> GetLeagueSessionScheduleByIdAsync(string id, CancellationToken ct = default)
+        {
+            return await this._dbContext.LeagueSessions.FindAsync(id);
+        }
+
         public async Task<List<ActiveSessionInfo>> GetAllActiveSessionsInfoAsync(CancellationToken ct = default)
         {
             return await this._dbContext.LeagueSessions
@@ -44,17 +54,46 @@ namespace ThePLeagueDomain.Repositories.Schedule
 
         public async Task<List<LeagueSessionSchedule>> GetAllActiveSessionsAsync(CancellationToken ct = default)
         {
-                return await this._dbContext.LeagueSessions
+            return await this._dbContext.LeagueSessions
                 .Where(session => session.Active == true)
-                .Include(session => session.Matches)                
-                    //.ThenInclude((Match match) => match.League)                
+                .Include(session => session.Matches)
+                    .ThenInclude((Match match) => match.MatchResult)
                 .Include(session => session.TeamsSessions)
                     .ThenInclude((TeamSession teamSession) => teamSession.LeagueSessionSchedule)
                 .Include(session => session.TeamsSessions)
                     .ThenInclude((TeamSession teamSession) => teamSession.Team)
                 .Include(session => session.GamesDays)
                     .ThenInclude((GameDay gameDay) => gameDay.GamesTimes)
-                .ToListAsync();            
+                .ToListAsync();
+        }
+
+        public async Task<Match> GetMatchByIdAsync(string matchId, CancellationToken ct = default)
+        {
+            return await this._dbContext.Matches.FindAsync(matchId);
+        }
+
+        public async Task<bool> UpdateActiveStatusAsync(LeagueSessionSchedule sessionToUpdate, CancellationToken ct = default)
+        {
+            if(!await LeagueSessionScheduleExists(sessionToUpdate.Id, ct))
+            {
+                return false;
+            }
+
+            this._dbContext.LeagueSessions.Update(sessionToUpdate);
+            await this._dbContext.SaveChangesAsync(ct);
+            return true;
+        }
+
+        public async Task<bool> UpdateLeagueSessionScheduleAsync(LeagueSessionSchedule leagueSessionScheduleToUpdate, CancellationToken ct = default)
+        {
+            if (!await LeagueSessionScheduleExists(leagueSessionScheduleToUpdate.Id, ct))
+            {
+                return false;
+            }
+
+            this._dbContext.LeagueSessions.Update(leagueSessionScheduleToUpdate);
+            await this._dbContext.SaveChangesAsync(ct);
+            return true;
         }
 
         public async Task<LeagueSessionSchedule> AddScheduleAsync(LeagueSessionSchedule newLeagueSessionSchedule, CancellationToken ct = default)
@@ -89,23 +128,12 @@ namespace ThePLeagueDomain.Repositories.Schedule
             return newMatch;
         }
 
-        public async Task<bool> ReportMatch(MatchResult matchResult, CancellationToken ct = default)
+        public async Task<MatchResult> ReportMatchAsync(MatchResult matchResult, CancellationToken ct = default)
         {
-            bool operation = false;
-            try
-            {
-                this._dbContext.MatchResults.Add(matchResult);
-                await this._dbContext.SaveChangesAsync(ct);
+            this._dbContext.MatchResults.Update(matchResult);
+            await this._dbContext.SaveChangesAsync(ct);
 
-                operation = true;
-            }
-            catch(Exception ex)
-            {
-                Console.WriteLine($"Error occured when attempting to add match result to the database. ${ ex.Message }");
-                operation = false;
-            }
-
-            return operation;
+            return matchResult;
 
         }
 
