@@ -1,11 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using ThePLeagueDomain.Models.Schedule;
 using ThePLeagueDomain.Repositories.Schedule;
+using Z.EntityFramework.Plus;
 
 namespace ThePLeagueDataCore.Repositories.Schedule
 {
@@ -43,7 +45,7 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
         public async Task<bool> DeleteAsync(string id, CancellationToken ct = default)
         {
-            if(!await SportTypeExists(id, ct))
+            if (!await SportTypeExists(id, ct))
             {
                 return false;
             }
@@ -58,10 +60,10 @@ namespace ThePLeagueDataCore.Repositories.Schedule
         {
             return await this._dbContext.SportTypes.FindAsync(id);
         }
-        
+
         public async Task<bool> UpdateAsync(SportType sportTypeToUpdate, CancellationToken ct = default)
         {
-            if(!await this.SportTypeExists(sportTypeToUpdate.Id))
+            if (!await this.SportTypeExists(sportTypeToUpdate.Id))
             {
                 return false;
             }
@@ -73,7 +75,14 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
         public async Task<List<SportType>> GetAllAsync(CancellationToken ct = default)
         {
-            return await this._dbContext.SportTypes.Include(sportType => sportType.Leagues).ThenInclude(league => league.Teams).ToListAsync(ct);
+            return await this._dbContext.SportTypes
+                .Where(s => s.Active == true)
+                .IncludeFilter(sportType => sportType.Leagues
+                .Where(l => l.Active == true)
+                .Select(league => league.Teams
+                .Where(team => team.Active == true)))
+                .ToListAsync(ct);
+
         }
 
         #endregion

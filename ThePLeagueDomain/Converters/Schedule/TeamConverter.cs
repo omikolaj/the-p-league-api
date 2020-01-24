@@ -15,10 +15,11 @@ namespace ThePLeagueDomain.Converters.Schedule
         {
             TeamViewModel model = new TeamViewModel();
             model.Id = team.TeamId;
-            model.LeagueID = team.LeagueID;
-            model.Matches = team.Matches == null ? null : MatchConverter.ConvertList(team.Matches);
+            model.Active = team.Active;
+            model.LeagueID = team.LeagueID;            
             model.Name = team.Name;
             model.Selected = team.Selected;
+            model.Active = team.Active;
 
             return model;
         }
@@ -29,10 +30,11 @@ namespace ThePLeagueDomain.Converters.Schedule
             {
                 TeamViewModel model = new TeamViewModel();
                 model.Id = team.TeamId;
-                model.LeagueID = team.LeagueID;
-                model.Matches = team.Matches == null ? null : MatchConverter.ConvertList(team.Matches);
+                model.Active = team.Active;
+                model.LeagueID = team.LeagueID;                
                 model.Name = team.Name;
                 model.Selected = team.Selected;
+                model.Active = team.Active;
 
                 return model;
             }).ToList();

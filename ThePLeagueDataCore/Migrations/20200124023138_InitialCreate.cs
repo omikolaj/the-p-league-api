@@ -109,6 +109,7 @@ namespace ThePLeagueDataCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
                     Name = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -317,6 +318,7 @@ namespace ThePLeagueDataCore.Migrations
                 columns: table => new
                 {
                     Id = table.Column<string>(nullable: false),
+                    Active = table.Column<bool>(nullable: false),
                     Type = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Selected = table.Column<bool>(nullable: false),
@@ -386,6 +388,7 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     TeamId = table.Column<string>(nullable: false),
                     Name = table.Column<string>(nullable: true),
+                    Active = table.Column<bool>(nullable: false),
                     LeagueID = table.Column<string>(nullable: true),
                     Selected = table.Column<bool>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false)
@@ -472,8 +475,7 @@ namespace ThePLeagueDataCore.Migrations
                 columns: table => new
                 {
                     TeamId = table.Column<string>(nullable: false),
-                    LeagueSessionScheduleId = table.Column<string>(nullable: false),
-                    Id = table.Column<string>(nullable: true)
+                    LeagueSessionScheduleId = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -558,12 +560,12 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "SportTypes",
-                columns: new[] { "Id", "Name" },
+                columns: new[] { "Id", "Active", "Name" },
                 values: new object[,]
                 {
-                    { "1", "Basketball" },
-                    { "2", "Volleyball" },
-                    { "3", "Soccer" }
+                    { "1", true, "Basketball" },
+                    { "2", true, "Volleyball" },
+                    { "3", true, "Soccer" }
                 });
 
             migrationBuilder.InsertData(
@@ -681,16 +683,16 @@ namespace ThePLeagueDataCore.Migrations
 
             migrationBuilder.InsertData(
                 table: "Leagues",
-                columns: new[] { "Id", "Name", "Selected", "SportTypeID", "Type" },
+                columns: new[] { "Id", "Active", "Name", "Selected", "SportTypeID", "Type" },
                 values: new object[,]
                 {
-                    { "6", "Saturday", false, "2", "Volleyball" },
-                    { "1", "Monday", false, "1", "Basketball" },
-                    { "2", "Tuesday", false, "1", "Basketball" },
-                    { "3", "Wednesday", false, "1", "Basketball" },
-                    { "4", "Thursday", false, "2", "Volleyball" },
-                    { "5", "Friday", false, "2", "Volleyball" },
-                    { "7", "Sunday", false, "3", "Soccer" }
+                    { "6", true, "Saturday", false, "2", "Volleyball" },
+                    { "1", true, "Monday", false, "1", "Basketball" },
+                    { "2", true, "Tuesday", false, "1", "Basketball" },
+                    { "3", true, "Wednesday", false, "1", "Basketball" },
+                    { "4", true, "Thursday", false, "2", "Volleyball" },
+                    { "5", true, "Friday", false, "2", "Volleyball" },
+                    { "7", true, "Sunday", false, "3", "Soccer" }
                 });
 
             migrationBuilder.CreateIndex(

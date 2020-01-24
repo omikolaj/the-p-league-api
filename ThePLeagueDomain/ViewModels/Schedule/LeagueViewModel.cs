@@ -9,13 +9,12 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         #region Fields and Properties
 
         public string Id { get; set; }
+        public bool Active { get; set; }
         public string Type { get; set; }
         public string Name { get; set; }
-        public IEnumerable<TeamViewModel> Teams { get; set; }
+        public ICollection<TeamViewModel> Teams { get; set; }
         public bool Selected { get; set; }
-        public string SportTypeID { get; set; }
-        public SportTypeViewModel SportType { get; set; }
-        public IEnumerable<LeagueSessionScheduleViewModel> Sessions { get; set; }
+        public string SportTypeID { get; set; }             
 
         #endregion
     }

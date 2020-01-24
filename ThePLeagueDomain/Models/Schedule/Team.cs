@@ -12,6 +12,7 @@ namespace ThePLeagueDomain.Models.Schedule
 
         public string TeamId { get; set; }
         public string Name { get; set; }
+        public bool Active { get; set; } = true;
         public League League { get; set; }
         public string LeagueID { get; set; }        
         public bool Selected { get; set; }

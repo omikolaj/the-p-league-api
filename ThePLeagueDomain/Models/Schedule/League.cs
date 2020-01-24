@@ -9,6 +9,7 @@ namespace ThePLeagueDomain.Models.Schedule
         #region Fields and Properties
 
         public string Id { get; set; }
+        public bool Active { get; set; } = true;
         public string Type { get; set; }
         public string Name { get; set; }
         public IEnumerable<Team> Teams { get; set; }

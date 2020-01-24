@@ -62,7 +62,7 @@ namespace ThePLeagueAPI.Controllers
         }
 
         [HttpGet("sessions")]
-        public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetLeagueSessionSchedules(CancellationToken ct = default(CancellationToken))
+        public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetAllActiveSessionSchedules(CancellationToken ct = default(CancellationToken))
         {
             List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessionsAsync(ct);
 

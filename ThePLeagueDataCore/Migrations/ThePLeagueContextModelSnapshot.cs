@@ -1457,6 +1457,8 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Name");
 
                     b.Property<bool>("Selected");
@@ -1475,6 +1477,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "1",
+                            Active = true,
                             Name = "Monday",
                             Selected = false,
                             SportTypeID = "1",
@@ -1483,6 +1486,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "2",
+                            Active = true,
                             Name = "Tuesday",
                             Selected = false,
                             SportTypeID = "1",
@@ -1491,6 +1495,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "3",
+                            Active = true,
                             Name = "Wednesday",
                             Selected = false,
                             SportTypeID = "1",
@@ -1499,6 +1504,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "4",
+                            Active = true,
                             Name = "Thursday",
                             Selected = false,
                             SportTypeID = "2",
@@ -1507,6 +1513,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "5",
+                            Active = true,
                             Name = "Friday",
                             Selected = false,
                             SportTypeID = "2",
@@ -1515,6 +1522,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "6",
+                            Active = true,
                             Name = "Saturday",
                             Selected = false,
                             SportTypeID = "2",
@@ -1523,6 +1531,7 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "7",
+                            Active = true,
                             Name = "Sunday",
                             Selected = false,
                             SportTypeID = "3",
@@ -1625,6 +1634,8 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("Id")
                         .ValueGeneratedOnAdd();
 
+                    b.Property<bool>("Active");
+
                     b.Property<string>("Name");
 
                     b.HasKey("Id");
@@ -1635,16 +1646,19 @@ namespace ThePLeagueDataCore.Migrations
                         new
                         {
                             Id = "1",
+                            Active = true,
                             Name = "Basketball"
                         },
                         new
                         {
                             Id = "2",
+                            Active = true,
                             Name = "Volleyball"
                         },
                         new
                         {
                             Id = "3",
+                            Active = true,
                             Name = "Soccer"
                         });
                 });
@@ -1653,6 +1667,8 @@ namespace ThePLeagueDataCore.Migrations
                 {
                     b.Property<string>("TeamId")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("Active");
 
                     b.Property<string>("Discriminator")
                         .IsRequired();
@@ -1677,8 +1693,6 @@ namespace ThePLeagueDataCore.Migrations
                     b.Property<string>("TeamId");
 
                     b.Property<string>("LeagueSessionScheduleId");
-
-                    b.Property<string>("Id");
 
                     b.HasKey("TeamId", "LeagueSessionScheduleId");
 

@@ -11,7 +11,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         public string Id { get; set; }
         public string GamesDay { get; set; }
         public string LeagueSessionScheduleId { get; set; }
-        public IEnumerable<GameTimeViewModel> GamesTimes { get; set; }
+        public ICollection<GameTimeViewModel> GamesTimes { get; set; }
 
         #endregion
     }

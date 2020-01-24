@@ -35,6 +35,7 @@ namespace ThePLeagueAPI.Controllers
         #region Controllers
         
         [HttpGet]
+        [Authorize]
         public async Task<ActionResult<SportTypeViewModel>> GetAll(CancellationToken ct = default(CancellationToken))
         {
             List<SportTypeViewModel> sportTypes = await this._supervisor.GetAllSportTypesAsync(ct);
@@ -74,13 +75,6 @@ namespace ThePLeagueAPI.Controllers
         [Authorize]
         public async Task<ActionResult<bool>> Delete(string id, CancellationToken ct = default(CancellationToken))
         {
-            SportTypeViewModel sportTypeToDelete = await this._supervisor.GetSportTypeByIdAsync(id, ct);
-
-            if(sportTypeToDelete == null)
-            {
-                return BadRequest(Errors.AddErrorToModelState(ErrorCodes.SportTypeDelete, ErrorDescriptions.SportTypeNotFound, ModelState));
-            }
-
             if(!await this._supervisor.DeleteSportTypeAsync(id))
             {
                 return BadRequest(Errors.AddErrorToModelState(ErrorCodes.SportTypeDelete, ErrorDescriptions.SportTypeDeleteFailure, ModelState));

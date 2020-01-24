@@ -37,10 +37,9 @@ namespace ThePLeagueDataCore.Repositories.Schedule
             return await this._dbContext.Leagues.Include(l => l.Teams).SingleOrDefaultAsync(l => l.Id == id);
         }
         
-
         public async Task<List<League>> GetBySportTypeIdAsync(string sportTypeId, CancellationToken ct = default)
         {
-            return await this._dbContext.Leagues.Where(league => league.SportTypeID == sportTypeId).ToListAsync();
+            return await this._dbContext.Leagues.Where(league => league.Active == true && league.SportTypeID == sportTypeId).ToListAsync();
         }
 
         public async Task<League> AddAsync(League newLeague, CancellationToken ct = default)

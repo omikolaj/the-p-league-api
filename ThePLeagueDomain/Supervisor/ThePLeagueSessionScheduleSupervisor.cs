@@ -85,16 +85,16 @@ namespace ThePLeagueDomain.Supervisor
                         Match newMatch = new Match()
                         {
                             DateTime = match.DateTime,
-                            HomeTeamId = match.HomeTeam.Id,
-                            AwayTeamId = match.AwayTeam.Id,
+                            HomeTeamId = match.HomeTeamId,
+                            AwayTeamId = match.AwayTeamId,
                             LeagueID = match.LeagueID
                         };
 
                         MatchResult newMatchResult = new MatchResult()
                         {
                             LeagueId = match.LeagueID,
-                            HomeTeamId = match.HomeTeam.Id,
-                            AwayTeamId = match.AwayTeam.Id
+                            HomeTeamId = match.HomeTeamId,
+                            AwayTeamId = match.AwayTeamId
                         };
 
                         newMatch.MatchResult = newMatchResult;
@@ -109,17 +109,30 @@ namespace ThePLeagueDomain.Supervisor
             // ensure all leagueSessionOperations did not return any null values
             return leagueSessionOperations.All(op => op != null);
         }
+        
+        public async Task<List<LeagueSessionScheduleViewModel>> GetAllSessionsByLeagueIdAsync(string leagueId, CancellationToken ct = default)
+        {
+            List<LeagueSessionScheduleViewModel> leagueSessions = LeagueSessionScheduleConverter.ConvertList(await this._sessionScheduleRepository.GetAllSessionsByLeagueIdAsync(leagueId, ct));
+
+            return leagueSessions;
+        }
 
         public async Task<List<ActiveSessionInfoViewModel>> GetActiveSessionsInfoAsync(List<string> leagueIDs, CancellationToken ct = default(CancellationToken))
         {
-            await this.UpdateActiveSessionsAsync(leagueIDs);
+            //await this.UpdateActiveSessionsAsync(leagueIDs);
 
-            List<ActiveSessionInfoViewModel> activeSessionsInfo = ActiveSessionInfoConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsInfoAsync(ct));
-            List<ActiveSessionInfoViewModel> filteredActiveSessionsInfo = new List<ActiveSessionInfoViewModel>();
+            List<LeagueSessionScheduleViewModel> activeSessions = LeagueSessionScheduleConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsAsync(ct)); // use GetAllSessions and filter the list
+            List<ActiveSessionInfoViewModel> filteredActiveSessionsInfo = activeSessions.Where(s => s.Active == true).Select(session => new ActiveSessionInfoViewModel
+            {
+                SessionId = session.Id,
+                LeagueId = session.LeagueID,
+                StartDate = session.SessionStart,
+                EndDate = session.SessionEnd
+            }).ToList();
 
             foreach (string leagueID in leagueIDs)
             {
-                filteredActiveSessionsInfo.Add(activeSessionsInfo.Where(s => s.LeagueId == leagueID).FirstOrDefault());
+                filteredActiveSessionsInfo.Add(filteredActiveSessionsInfo.Where(s => s.LeagueId == leagueID).FirstOrDefault());
             }
 
             return filteredActiveSessionsInfo;
@@ -129,18 +142,46 @@ namespace ThePLeagueDomain.Supervisor
         public async Task<List<LeagueSessionScheduleViewModel>> GetAllActiveSessionsAsync(CancellationToken ct = default(CancellationToken))
         {
             // this will ensure that whenever we retrieve sessions we always check to see they are active or not
-            await this.UpdateActiveSessionsAsync();
+            // await this.UpdateActiveSessionsAsync();
 
             List<LeagueSessionScheduleViewModel> activeSessions = LeagueSessionScheduleConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsAsync(ct));
+            HashSet<TeamViewModel> teams = new HashSet<TeamViewModel>();
 
             // for each session loop through all matches and include the team. EF is not returning teams for some reason. HomeTeam or AwayTeam
             foreach (LeagueSessionScheduleViewModel session in activeSessions)
             {
                 foreach (MatchViewModel match in session.Matches)
                 {
-                    match.AwayTeam = await this.GetTeamByIdAsync(match.AwayTeamId, ct);
-                    match.HomeTeam = await this.GetTeamByIdAsync(match.HomeTeamId, ct);                    
+                    TeamViewModel awayTeam = await this.GetTeamByIdAsync(match.AwayTeamId, ct);
+                    TeamViewModel homeTeam = await this.GetTeamByIdAsync(match.HomeTeamId, ct);                                        
+
+                    match.AwayTeamName = awayTeam.Name;
+                    match.HomeTeamName = homeTeam.Name;
+                    match.MatchResult.SessionId = session.Id;
+
+                    // stash retrieved teams so we don't have to hit the database again to retrieve team names
+                    teams.Add(awayTeam);
+                    teams.Add(homeTeam);
                 }
+
+                // teamSession.teamName is used by the front end scoreboard to avoid having dependency on sport types store. Before
+                // /scoreboards route expected sport types store to have values, but if user navigates straight to scoreboards then
+                // we cannot display a filter to allow user to filter by team name easily
+                foreach (TeamSessionViewModel teamSession in session.TeamsSessions)
+                {
+                    teamSession.TeamName = teams.Where(t => t.Id == teamSession.TeamId).FirstOrDefault()?.Name;
+                }
+
+                LeagueViewModel league = await GetLeagueByIdAsync(session.LeagueID, ct);
+
+                // these properties are not set by converters because they do not belong on the model
+                session.LeagueName = league?.Name;
+
+                SportTypeViewModel sportType = await GetSportTypeByIdAsync(league.SportTypeID, ct);
+                // these properties are not set by converters because they do not belong on the model
+                session.SportTypeID = sportType?.Id;
+                session.SportTypeName = sportType?.Name;
+                
             }
 
             return activeSessions;
@@ -178,18 +219,6 @@ namespace ThePLeagueDomain.Supervisor
 
         }
 
-        public async Task<bool> ReportMatchesAsync(List<MatchResultViewModel> matchesResults, CancellationToken ct = default(CancellationToken))
-        {
-            List<bool> matchResultsReportingOperations = new List<bool>();
-
-            foreach (MatchResultViewModel matchResult in matchesResults)
-            {
-                matchResultsReportingOperations.Add(await this.ReportMatchAsync(matchResult, ct) != null);
-            }
-
-            return matchResultsReportingOperations.All(op => op == true);
-        }
-
         public async Task<bool> UpdateSessionScheduleAsync(LeagueSessionScheduleViewModel updatedSession, CancellationToken ct = default(CancellationToken))
         {
             LeagueSessionSchedule sessionToUpdate = await this._sessionScheduleRepository.GetLeagueSessionScheduleByIdAsync(updatedSession.Id, ct);
@@ -200,71 +229,18 @@ namespace ThePLeagueDomain.Supervisor
 
             sessionToUpdate.Active = updatedSession.Active;
             sessionToUpdate.ByeWeeks = updatedSession.ByeWeeks;            
-            sessionToUpdate.LeagueID = updatedSession.LeagueID;
+            sessionToUpdate.LeagueID = updatedSession.LeagueID ?? sessionToUpdate.LeagueID;
             sessionToUpdate.NumberOfWeeks = updatedSession.NumberOfWeeks;
             sessionToUpdate.SessionEnd = updatedSession.SessionEnd;
-            sessionToUpdate.SessionStart = updatedSession.SessionStart;            
+            sessionToUpdate.SessionStart = updatedSession.SessionStart;
 
-            return await this._sessionScheduleRepository.UpdateLeagueSessionScheduleAsync(sessionToUpdate, ct);
+            return await this._sessionScheduleRepository.UpdateSessionScheduleAsync(sessionToUpdate, ct);
         }
-
-        public async Task<bool> UpdateSessionActiveStatusAsync(LeagueSessionScheduleViewModel session, CancellationToken ct = default(CancellationToken))
-        {
-            LeagueSessionSchedule sessionToUpdate = await this._sessionScheduleRepository.GetLeagueSessionScheduleByIdAsync(session.Id, ct);
-
-            if(sessionToUpdate == null)
-            {
-                return false;
-            }
-
-            sessionToUpdate.Active = session.Active;
-
-            return await this._sessionScheduleRepository.UpdateActiveStatusAsync(sessionToUpdate);
-        }
-
+     
         #endregion
 
         #region Private Methods
-
-        /// <summary>
-        /// Updates the passed in sessions based on their session end date. If the session end date is in the past from now then we will mark it as not active
-        /// </summary>
-        /// <param name="sessions"></param>
-        /// <param name="ct"></param>
-        /// <returns></returns>
-        private async Task<bool> UpdateActiveSessionsAsync(List<string> leagueIDs = null, CancellationToken ct = default(CancellationToken))
-        {
-            List<string> allSessions = new List<string>();
-
-            List<LeagueSessionScheduleViewModel> allActiveSessions = LeagueSessionScheduleConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsAsync(ct));
-            List<bool> operations = new List<bool>();
-
-            // if the passed in list of league ids is null set it equal to the list of leagueIDs that match all active sessions
-            if (leagueIDs == null)
-            {   
-                leagueIDs = allActiveSessions.Select(session => session.LeagueID).ToList();
-            }
-
-            // iterate over each league ID
-            foreach (string leagueID in leagueIDs)
-            {
-                // retrieve all of the corresponding sessions matching that league id
-                List<LeagueSessionScheduleViewModel> sessions = allActiveSessions.Where(s => s.LeagueID == leagueID).ToList();                
-                foreach (LeagueSessionScheduleViewModel session in sessions)
-                {
-                    // this means session is over. Update the 'Active' property
-                    if (session.SessionEnd < DateTime.Now)
-                    {
-                        session.Active = false;
-                        operations.Add(await this.UpdateSessionActiveStatusAsync(session, ct));
-                    }
-                }
-                
-            };
-
-            return operations.All(op => op == true);
-        }
-
+        
         private async Task SetWinnerLoserTeamNames(MatchResult matchResult, CancellationToken ct = default)
         {
             if(matchResult.HomeTeamScore == matchResult.AwayTeamScore)

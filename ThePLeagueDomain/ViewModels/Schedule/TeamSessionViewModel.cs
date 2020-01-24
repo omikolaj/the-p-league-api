@@ -10,11 +10,10 @@ namespace ThePLeagueDomain.ViewModels.Schedule
 
         #region Fields and Properties
 
-        public string Id { get; set; }
         public string TeamId { get; set; }
+        public string TeamName { get; set; }
         public TeamViewModel Team { get; set; }
-        public string LeagueSessionScheduleId { get; set; }
-        public LeagueSessionScheduleViewModel LeagueSessionSchedule { get; set; }
+        public string LeagueSessionScheduleId { get; set; }        
 
         #endregion
 

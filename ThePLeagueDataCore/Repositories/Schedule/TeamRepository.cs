@@ -41,11 +41,11 @@ namespace ThePLeagueDataCore.Repositories.Schedule
 
         public async Task<List<Team>> GetAllByLeagueIdAsync(string leagueID, CancellationToken ct = default)
         {
-            return await this._dbContext.Teams.Where(team => team.LeagueID == leagueID).ToListAsync();
+            return await this._dbContext.Teams.Where(team => team.Active == true && team.LeagueID == leagueID).ToListAsync();
         }
         public async Task<List<Team>> GetUnassignedTeams(CancellationToken ct = default)
         {
-            return await this._dbContext.Teams.Where(team => team.LeagueID == null).ToListAsync();
+            return await this._dbContext.Teams.Where(team => team.Active == true && team.LeagueID == null).ToListAsync();
         }
         public async Task<bool> DeleteAsync(string id, CancellationToken ct = default)
         {

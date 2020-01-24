@@ -10,6 +10,7 @@ namespace ThePLeagueDomain.Models.Schedule
         #region Fields and Properties
 
         public string Id { get; set; }
+        public bool Active { get; set; } = true;
         public string Name { get; set; }
         public  ICollection<League> Leagues { get; set; }
 

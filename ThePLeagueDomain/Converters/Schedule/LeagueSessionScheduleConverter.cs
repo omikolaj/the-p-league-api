@@ -18,10 +18,10 @@ namespace ThePLeagueDomain.Converters.Schedule
             model.ByeWeeks = sessionSchedule.ByeWeeks;
             model.GamesDays = GameDayConverter.ConvertList(sessionSchedule.GamesDays);
             model.Id = sessionSchedule.Id;
-            model.LeagueID = sessionSchedule.LeagueID;
+            model.LeagueID = sessionSchedule.LeagueID;            
             model.Matches = MatchConverter.ConvertList(sessionSchedule.Matches);
             model.NumberOfWeeks = sessionSchedule.NumberOfWeeks;
-            model.SessionEnd = sessionSchedule.SessionEnd;
+            model.SessionEnd = sessionSchedule.SessionEnd;            
             model.SessionStart = sessionSchedule.SessionStart;
             model.TeamsSessions = sessionSchedule.TeamsSessions == null ? null : TeamSessionConverter.ConvertList(sessionSchedule.TeamsSessions.ToList());
 

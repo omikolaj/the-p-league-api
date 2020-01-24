@@ -15,11 +15,9 @@ namespace ThePLeagueDomain.Converters.Schedule
         {
             TeamSessionViewModel model = new TeamSessionViewModel()
             {
-                Id = teamSession.Id,
                 TeamId = teamSession.TeamId,
                 Team = teamSession.Team == null ? null : TeamConverter.Convert(teamSession.Team),
-                LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId,
-                // LeagueSessionSchedule = teamSession.LeagueSessionSchedule == null ? null : LeagueSessionScheduleConverter.Convert(teamSession.LeagueSessionSchedule)
+                LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId                
             };
 
             return model;
@@ -31,11 +29,9 @@ namespace ThePLeagueDomain.Converters.Schedule
             {
                 TeamSessionViewModel model = new TeamSessionViewModel()
                 {
-                    Id = teamSession.Id,
                     TeamId = teamSession.TeamId,
                     Team = teamSession.Team == null ? null : TeamConverter.Convert(teamSession.Team),
-                    LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId,
-                    // LeagueSessionSchedule = teamSession.LeagueSessionSchedule == null ? null : LeagueSessionScheduleConverter.Convert(teamSession.LeagueSessionSchedule)
+                    LeagueSessionScheduleId = teamSession.LeagueSessionScheduleId                    
                 };
 
                 return model;

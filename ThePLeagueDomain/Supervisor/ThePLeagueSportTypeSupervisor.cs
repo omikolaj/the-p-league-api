@@ -75,7 +75,8 @@ namespace ThePLeagueDomain.Supervisor
                 return false;
             }
 
-            return await this._sportTypeRepository.DeleteAsync(sportTypeToDelete.Id, ct);
+            sportTypeToDelete.Active = false;
+            return await UpdateSportTypeAsync(sportTypeToDelete, ct);
         }
 
         #endregion

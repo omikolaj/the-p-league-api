@@ -87,51 +87,6 @@ namespace ThePLeagueAPI.Controllers
             return new OkObjectResult(true);
         }
 
-        #region Session Schedules
-
-        //[HttpPost("sessions/active-sessions-info")]
-        //[Authorize]
-        //public async Task<ActionResult<List<ActiveSessionInfoViewModel>>> ActiveSchedulesInfo([FromBody]List<string> leagueIds, CancellationToken ct = default(CancellationToken))
-        //{
-        //    List<ActiveSessionInfoViewModel> activeSessions = await this._supervisor.GetActiveSessionsInfoAsync(leagueIds, ct);
-            
-        //    if(activeSessions == null)
-        //    {
-        //        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.ActiveSessionsInfo, ErrorDescriptions.ActiveSessionsInfoFailure, ModelState));
-        //    }
-
-        //    return new JsonResult(activeSessions);
-        //}
-
-        //[HttpPost("sessions")]
-        //[Authorize]
-        //public async Task<ActionResult<bool>> PublishLeagueSessionSchedules([FromBody]List<LeagueSessionScheduleViewModel> newSessionSchedules, CancellationToken ct = default(CancellationToken))
-        //{
-        //    if (!await this._supervisor.PublishSessionsSchedulesAsync(newSessionSchedules, ct))
-        //    {
-        //        return BadRequest(Errors.AddErrorToModelState(ErrorCodes.PublishNewSession, ErrorDescriptions.PublishingNewSessionsFailure, ModelState));
-        //    }
-
-        //    return new JsonResult(true);
-        //}
-
-        //[HttpGet("sessions")]        
-        //public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetLeagueSessionSchedules(CancellationToken ct = default(CancellationToken))
-        //{
-        //    List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessions(ct);
-
-        //    return new JsonResult(sessions);
-        //}
-
-        //[HttpPost("{id}/sessions/{id}/matches/{id}/report")]
-        //[Authorize]
-        //public async Task<ActionResult<bool>> ReportMatch(MatchResultViewModel reportMatch, CancellationToken ct = default(CancellationToken))
-        //{
-
-        //}
-
-        #endregion
-
         #endregion
     }
 }

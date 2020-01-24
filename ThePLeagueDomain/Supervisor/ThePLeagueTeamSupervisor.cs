@@ -33,6 +33,7 @@ namespace ThePLeagueDomain.Supervisor
 
             return teams;            
         }
+
         public async Task<List<TeamViewModel>> GetTeamsByIdsAsync(List<string> ids, CancellationToken ct = default(CancellationToken))
         {
             List<TeamViewModel> teams = new List<TeamViewModel>();
@@ -70,6 +71,7 @@ namespace ThePLeagueDomain.Supervisor
             teamToUpdate.LeagueID = teamToUpdateViewModel.LeagueID ?? teamToUpdate.LeagueID;
             teamToUpdate.Name = teamToUpdateViewModel.Name ?? teamToUpdate.Name;
             teamToUpdate.Selected = teamToUpdateViewModel.Selected;
+            teamToUpdate.Active = teamToUpdateViewModel.Active;
 
             return await this._teamRepository.UpdateAsync(teamToUpdate, ct);
 

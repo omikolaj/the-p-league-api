@@ -10,14 +10,13 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         #region Properties and Fields
 
         public string Id { get; set; }
-        public long DateTime { get; set; }
-        public TeamViewModel HomeTeam { get; set; }
-        public string HomeTeamId { get; set; }
-        public TeamViewModel AwayTeam { get; set; }
+        public long DateTime { get; set; }        
+        public string HomeTeamName { get; set; }
+        public string HomeTeamId { get; set; }        
+        public string AwayTeamName { get; set; }
         public string AwayTeamId { get; set; }
         public string SessionId { get; set; }
-        public string LeagueID { get; set; }
-        public LeagueViewModel League { get; set; }        
+        public string LeagueID { get; set; }        
         public MatchResultViewModel MatchResult { get; set; }
 
         #endregion

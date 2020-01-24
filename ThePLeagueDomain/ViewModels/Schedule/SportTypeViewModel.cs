@@ -10,15 +10,11 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         #region Fields and Properties
 
         public string Id { get; set; }
+        public bool Active { get; set; }
         [Required]
         public string Name { get; set; }
-        public IEnumerable<LeagueViewModel> Leagues { get; set; }
+        public ICollection<LeagueViewModel> Leagues { get; set; }
 
         #endregion
-    }
-
-    public class TestViewModel
-    {
-        public string Name { get; set; }
     }
 }

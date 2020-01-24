@@ -17,6 +17,7 @@ namespace ThePLeagueDomain.Converters.Schedule
             model.Id = sportType.Id;
             model.Leagues = sportType.Leagues == null ? null : LeagueConverter.ConvertList(sportType.Leagues);
             model.Name = sportType.Name;
+            model.Active = sportType.Active;
 
             return model;
         }
@@ -29,6 +30,7 @@ namespace ThePLeagueDomain.Converters.Schedule
                 model.Id = sportType.Id;
                 model.Leagues = sportType.Leagues == null ? null : LeagueConverter.ConvertList(sportType.Leagues);
                 model.Name = sportType.Name;
+                model.Active = sportType.Active;
 
                 return model;
             }).ToList();
