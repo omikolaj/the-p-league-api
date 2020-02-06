@@ -14,8 +14,8 @@ namespace ThePLeagueDomain.Models.Schedule
         public string Name { get; set; }
         public bool Active { get; set; } = true;
         public League League { get; set; }
-        public string LeagueID { get; set; }        
-        public bool Selected { get; set; }
+        public string LeagueID { get; set; }
+        public bool Selected { get; set; } = true;
         public ICollection<Match> Matches { get; set; }
         public virtual ICollection<TeamSession> TeamsSessions { get; set; }
 

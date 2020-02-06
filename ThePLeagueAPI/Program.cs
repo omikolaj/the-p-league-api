@@ -13,43 +13,43 @@ using Microsoft.Extensions.Logging;
 
 namespace ThePLeagueAPI
 {
-  public class Program
-  {
-    public static void Main(string[] args)
+    public class Program
     {
+        public static void Main(string[] args)
+        {
             try
             {
                 CreateWebHostBuilder(args).Build().Run();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
-      
+
+        }
+
+        public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args)                                
+                  .ConfigureAppConfiguration((ContextBoundObject, config) =>
+                  {
+                      if (ContextBoundObject.HostingEnvironment.IsProduction())
+                      {
+                          var builtConfig = config.Build();
+
+                          var azureServiceTokenProvider = new AzureServiceTokenProvider();
+                          var keyVaultClient = new KeyVaultClient(
+                        new KeyVaultClient.AuthenticationCallback(
+                          azureServiceTokenProvider.KeyVaultTokenCallback
+                        )
+                      );
+                          config.AddAzureKeyVault(
+                        $@"https://{builtConfig["KeyVaultName"]}.vault.azure.net/",
+                        keyVaultClient,
+                        new DefaultKeyVaultSecretManager()
+                      );
+
+                      }
+                  })
+                .UseStartup<Startup>();
     }
-
-    public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>
-        WebHost.CreateDefaultBuilder(args)
-              .ConfigureAppConfiguration((ContextBoundObject, config) =>
-              {
-                if (ContextBoundObject.HostingEnvironment.IsProduction())
-                {
-                  var builtConfig = config.Build();
-
-                  var azureServiceTokenProvider = new AzureServiceTokenProvider();
-                  var keyVaultClient = new KeyVaultClient(
-                    new KeyVaultClient.AuthenticationCallback(
-                      azureServiceTokenProvider.KeyVaultTokenCallback
-                    )
-                  );
-                  config.AddAzureKeyVault(
-                    $@"https://{builtConfig["KeyVaultName"]}.vault.azure.net/",
-                    keyVaultClient,
-                    new DefaultKeyVaultSecretManager()
-                  );
-
-                }
-              })
-            .UseStartup<Startup>();
-  }
 }

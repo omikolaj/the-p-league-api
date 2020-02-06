@@ -97,7 +97,7 @@ namespace ThePLeagueDomain.Supervisor
                 if(team != null)
                 {
                     team.LeagueID = teamViewModel.LeagueID;
-                    team.Selected = false;
+                    team.Selected = true;
                     await this._teamRepository.UpdateAsync(team, ct);
                 }
             }

@@ -122,18 +122,13 @@ namespace ThePLeagueDomain.Supervisor
             //await this.UpdateActiveSessionsAsync(leagueIDs);
 
             List<LeagueSessionScheduleViewModel> activeSessions = LeagueSessionScheduleConverter.ConvertList(await this._sessionScheduleRepository.GetAllActiveSessionsAsync(ct)); // use GetAllSessions and filter the list
-            List<ActiveSessionInfoViewModel> filteredActiveSessionsInfo = activeSessions.Where(s => s.Active == true).Select(session => new ActiveSessionInfoViewModel
+            List<ActiveSessionInfoViewModel> filteredActiveSessionsInfo = activeSessions.Where(s => s.Active == true && leagueIDs.Any(leagueID => s.LeagueID == leagueID)).Select(session => new ActiveSessionInfoViewModel
             {
                 SessionId = session.Id,
                 LeagueId = session.LeagueID,
                 StartDate = session.SessionStart,
                 EndDate = session.SessionEnd
             }).ToList();
-
-            foreach (string leagueID in leagueIDs)
-            {
-                filteredActiveSessionsInfo.Add(filteredActiveSessionsInfo.Where(s => s.LeagueId == leagueID).FirstOrDefault());
-            }
 
             return filteredActiveSessionsInfo;
             
@@ -159,7 +154,7 @@ namespace ThePLeagueDomain.Supervisor
                     match.HomeTeamName = homeTeam.Name;
                     match.MatchResult.SessionId = session.Id;
 
-                    // stash retrieved teams so we don't have to hit the database again to retrieve team names
+                    // stash retrieved teams so we don't have to hit the database again to retrieve team names                    
                     teams.Add(awayTeam);
                     teams.Add(homeTeam);
                 }

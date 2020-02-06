@@ -42,7 +42,7 @@ namespace ThePLeagueAPI.Controllers
 
             if (newLeague == null)
             {
-                return BadRequest(Errors.AddErrorToModelState(ErrorCodes.SportTypeAdd, ErrorDescriptions.SportTypeAddFailure, ModelState));
+                return BadRequest(Errors.AddErrorToModelState(ErrorCodes.LeagueAdd, ErrorDescriptions.LeagueAddFailure, ModelState));
             }
 
             return new JsonResult(newLeague);

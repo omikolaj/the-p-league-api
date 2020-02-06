@@ -1,17 +1,21 @@
 ﻿using System;
+using System.IO;
 using System.Net;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 using ThePLeagueAPI.Configurations;
 using ThePLeagueAPI.Extensions;
 using ThePLeagueAPI.Middleware;
+using ThePLeagueAPI.MIddleware;
 
 namespace ThePLeagueAPI
 {
@@ -52,7 +56,7 @@ namespace ThePLeagueAPI
               .AddConnectionProvider(Configuration)
               .ConfigureRepositories()
               .ConfigureSupervisor()
-              .AddMiddleware()
+              .AddJsonOptions()
               .AddCorsConfiguration(Configuration)
               .AddIdentityConfiguration()
               .ConfigureApplicationCookies()
@@ -60,9 +64,10 @@ namespace ThePLeagueAPI
               .ConfigureControllersFilters()
               .ConfigureCloudinaryService(Configuration)
               .ConfigureEmailSetUp()
+              .ConfigureHttpCachingProfiles()              
               .AddSpaStaticFiles(spa => 
               {
-                  spa.RootPath = "wwwroot";
+                  spa.RootPath = "wwwroot";                  
               });
     }
 
@@ -85,11 +90,31 @@ namespace ThePLeagueAPI
                 .UseAuthentication()
                 .SeedDatabase()
                 .UseHttpsRedirection()
-                .UseDefaultFiles()
-                .UseMvc()
-                .UseSpa(SpaApplicationBuilderExtensions => { });
+                .UseSecurityHeaders();
+            //.UseETagger();
 
-            app.UseSpaStaticFiles();
-    }
+            // app.UseDefaultFiles();
+            // app.UseStaticFiles();
+            app.UseSpaStaticFiles(new StaticFileOptions
+            {
+                FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "fonts")),
+                RequestPath = "/wwwroot/fonts",
+                OnPrepareResponse = ctx =>
+                {
+                    ctx.Context.Response.Headers.Append("Cache-Control", $"public, max-age=86400");
+                }                
+            });
+
+            app.UseDirectoryBrowser(new DirectoryBrowserOptions
+            {
+                FileProvider = new PhysicalFileProvider(
+                Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "fonts")),
+                RequestPath = "/wwwroot/fonts"
+            });
+            app.UseMvc();
+            app.UseSpa(spa => { });
+
+            
+        }
   }
 }

@@ -62,6 +62,8 @@ namespace ThePLeagueAPI.Controllers
         }
 
         [HttpGet("sessions")]
+        [ResponseCache(CacheProfileName = "ETag")]
+        [ETagFilter(200)]
         public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetAllActiveSessionSchedules(CancellationToken ct = default(CancellationToken))
         {
             List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessionsAsync(ct);

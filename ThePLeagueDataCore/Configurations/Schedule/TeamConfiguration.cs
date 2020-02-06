@@ -26,8 +26,8 @@ namespace ThePLeagueDataCore.Configurations.Schedule
                 .WithMany(league => league.Teams)
                 .HasForeignKey(team => team.LeagueID);
 
-            builder.Entity<HomeTeam>();
-            builder.Entity<AwayTeam>();
+            //builder.Entity<HomeTeam>();
+            //builder.Entity<AwayTeam>();
         }
 
         #endregion

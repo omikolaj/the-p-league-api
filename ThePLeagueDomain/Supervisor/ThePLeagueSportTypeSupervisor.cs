@@ -45,6 +45,7 @@ namespace ThePLeagueDomain.Supervisor
             }
 
             sportType.Name = sportTypeToUpdate.Name;
+            sportType.Active = sportTypeToUpdate.Active;
 
             // if sport type successfully updated, update all of its leagues
             if(await this._sportTypeRepository.UpdateAsync(sportType, ct))

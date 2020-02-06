@@ -49,6 +49,9 @@ namespace ThePLeagueAPI.Controllers
         #region Controllers
 
         [HttpGet]
+        //[ETagFilter(200)]
+        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = false, VaryByHeader = "Accept-Language, Accept-Encoding")]
+        //[ResponseCache(CacheProfileName = "")]
         public async Task<List<GearItemViewModel>> Get()
         {
             List<GearItemViewModel> gearItems = await this._supervisor.GetAllGearItemsAsync();

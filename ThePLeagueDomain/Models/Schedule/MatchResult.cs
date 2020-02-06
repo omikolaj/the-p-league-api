@@ -7,7 +7,7 @@ namespace ThePLeagueDomain.Models.Schedule
 {
     public enum MatchStatus
     {
-        Pending = 0,
+        TBD = 0,
         Completed = 1,
         Canceled = 2,
         Forfeit = 3
@@ -21,7 +21,7 @@ namespace ThePLeagueDomain.Models.Schedule
         [NotMapped]
         public Match Match { get; set; }
         public string LeagueId { get; set; }
-        public MatchStatus Status { get; set; } = MatchStatus.Pending;     
+        public MatchStatus Status { get; set; } = MatchStatus.TBD;     
         public long AwayTeamScore { get; set; }
         public string AwayTeamId { get; set; }
         public long HomeTeamScore { get; set; }

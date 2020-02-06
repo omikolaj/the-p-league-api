@@ -101,7 +101,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                         {
                             if(j % 2 == 0)
                             {
-                                var newTeam = new HomeTeam
+                                var newTeam = new Team
                                 {
                                     Name = TeamNamesA.ElementAt(j),
                                     LeagueID = (i + 1).ToString()
@@ -110,7 +110,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                             }
                             else
                             {
-                                var newTeam = new AwayTeam
+                                var newTeam = new Team
                                 {
                                     Name = TeamNamesA.ElementAt(j),
                                     LeagueID = (i + 1).ToString()
@@ -127,7 +127,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                         {
                             if (j % 2 == 0)
                             {
-                                var newTeam = new HomeTeam
+                                var newTeam = new Team
                                 {
                                     Name = TeamNamesA.ElementAt(j),
                                     LeagueID = (i + 1).ToString()
@@ -136,7 +136,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                             }
                             else
                             {
-                                var newTeam = new AwayTeam
+                                var newTeam = new Team
                                 {
                                     Name = TeamNamesA.ElementAt(j),
                                     LeagueID = (i + 1).ToString()
@@ -152,7 +152,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                         {
                             if (j % 2 == 0)
                             {
-                                var newTeam = new HomeTeam
+                                var newTeam = new Team
                                 {
                                     Name = TeamNamesA.ElementAt(j),
                                     LeagueID = (i + 1).ToString()
@@ -161,7 +161,7 @@ namespace ThePLeagueDataCore.DataBaseInitializer
                             }
                             else
                             {
-                                var newTeam = new AwayTeam
+                                var newTeam = new Team
                                 {
                                     Name = TeamNamesA.ElementAt(j),
                                     LeagueID = (i + 1).ToString()

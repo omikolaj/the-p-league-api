@@ -115,7 +115,7 @@ namespace ThePLeagueAPI.Controllers
         [Authorize]
         public async Task<ActionResult<TeamViewModel>> UpdateTeams([FromBody]List<TeamViewModel> updatedTeams, CancellationToken ct = default(CancellationToken))
         {
-            if(!await this._supervisor.UpdateTeamsAsync(updatedTeams, ct))
+            if (!await this._supervisor.UpdateTeamsAsync(updatedTeams, ct))
             {
                 return BadRequest(Errors.AddErrorToModelState(ErrorCodes.TeamUpdate, ErrorDescriptions.TeamUpdateFailure, ModelState));
             }

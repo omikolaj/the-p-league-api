@@ -48,15 +48,15 @@ namespace ThePLeagueAPI.Configurations
       return services;
     }
 
-    public static IServiceCollection AddMiddleware(this IServiceCollection services)
-    {
-      services.AddMvc().AddJsonOptions(options =>
-      {
-        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-      });
+    public static IServiceCollection AddJsonOptions(this IServiceCollection services)
+        {
+            services.AddMvc().AddJsonOptions(options =>
+            {
+                options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
 
-      return services;
-    }
+            return services;
+        }
 
     public static IServiceCollection AddCorsConfiguration(this IServiceCollection services, IConfiguration configuration)
     {
@@ -68,6 +68,7 @@ namespace ThePLeagueAPI.Configurations
       {
         options.AddPolicy("AllowAll",
           new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
+            .WithOrigins("http://localhost:4200")
             .AllowAnyHeader()
             .AllowCredentials()
             .AllowAnyHeader()

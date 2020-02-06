@@ -390,8 +390,7 @@ namespace ThePLeagueDataCore.Migrations
                     Name = table.Column<string>(nullable: true),
                     Active = table.Column<bool>(nullable: false),
                     LeagueID = table.Column<string>(nullable: true),
-                    Selected = table.Column<bool>(nullable: false),
-                    Discriminator = table.Column<string>(nullable: false)
+                    Selected = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -432,8 +431,7 @@ namespace ThePLeagueDataCore.Migrations
                     HomeTeamId = table.Column<string>(nullable: true),
                     AwayTeamId = table.Column<string>(nullable: true),
                     LeagueSessionScheduleId = table.Column<string>(nullable: true),
-                    LeagueID = table.Column<string>(nullable: true),
-                    TeamId = table.Column<string>(nullable: true)
+                    LeagueID = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -461,12 +459,6 @@ namespace ThePLeagueDataCore.Migrations
                         column: x => x.LeagueSessionScheduleId,
                         principalTable: "LeagueSessions",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Matches_Teams_TeamId",
-                        column: x => x.TeamId,
-                        principalTable: "Teams",
-                        principalColumn: "TeamId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -783,11 +775,6 @@ namespace ThePLeagueDataCore.Migrations
                 name: "IX_Matches_LeagueSessionScheduleId",
                 table: "Matches",
                 column: "LeagueSessionScheduleId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Matches_TeamId",
-                table: "Matches",
-                column: "TeamId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_MatchResults_MatchId",
