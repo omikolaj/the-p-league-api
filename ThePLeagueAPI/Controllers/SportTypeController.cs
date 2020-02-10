@@ -36,6 +36,7 @@ namespace ThePLeagueAPI.Controllers
         
         [HttpGet]
         [Authorize]
+        //[ResponseCache(CacheProfileName = "SixHour")]
         public async Task<ActionResult<SportTypeViewModel>> GetAll(CancellationToken ct = default(CancellationToken))
         {
             List<SportTypeViewModel> sportTypes = await this._supervisor.GetAllSportTypesAsync(ct);

@@ -49,6 +49,7 @@ namespace ThePLeagueAPI.Controllers
         }
 
         [HttpGet("{id}")]
+        //[ResponseCache(CacheProfileName = "OneHour")]
         public async Task<ActionResult<LeagueViewModel>> GetLeagueById(string id, CancellationToken ct = default(CancellationToken))
         {
             LeagueViewModel league = await this._supervisor.GetLeagueByIdAsync(id, ct);

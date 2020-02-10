@@ -17,6 +17,7 @@ using System.Net;
 using Microsoft.AspNetCore.Authorization;
 using Services.EmailService;
 using Microsoft.AspNetCore.Cors;
+using ThePLeagueAPI.Configurations;
 
 namespace ThePLeagueAPI.Controllers
 {
@@ -48,10 +49,8 @@ namespace ThePLeagueAPI.Controllers
 
         #region Controllers
 
-        [HttpGet]
-        //[ETagFilter(200)]
-        //[ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = false, VaryByHeader = "Accept-Language, Accept-Encoding")]
-        //[ResponseCache(CacheProfileName = "")]
+        [HttpGet]        
+        //[ResponseCache(CacheProfileName = "SixHours")]
         public async Task<List<GearItemViewModel>> Get()
         {
             List<GearItemViewModel> gearItems = await this._supervisor.GetAllGearItemsAsync();

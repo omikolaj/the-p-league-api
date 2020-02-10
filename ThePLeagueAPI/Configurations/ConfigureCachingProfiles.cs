@@ -13,12 +13,20 @@ namespace ThePLeagueAPI.Configurations
         {
             services.AddMvc(options => 
             {
-                options.CacheProfiles.Add("ETag", new CacheProfile
+                options.CacheProfiles.Add("SixHours", new CacheProfile
                 {
-                    Duration = 0,
-                    Location = ResponseCacheLocation.None,
+                    Duration = 21600,
+                    Location = ResponseCacheLocation.Any,
                     NoStore = false,
-                    VaryByHeader = "Accept-Language, Accept-Encoding"
+                    VaryByHeader = "Accept-Encoding"
+                });
+
+                options.CacheProfiles.Add("OneHour", new CacheProfile
+                {
+                    Duration = 3600,
+                    Location = ResponseCacheLocation.Any,
+                    NoStore = false,
+                    VaryByHeader = "Accept-Encoding"
                 });
             });
 
