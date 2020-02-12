@@ -68,7 +68,7 @@ namespace ThePLeagueAPI.Configurations
       {
         options.AddPolicy("AllowAll",
           new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
-            .WithOrigins("http://localhost:4200")
+            .WithOrigins("https://localhost:5001")
             .AllowAnyHeader()
             .AllowCredentials()
             .AllowAnyHeader()

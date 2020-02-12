@@ -65,7 +65,7 @@ namespace ThePLeagueAPI
                         .ConfigureControllersFilters()
                         .ConfigureCloudinaryService(Configuration)
                         .ConfigureEmailSetUp()
-                        //.ConfigureHttpCachingProfiles()
+                        .ConfigureHttpCachingProfiles()
                         .AddSpaStaticFiles(spa =>
                         {
                             spa.RootPath = "wwwroot";
@@ -99,26 +99,31 @@ namespace ThePLeagueAPI
                     .UseMiddleware<JwtBearerMiddleware>()
                     .UseAuthentication()
                     .SeedDatabase()
-                    .UseHttpsRedirection();
+                    .UseHttpsRedirection()
+                    .UseSecurityHeaders();
 
-                //app.UseStaticFiles(new StaticFileOptions
-                //{
-                //    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "fonts")),
-                //    RequestPath = "/wwwroot/fonts"
-                //});
+                app.UseSpaStaticFiles(new StaticFileOptions
+                {
+                    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "wwwroot", "fonts")),
+                    RequestPath = "/wwwroot/fonts",
+                    OnPrepareResponse = ctx =>
+                    {
+                        ctx.Context.Response.Headers.Append("Cache-Control", "private, max-age=86400, stale-while-revalidate=604800");
+                    }
+                });
 
-                //app.UseStaticFiles(new StaticFileOptions
-                //{
-                //    OnPrepareResponse = ctx =>
-                //    {
-                //        ctx.Context.Response.Headers.Append("Cache-Control", "private, max-age=86400, stale-while-revalidate=604800");
-                //    }
-                //});
-
-                app.UseDefaultFiles();
-                app.UseSpaStaticFiles();
+                app.UseSpaStaticFiles(new StaticFileOptions
+                {
+                    OnPrepareResponse = ctx =>
+                    {
+                        ctx.Context.Response.Headers.Append("Cache-Control", "max-age=31536000");
+                    }
+                });
                 app.UseMvc();                
-                app.UseSpa(spa => { });
+                app.UseSpa(spa => 
+                {
+                    spa.Options.SourcePath = "wwwroot";
+                });
             }
             catch (Exception ex)
             {
