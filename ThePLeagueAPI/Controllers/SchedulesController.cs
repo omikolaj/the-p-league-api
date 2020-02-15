@@ -36,8 +36,7 @@ namespace ThePLeagueAPI.Controllers
         #region Controllers
 
         [HttpPost("sessions/active-sessions-info")]
-        [Authorize]
-        [ResponseCache(CacheProfileName = "OneHour")]
+        [Authorize]        
         public async Task<ActionResult<List<ActiveSessionInfoViewModel>>> ActiveSchedulesInfo([FromBody]List<string> leagueIds, CancellationToken ct = default(CancellationToken))
         {
             List<ActiveSessionInfoViewModel> activeSessions = await this._supervisor.GetActiveSessionsInfoAsync(leagueIds, ct);
@@ -62,8 +61,7 @@ namespace ThePLeagueAPI.Controllers
             return new JsonResult(true);
         }
 
-        [HttpGet("sessions")]
-        [ResponseCache(CacheProfileName = "OneHour")]
+        [HttpGet("sessions")]        
         public async Task<ActionResult<List<LeagueSessionScheduleViewModel>>> GetAllActiveSessionSchedules(CancellationToken ct = default(CancellationToken))
         {
             List<LeagueSessionScheduleViewModel> sessions = await this._supervisor.GetAllActiveSessionsAsync(ct);

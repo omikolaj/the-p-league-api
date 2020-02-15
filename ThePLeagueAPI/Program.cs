@@ -34,7 +34,7 @@ namespace ThePLeagueAPI
         {
             Log.Logger = new LoggerConfiguration()
             .WriteTo.Console()
-            .WriteTo.File(@"D:\startuplogs.txt")
+            .WriteTo.File(Path.Combine(Directory.GetCurrentDirectory(), "serilog-logs-file.txt"))
             .MinimumLevel.Verbose()
             .CreateLogger();
 

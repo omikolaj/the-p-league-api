@@ -63,17 +63,25 @@ namespace ThePLeagueAPI.Configurations
       IConfigurationSection jwtAppSettingOptions = configuration.GetSection(nameof(JwtIssuerOptions));
 
       services.AddCors();
-
+            
       services.AddCors(options =>
       {
         options.AddPolicy("AllowAll",
-          new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
-            .WithOrigins("https://localhost:5001")
+          new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()            
             .AllowAnyHeader()
             .AllowCredentials()
             .AllowAnyHeader()
             .Build()
           );
+
+          options.AddPolicy("AllowAllWithClientOrigin",
+          new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
+            .WithOrigins(configuration["ClientOrigin"])
+            .AllowAnyHeader()
+            .AllowCredentials()
+            .AllowAnyHeader()
+            .Build()
+          ); ;
       });
 
       return services;

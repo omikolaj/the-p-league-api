@@ -52,7 +52,7 @@ namespace ThePLeagueAPI
         {
             try
             {
-                Log.Information("Configuring services");
+                this._logger.LogInformation("Configuring services");
                 services.AddEntityFrameworkSqlServer()
                         .AddConnectionProvider(Configuration)
                         .ConfigureRepositories()
@@ -87,16 +87,17 @@ namespace ThePLeagueAPI
                 if (env.IsDevelopment())
                 {
                     app.UseDeveloperExceptionPage();
+                    app.UseCors("AllowAllWithClientOrigin");
                 }
                 else
                 {
                     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                     app.UseHsts();
+                    app.UseCors("AllowAll");
                 }
 
                 // Middleware has to be registered first, otherwise we get a bearer challenge 401 error
-                app.UseCors("AllowAll")
-                    .UseMiddleware<JwtBearerMiddleware>()
+                app.UseMiddleware<JwtBearerMiddleware>()
                     .UseAuthentication()
                     .SeedDatabase()
                     .UseHttpsRedirection()
