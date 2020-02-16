@@ -147,11 +147,22 @@ namespace ThePLeagueDomain.Supervisor
             {
                 foreach (MatchViewModel match in session.Matches)
                 {
-                    TeamViewModel awayTeam = await this.GetTeamByIdAsync(match.AwayTeamId, ct);
-                    TeamViewModel homeTeam = await this.GetTeamByIdAsync(match.HomeTeamId, ct);                                        
+                    TeamViewModel awayTeam = null;
+                    TeamViewModel homeTeam = null;
 
-                    match.AwayTeamName = awayTeam.Name;
-                    match.HomeTeamName = homeTeam.Name;
+                    // if the match has a bye, AwayTeamId won't be set
+                    if (match.AwayTeamId != null)
+                    {
+                        awayTeam = await this.GetTeamByIdAsync(match.AwayTeamId, ct);
+                    }
+                    // if the match has a bye, HomeTeamId won't be set
+                    if (match.HomeTeamId != null)
+                    {
+                        homeTeam = await this.GetTeamByIdAsync(match.HomeTeamId, ct);
+                    }
+
+                    match.AwayTeamName = awayTeam?.Name ?? "BYE";
+                    match.HomeTeamName = homeTeam?.Name ?? "BYE";
                     match.MatchResult.SessionId = session.Id;
 
                     // stash retrieved teams so we don't have to hit the database again to retrieve team names                    
@@ -164,7 +175,7 @@ namespace ThePLeagueDomain.Supervisor
                 // we cannot display a filter to allow user to filter by team name easily
                 foreach (TeamSessionViewModel teamSession in session.TeamsSessions)
                 {
-                    teamSession.TeamName = teams.Where(t => t.Id == teamSession.TeamId).FirstOrDefault()?.Name;
+                    teamSession.TeamName = teams.Where(t => t?.Id == teamSession.TeamId).FirstOrDefault()?.Name;
                 }
 
                 LeagueViewModel league = await GetLeagueByIdAsync(session.LeagueID, ct);

@@ -9,7 +9,7 @@ namespace ThePLeagueDomain.ViewModels.Schedule
         #region Fields and Properties
 
         public string Id { get; set; }
-        public bool Active { get; set; }
+        public bool Active { get; set; } = true;
         public string Type { get; set; }
         public string Name { get; set; }
         public ICollection<TeamViewModel> Teams { get; set; }

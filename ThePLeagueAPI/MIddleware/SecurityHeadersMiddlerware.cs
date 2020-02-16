@@ -27,7 +27,7 @@ namespace ThePLeagueAPI.MIddleware
                                         "base-uri 'self'; " +
                                         "frame-ancestors 'none'; " +
                                         "child-src 'none'; " +
-                                        "img-src 'self' https://res.cloudinary.com https://via.placeholder.com/300.png/09f/fff; " +
+                                        "img-src 'self' data: https://res.cloudinary.com https://via.placeholder.com/300.png/09f/fff; " +
                                         "form-action 'none'; " +
                                         "media-src 'none'; " +
                                         "object-src 'none'; " +

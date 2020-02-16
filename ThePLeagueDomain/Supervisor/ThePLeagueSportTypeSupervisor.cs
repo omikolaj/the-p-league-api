@@ -27,9 +27,8 @@ namespace ThePLeagueDomain.Supervisor
         }
         public async Task<SportTypeViewModel> AddSportTypeAsync(SportTypeViewModel newSportType, CancellationToken ct = default(CancellationToken))
         {
-            SportType sportType = new SportType();
+            SportType sportType = new SportType();            
             sportType.Name = newSportType.Name;
-
             sportType = await _sportTypeRepository.AddAsync(sportType, ct);
             newSportType.Id = sportType.Id;
 

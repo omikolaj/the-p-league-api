@@ -39,7 +39,7 @@ namespace ThePLeagueAPI.Auth.Jwt
     /// <summary>
     /// Set the timespan the token will be valid for (default is 60 min)
     /// </summary>
-    public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(20);
+    public TimeSpan ValidFor { get; set; } = TimeSpan.FromMinutes(60);
 
     /// <summary>
     /// Represents the secret signing key to issue JWTs
