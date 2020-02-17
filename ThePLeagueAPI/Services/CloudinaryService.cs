@@ -44,6 +44,7 @@ public class CloudinaryService
             var uploadParams = new ImageUploadParams
             {
                 File = new FileDescription(file.FileName, file.OpenReadStream()),
+                PublicId = $"pleague/{file.Name}"
                 // Transformation = new Transformation().Width(200).Height(200).Crop("thumb").Gravity("face")
             };
 
@@ -97,9 +98,11 @@ public class CloudinaryService
             newImage.ResourceType = result.ResourceType;
             newImage.Format = result.Format;
             newImage.Name = gearImageName;
+
+            this.ConfigureUrls(newImage, result);
         }
 
-        return this.ConfigureUrls(newImage, result);
+        return newImage;
     }
 
     public async Task<IList<T>> UploadNewImages<T>(IEnumerable<IFormFile> newImages) where T : ImageBaseViewModel, new()
