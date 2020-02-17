@@ -103,14 +103,14 @@ namespace ThePLeagueAPI.Controllers
             {
                 gearItem.Images = new GearImageViewModel[]
                 {
-          new GearImageViewModel
-          {
-            Url = GearImageViewModel.DefaultGearItemImageUrl,
-            Small = GearImageViewModel.DefaultGearItemImageUrl,
-            Medium = GearImageViewModel.DefaultGearItemImageUrl,
-            Big = GearImageViewModel.DefaultGearItemImageUrl,
-            Name = "DefaultImageName"
-          }
+                    new GearImageViewModel
+                    {
+                        Url = GearImageViewModel.DefaultGearItemImageUrlBig,
+                        Small = GearImageViewModel.DefaultGearItemImageUrlSmall,
+                        Medium = GearImageViewModel.DefaultGearItemImageUrlMedium,
+                        Big = GearImageViewModel.DefaultGearItemImageUrlBig,
+                        Name = "PlaceholderGearPhoto"
+                    }
                 };
             }
 

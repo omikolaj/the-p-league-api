@@ -47,7 +47,7 @@ namespace ThePLeagueDomain.Repositories.Schedule
         public async Task<List<LeagueSessionSchedule>> GetAllActiveSessionsAsync(CancellationToken ct = default)
         {
             return await this._dbContext.LeagueSessions
-                .Where(session => session.Active == true && session.SessionEnd > DateTime.Today.AddDays(3))
+                .Where(session => session.Active == true && session.SessionEnd > DateTime.Today.AddDays(8))
                 .Include(session => session.Matches)
                     .ThenInclude((Match match) => match.MatchResult)
                 .Include(session => session.TeamsSessions)

@@ -119,7 +119,7 @@ public class CloudinaryService
     {
         newImage.Url = $"{this._baseUrl}/f_auto,q_70/v{result.Version}/{result.PublicId}.jpg";
         newImage.Small = $"{this._baseUrl}/f_auto,q_70,w_320/v{result.Version}/{result.PublicId}.jpg";
-        newImage.Medium = $"{this._baseUrl}/f_auto,q_70,w_414/v{result.Version}/{result.PublicId}.jpg";
+        newImage.Medium = $"{this._baseUrl}/f_auto,q_70/v{result.Version}/{result.PublicId}.jpg";
         newImage.Big = $"{this._baseUrl}/f_auto,q_70,w_1220/v{result.Version}/{result.PublicId}.jpg";
         return newImage;
     }
