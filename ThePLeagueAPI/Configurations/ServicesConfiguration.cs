@@ -74,14 +74,18 @@ namespace ThePLeagueAPI.Configurations
             .Build()
           );
 
-          options.AddPolicy("AllowAllWithClientOrigin",
-          new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
-            .WithOrigins(configuration["ClientOrigin"])
-            .AllowAnyHeader()
-            .AllowCredentials()
-            .AllowAnyHeader()
-            .Build()
-          ); ;
+          if(configuration["ClientOrigin"] != null)
+          {
+              options.AddPolicy("AllowAllWithClientOrigin",
+            new Microsoft.AspNetCore.Cors.Infrastructure.CorsPolicyBuilder()
+              .WithOrigins()
+              .AllowAnyHeader()
+              .AllowCredentials()
+              .AllowAnyHeader()
+              .Build()
+            );
+          }
+          
       });
 
       return services;

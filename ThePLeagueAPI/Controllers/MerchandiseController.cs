@@ -49,8 +49,7 @@ namespace ThePLeagueAPI.Controllers
 
         #region Controllers
 
-        [HttpGet]
-        [ResponseCache(CacheProfileName = "SixHours")]
+        [HttpGet]        
         public async Task<List<GearItemViewModel>> Get()
         {
             List<GearItemViewModel> gearItems = await this._supervisor.GetAllGearItemsAsync();

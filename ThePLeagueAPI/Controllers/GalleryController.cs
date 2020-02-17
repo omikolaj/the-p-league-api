@@ -36,7 +36,7 @@ namespace ThePLeagueAPI.Controllers
         #endregion
 
         [HttpGet]
-        [ResponseCache(CacheProfileName = "SixHours")]
+        [ResponseCache(CacheProfileName = "OneHour")]
         public async Task<List<LeagueImageViewModel>> Get(CancellationToken ct = default(CancellationToken))
         {
             List<LeagueImageViewModel> leaguePictures = await this._supervisor.GetAllLeagueImagesAsync(ct);
